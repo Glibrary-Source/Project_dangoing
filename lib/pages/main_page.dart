@@ -41,7 +41,7 @@ class _MainPageState extends State<MainPage>
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home),label: '홈'),
             BottomNavigationBarItem(icon: Icon(Icons.map),label: '지도'),
-            BottomNavigationBarItem(icon: Icon(Icons.info),label: '정보')
+            BottomNavigationBarItem(icon: Icon(Icons.info),label: '내정보'),
           ],
           currentIndex: _selectedIndex,
           onTap: _onNavTapped,
