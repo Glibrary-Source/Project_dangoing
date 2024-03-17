@@ -33,8 +33,9 @@ class _CategoryStoreListWidgetState extends State<CategoryStoreListWidget> {
       children: [
         Expanded(
             child: Card(
+              margin: EdgeInsets.all(8),
               child: Padding(
-                padding: EdgeInsets.all(8),
+                padding: EdgeInsets.all(12),
                 child: Image.asset(
                   categoryImgList[widget.index],
                   fit: BoxFit.cover,

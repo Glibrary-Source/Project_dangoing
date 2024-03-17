@@ -22,7 +22,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
+        Expanded(
           child: Card(
             child: Padding(
               padding: EdgeInsets.only(left:8, right: 8, top: 20, bottom: 16),

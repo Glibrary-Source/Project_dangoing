@@ -33,38 +33,46 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return GetBuilder<StoreController>(builder: (controller) {
       return Scaffold(
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              Container(
-                height: 190,
-                padding: EdgeInsets.only(left: 16),
-                alignment: Alignment.centerLeft,
+          body: Column(
+        children: [
+          Expanded(
+              flex: 3,
+              child: Container(
                 decoration: BoxDecoration(color: Colors.black),
-                child: Text(
-                  "반려동물과 친화적인\n장소를 찾아보세요",
-                  style: TextStyle(
-                      fontSize: 36,
-                      fontFamily: 'JosefinSans-Bold',
-                      color: Colors.white),
-                ),
-              ),
-              Container(
-                margin:
-                    EdgeInsets.only(left: 16, right: 16, top: 28),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                padding: EdgeInsets.only(left: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(" 오늘은 어디갈까?",
-                        style: TextStyle(
-                            fontSize: 22,
-                            fontFamily: 'JosefinSans-Bold',
-                            color: Colors.black)),
+                    Text(
+                      "반려동물과 친화적인\n장소를 찾아보세요",
+                      style: TextStyle(
+                          fontSize: 36,
+                          fontFamily: 'JosefinSans-Bold',
+                          color: Colors.white),
+                    )
+                  ],
+                ),
+              )),
+          Expanded(
+              flex: 4,
+              child: Container(
+                padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+                child: Column(
+                  children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(" 오늘은 어디갈까?",
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontFamily: 'JosefinSans-Bold',
+                                color: Colors.black)
+                      ),
+                    ],
+                  ),
                     controller.storeList == null
                         ? SizedBox(height: 50)
-                        : SizedBox(height: 270,
+                        : Expanded(
                           child: ListView.builder(
                               itemCount: controller.storeList.length,
                               scrollDirection: Axis.horizontal,
@@ -73,28 +81,105 @@ class _HomePageState extends State<HomePage> {
                                     controller: controller, index: index);
                               }),
                         ),
-                    Text(" 카테고리",
-                        style: TextStyle(
-                            fontSize: 22,
-                            fontFamily: 'JosefinSans-Bold',
-                            color: Colors.black)),
-                    SizedBox(
-                      height: 90,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: categoryListMap.length,
-                          itemBuilder: (context, index){
-                            return CategoryStoreListWidget(index: index, categoryListData: categoryListMap);
-                          }),
-                    )
                   ],
                 ),
-              )
-            ],
-          ),
-        ),
-      );
+              )),
+          Expanded(
+              flex: 2,
+              child: Container(
+                decoration: BoxDecoration(color: Colors.blue),
+              )),
+        ],
+      ));
     });
   }
 
+// @override
+// Widget build(BuildContext context) {
+//   return GetBuilder<StoreController>(builder: (controller) {
+//     return Scaffold(
+//       body: SingleChildScrollView(
+//         scrollDirection: Axis.vertical,
+//         child: Column(
+//           children: [
+//             Expanded(
+//               flex: 2,
+//               child: Container(
+//                 height: 240,
+//                 padding: EdgeInsets.only(left: 16),
+//                 alignment: Alignment.centerLeft,
+//                 decoration: BoxDecoration(color: Colors.black),
+//                 child: Text(
+//                   "반려동물과 친화적인\n장소를 찾아보세요",
+//                   style: TextStyle(
+//                       fontSize: 36,
+//                       fontFamily: 'JosefinSans-Bold',
+//                       color: Colors.white),
+//                 ),
+//               ),
+//             ),
+//             Expanded(
+//               flex: 3,
+//               child: Container(
+//                 margin:
+//                     EdgeInsets.only(left: 16, right: 16, top: 28),
+//                 child: Column(
+//                   mainAxisAlignment: MainAxisAlignment.start,
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text(" 오늘은 어디갈까?",
+//                         style: TextStyle(
+//                             fontSize: 22,
+//                             fontFamily: 'JosefinSans-Bold',
+//                             color: Colors.black)),
+//                     controller.storeList == null
+//                         ? SizedBox(height: 50)
+//                         : SizedBox(height: 270,
+//                           child: ListView.builder(
+//                               itemCount: controller.storeList.length,
+//                               scrollDirection: Axis.horizontal,
+//                               itemBuilder: (context, index) {
+//                                 return RecommendStoreListWidget(
+//                                     controller: controller, index: index);
+//                               }),
+//                         ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//             Expanded(
+//               flex: 2,
+//               child: Container(
+//                 margin:
+//                 EdgeInsets.only(left: 16, right: 16),
+//                 child: Column(
+//                   children: [
+//                     Row(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Text(" 카테고리",
+//                           style: TextStyle(
+//                               fontSize: 22,
+//                               fontFamily: 'JosefinSans-Bold',
+//                               color: Colors.black)),],
+//                     ),
+//                     SizedBox(
+//                       height: 120,
+//                       child: ListView.builder(
+//                           scrollDirection: Axis.horizontal,
+//                           itemCount: categoryListMap.length,
+//                           itemBuilder: (context, index){
+//                             return CategoryStoreListWidget(index: index, categoryListData: categoryListMap);
+//                           }),
+//                     )
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   });
+// }
 }
