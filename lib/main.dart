@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/firebase_options.dart';
 import 'package:project_dangoing/pages/splash_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'global/share_preference.dart';
 
 void main() async {
 
@@ -12,6 +15,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
+
+  prefs = await SharedPreferences.getInstance();
+
+  prefs.setBool('firstLaunch', true);
 
   Get.put(StoreController());
   runApp(const MyApp());

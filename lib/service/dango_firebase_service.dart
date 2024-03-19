@@ -10,9 +10,9 @@ CollectionReference store = firestore.collection('pet_location_data');
 class DangoFirebaseService {
 
   // 충청남도 store 정보만
-  Future<StoreListModel> getStoreList() async {
+  Future<StoreListModel> getStoreList(String local) async {
     try {
-      QuerySnapshot querySnapshot = await store.where("CTPRVN_NM", isEqualTo: "충청남도").get();
+      QuerySnapshot querySnapshot = await store.where("CTPRVN_NM", isEqualTo: local).get();
       return StoreListModel.fromQuerySnapShor(querySnapshot);
     } catch(error) {
       throw Exception(error);

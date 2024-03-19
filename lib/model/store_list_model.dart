@@ -13,7 +13,6 @@ class StoreListModel {
     for (DocumentSnapshot item in querySnapshot.docs) {
       storeList!.add(StoreVo.fromDocumentSnapshot(item));
     }
-    print(storeList);
   }
 
   Map<String, dynamic> toMap() {

@@ -1,0 +1,24 @@
+
+import 'package:flutter/material.dart';
+
+class DetailPageInfoWidget extends StatefulWidget {
+
+  final info;
+
+  const DetailPageInfoWidget({super.key, required this.info});
+
+  @override
+  State<DetailPageInfoWidget> createState() => _DetailPageInfoWidgetState();
+}
+
+class _DetailPageInfoWidgetState extends State<DetailPageInfoWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(margin: EdgeInsets.only(bottom: 4),child: Text(widget.info)),
+      ],
+    );
+  }
+}
