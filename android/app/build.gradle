@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.twproject.project_dangoing"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 34//flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {

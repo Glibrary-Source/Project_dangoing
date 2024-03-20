@@ -1,5 +1,6 @@
 
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/model/store_list_model.dart';
 import 'package:project_dangoing/service/dango_firebase_service.dart';
@@ -14,6 +15,7 @@ class StoreController extends GetxController {
   List<StoreVo> storeRandom = [];
   List<StoreVo> categoryFilterList = [];
   StoreVo detailData = StoreVo();
+  bool storeLoadState = false;
 
 
   Future<void> getStoreList(String local) async {
@@ -65,6 +67,17 @@ class StoreController extends GetxController {
     try {
       StoreVo storeDetail = await dangoFirebaseService.getStoreDetail(docId);
       return storeDetail;
+    } catch(error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<void> setStoreLoadState(bool state) async{
+    try{
+      WidgetsBinding.instance.addPostFrameCallback((_){
+        storeLoadState = state;
+        update();
+      });
     } catch(error) {
       throw Exception(error);
     }

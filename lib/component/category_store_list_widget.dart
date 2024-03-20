@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/data/category_list_data.dart';
 import 'package:project_dangoing/pages/store_list_page.dart';
+import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
 class CategoryStoreListWidget extends StatefulWidget {
   final index;
@@ -20,6 +21,7 @@ class _CategoryStoreListWidgetState extends State<CategoryStoreListWidget> {
   Map<String, String> data = {};
   List<String> categoryImgList = [];
   List<String> categoryTitleList = [];
+  FontStyleManager fontStyleManager = FontStyleManager();
 
   @override
   void initState() {
@@ -49,7 +51,7 @@ class _CategoryStoreListWidgetState extends State<CategoryStoreListWidget> {
                           ),
                 ),
               )),
-          Text(categoryTitleList[widget.index])
+          Text(categoryTitleList[widget.index], style: TextStyle(fontFamily: fontStyleManager.getPrimarySecondFont(),),)
         ],
       ),
     );

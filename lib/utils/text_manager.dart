@@ -2,11 +2,27 @@
 
 class TextManager {
 
+  String checkAddress(String item) {
+    if(item == "") {
+      return "주소정보 없음";
+    } else {
+      return "$item";
+    }
+  }
+
+  String checkCategory(String item) {
+    if(item == "") {
+      return "카테고리 없음";
+    } else {
+      return "$item";
+    }
+  }
+
   String checkRestDay(String item) {
     if(item == "") {
-      return "휴일: 정보 없음";
+      return "정보 없음";
     } else {
-      return "휴일: $item";
+      return "$item";
     }
   }
 
@@ -20,34 +36,34 @@ class TextManager {
 
   String checkParking(String item) {
     if(item == "Y") {
-      return "주차: 가능";
+      return "가능";
     } else {
-      return "주차: 불가능";
+      return "불가능";
     }
   }
 
   String checkInPlace(String item) {
     if(item == "Y") {
-      return "내부 동반: 가능";
+      return "가능";
     } else {
-      return "외부 동반: 불가능";
+      return "불가능";
     }
   }
 
   String checkPetSize(String item) {
     if( item == "해당없음") {
-      return "크기 제한: 모두 가능";
+      return "모두 가능";
     } else {
-      return "크기 제한: $item";
+      return "$item";
     }
   }
 
   String checkPetLimit(String item) {
-    return "제한 사항: $item";
+    return "$item";
   }
 
   String checkAddCharge(String item) {
-    return "반려동물 추가요금: $item";
+    return "$item";
   }
 
 }

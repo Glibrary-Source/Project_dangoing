@@ -92,6 +92,18 @@ flutter:
       fonts:
         - asset: assets/fonts/JosefinSans-Bold.ttf
 
+    - family: mitmefont
+      fonts:
+        - asset: assets/fonts/mitmefont.ttf
+
+    - family: gamtan_tantan
+      fonts:
+        - asset: assets/fonts/gamtan_tantan.ttf
+
+    - family: gamtan_dotum_regular
+      fonts:
+        - asset: assets/fonts/gamtan_dotum_regular.ttf
+
 # 스플래쉬 화면 구성
 flutter_native_splash:
   color: "#FFFFFF"
