@@ -82,5 +82,4 @@ class StoreController extends GetxController {
       throw Exception(error);
     }
   }
-
 }

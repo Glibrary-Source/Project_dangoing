@@ -36,7 +36,7 @@ class _MainPageState extends State<MainPage>
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               controller.storeLoadState
-                  ? SizedBox()
+                  ? Container(width: double.infinity, height: double.infinity, decoration: BoxDecoration(color: Colors.grey),)
                   : BottomNavigationBar(
                       fixedColor: Colors.blue,
                       unselectedItemColor: Colors.blueGrey,
