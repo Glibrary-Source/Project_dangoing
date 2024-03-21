@@ -152,42 +152,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              launchHomeLink(data.HMPG_URL??"");
-                            },
-                            style: ButtonStyle(
-                              backgroundColor: data.HMPG_URL == ""
-                                  ? MaterialStateProperty.all(Colors.grey)
-                                  : MaterialStateProperty.all(Colors.white),
-                            ),
-                            child: data.HMPG_URL == ""
-                                ? Text(
-                                    "홈페이지 없음",
-                                    style: TextStyle(
-                                        fontFamily: fontStyleManager
-                                            .getPrimarySecondFont(),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  )
-                                : Text(
-                                    "공식 홈페이지로 이동",
-                                    style: TextStyle(
-                                        fontFamily: fontStyleManager
-                                            .getPrimarySecondFont(),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
                     Container(
                       decoration: BoxDecoration(
                           border: Border.all(
@@ -213,6 +177,42 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                           info: infoList[index]);
                                     }))
                           ]),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              launchHomeLink(data.HMPG_URL??"");
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: data.HMPG_URL == ""
+                                  ? MaterialStateProperty.all(Colors.grey)
+                                  : MaterialStateProperty.all(Colors.white),
+                            ),
+                            child: data.HMPG_URL == ""
+                                ? Text(
+                              "홈페이지 없음",
+                              style: TextStyle(
+                                  fontFamily: fontStyleManager
+                                      .getPrimarySecondFont(),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            )
+                                : Text(
+                              "공식 홈페이지로 이동",
+                              style: TextStyle(
+                                  fontFamily: fontStyleManager
+                                      .getPrimarySecondFont(),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

@@ -6,6 +6,8 @@ import 'package:project_dangoing/pages/home_page.dart';
 import 'package:project_dangoing/pages/map_page.dart';
 import 'package:project_dangoing/pages/my_page.dart';
 
+import '../global/share_preference.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
@@ -31,29 +33,51 @@ class _MainPageState extends State<MainPage>
     return GetBuilder<StoreController>(builder: (controller) {
       return Scaffold(
           body: _navIndex.elementAt(_selectedIndex),
-          bottomNavigationBar: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.end,
+          bottomNavigationBar: Stack(
             children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  BottomNavigationBar(
+                    fixedColor: Colors.blue,
+                    unselectedItemColor: Colors.blueGrey,
+                    showUnselectedLabels: true,
+                    type: BottomNavigationBarType.fixed,
+                    items: const [
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.home), label: '홈'),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.public), label: '지도'),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.person), label: '내정보'),
+                    ],
+                    currentIndex: _selectedIndex,
+                    onTap: _onNavTapped,
+                  )
+                  // admob 추가하기
+                ],
+              ),
               controller.storeLoadState
-                  ? Container(width: double.infinity, height: double.infinity, decoration: BoxDecoration(color: Colors.grey),)
-                  : BottomNavigationBar(
-                      fixedColor: Colors.blue,
-                      unselectedItemColor: Colors.blueGrey,
-                      showUnselectedLabels: true,
-                      type: BottomNavigationBarType.fixed,
-                      items: const [
-                        BottomNavigationBarItem(
-                            icon: Icon(Icons.home), label: '홈'),
-                        BottomNavigationBarItem(
-                            icon: Icon(Icons.map), label: '지도'),
-                        BottomNavigationBarItem(
-                            icon: Icon(Icons.info), label: '내정보'),
+                  ? Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        BottomNavigationBar(
+                          type: BottomNavigationBarType.fixed,
+                          backgroundColor: CupertinoColors.systemGrey.withOpacity(0.3),
+                          items: const [
+                            BottomNavigationBarItem(
+                                icon: Icon(Icons.home), label: '홈'),
+                            BottomNavigationBarItem(
+                                icon: Icon(Icons.public), label: '지도'),
+                            BottomNavigationBarItem(
+                                icon: Icon(Icons.person), label: '내정보'),
+                          ]
+                        )
                       ],
-                      currentIndex: _selectedIndex,
-                      onTap: _onNavTapped,
                     )
-              // admob 추가하기
+                  : SizedBox(),
             ],
           ));
     });

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
+import 'package:project_dangoing/controller/user_controller.dart';
 import 'package:project_dangoing/firebase_options.dart';
 import 'package:project_dangoing/pages/splash_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,6 +22,7 @@ void main() async {
   prefs.setBool('firstLaunch', true);
 
   Get.put(StoreController());
+  Get.put(UserController());
   runApp(const MyApp());
 }
 
