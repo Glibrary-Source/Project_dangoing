@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:project_dangoing/pages/home_page.dart';
 import 'package:project_dangoing/pages/main_page.dart';
+
+import '../controller/store_controller.dart';
+import '../global/share_preference.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -11,30 +15,41 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  StoreController storeController = Get.find();
+  String local = prefs.getString("local") ?? "서울특별시";
+
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 2), (){
-      Get.off(()=> MainPage());
-    });
+    _fetchData();
+
     super.initState();
+  }
+
+  Future<void> _fetchData() async {
+    await storeController.getStoreAndRandomListSplash(local, context);
+    Get.off(()=> MainPage());
+    storeController.setStoreLoadState(false);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Lottie.asset('assets/lottie/walk_dog.json'),
-            SizedBox(height: 60),
-            Text(
-              textAlign: TextAlign.center,
-              "Explore",
-              style: TextStyle(fontSize: 34, color: Colors.black, fontFamily: 'JosefinSans-Bold'),
-            )
-          ],
-        ),
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Lottie.asset('assets/lottie/walk_dog.json'),
+          SizedBox(height: 60),
+          Text(
+            textAlign: TextAlign.center,
+            "Explore",
+            style: TextStyle(
+                fontSize: 34,
+                color: Colors.black,
+                fontFamily: 'JosefinSans-Bold'),
+          )
+        ],
+      ),
     );
   }
 }

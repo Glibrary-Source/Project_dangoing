@@ -1,30 +1,26 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_dangoing/controller/user_controller.dart';
-import 'package:project_dangoing/pages/sign_up_page.dart';
-import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
-class MyPage extends StatefulWidget {
-  const MyPage({super.key});
+import '../controller/user_controller.dart';
+import '../utils/fontstyle_manager.dart';
+
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<MyPage> createState() => _MyPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _MyPageState extends State<MyPage> {
+class _SignUpPageState extends State<SignUpPage> {
   FontStyleManager fontStyleManager = FontStyleManager();
   TextEditingController emailInputController = TextEditingController();
   TextEditingController passwordInputController = TextEditingController();
+  TextEditingController passwordConfirmController = TextEditingController();
   String email = "";
   String password = "";
-
-  @override
-  void dispose() {
-    emailInputController.dispose();
-    passwordInputController.dispose();
-    super.dispose();
-  }
+  String passwordConfirm = "";
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +60,7 @@ class _MyPageState extends State<MyPage> {
                 ),
               ),
               Container(
-                height: MediaQuery.sizeOf(context).height * 0.25,
+                height: MediaQuery.sizeOf(context).height * 0.35,
                 padding: EdgeInsets.only(left: 36, right: 36),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,7 +70,7 @@ class _MyPageState extends State<MyPage> {
                       decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(12)),
+                              BorderRadius.all(Radius.circular(12)),
                               borderSide: BorderSide(color: Colors.blueAccent)),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -82,7 +78,8 @@ class _MyPageState extends State<MyPage> {
                           hintText: "이메일",
                           hintStyle: TextStyle(
                               fontFamily:
-                                  fontStyleManager.getPrimarySecondFont(),
+                              fontStyleManager.getPrimarySecondFont(),
+                              color: CupertinoColors.systemGrey,
                               fontWeight: FontWeight.bold)),
                       onChanged: (value) {
                         email = value;
@@ -93,6 +90,7 @@ class _MyPageState extends State<MyPage> {
                     ),
                     TextField(
                       controller: passwordInputController,
+                      obscureText: true,
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -103,8 +101,33 @@ class _MyPageState extends State<MyPage> {
                         hintText: "비밀번호",
                         hintStyle: TextStyle(
                             fontFamily: fontStyleManager.getPrimarySecondFont(),
+                            color: CupertinoColors.systemGrey,
                             fontWeight: FontWeight.bold),
                         focusColor: Colors.red,
+                      ),
+                      onChanged: (value) {
+                        password = value;
+                      },
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextField(
+                      controller: passwordInputController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                            borderSide: BorderSide(color: Colors.blueAccent)),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                        hintText: "비밀번호 확인",
+                        hintStyle: TextStyle(
+                            fontFamily: fontStyleManager.getPrimarySecondFont(),
+                            color: CupertinoColors.systemGrey,
+                            fontWeight: FontWeight.bold
+                        ),
                       ),
                       onChanged: (value) {
                         password = value;
@@ -121,78 +144,38 @@ class _MyPageState extends State<MyPage> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Colors.redAccent)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(14),
-                            child: Text(
-                              "로그인",
-                              style: TextStyle(
-                                  fontFamily:
-                                      fontStyleManager.getPrimarySecondFont(),
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                          )),
-                    ),
-                    SizedBox(
-                      height: 60,
-                      child: Center(
-                          child: Text(
-                        "또는",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily:
-                                fontStyleManager.getPrimarySecondFont()),
-                      )),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
                           onPressed: () {
-                            Get.to(()=>SignUpPage());
+                            if(
+                            email==null||
+                            email==""||
+                            password==null||
+                            password==""||
+                            passwordConfirm==null||
+                            passwordConfirm==""
+                            ){
+                              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('이메일과 패스워드를 바르게 입력해주세요')));
+                            } else {
+                              if(password!=passwordConfirm) {
+                                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('비밀번호를 확인하세요')));
+                              }
+                            }
                           },
                           style: ButtonStyle(
                               backgroundColor:
-                                  MaterialStatePropertyAll(Colors.blueAccent)),
+                              MaterialStatePropertyAll(Colors.blueAccent)),
                           child: Padding(
                             padding: const EdgeInsets.all(14),
                             child: Text(
                               "회원 가입",
                               style: TextStyle(
                                   fontFamily:
-                                      fontStyleManager.getPrimarySecondFont(),
+                                  fontStyleManager.getPrimarySecondFont(),
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
                           )),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStatePropertyAll(Colors.white)),
-                        icon: Image.asset("assets/icons/google.png",
-                            height: 40, width: 40),
-                        label: Padding(
-                          padding: const EdgeInsets.all(14),
-                          child: Text(
-                            "구글 로그인",
-                            style: TextStyle(
-                                fontFamily:
-                                    fontStyleManager.getPrimarySecondFont(),
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 ),
@@ -202,42 +185,41 @@ class _MyPageState extends State<MyPage> {
                 padding: EdgeInsets.only(left: 36, right: 36),
                 child: Column(
                   children: [
-                    SizedBox(height: 10,),
                     RichText(
                         text: TextSpan(
                             text: "계속 진행하면 댕고잉의 ",
                             style: TextStyle(
                                 fontFamily:
-                                    fontStyleManager.getPrimarySecondFont(),
+                                fontStyleManager.getPrimarySecondFont(),
                                 color: CupertinoColors.systemGrey),
                             children: [
-                          TextSpan(
-                              text: "서비스 약관 ",
-                              style: TextStyle(
-                                  fontFamily:
+                              TextSpan(
+                                  text: "서비스 약관 ",
+                                  style: TextStyle(
+                                      fontFamily:
                                       fontStyleManager.getPrimarySecondFont(),
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black)),
-                          TextSpan(
-                              text: "및 ",
-                              style: TextStyle(
-                                  fontFamily:
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black)),
+                              TextSpan(
+                                  text: "및 ",
+                                  style: TextStyle(
+                                      fontFamily:
                                       fontStyleManager.getPrimarySecondFont(),
-                                  color: CupertinoColors.systemGrey)),
-                          TextSpan(
-                              text: "개인정보 보호정책",
-                              style: TextStyle(
-                                  fontFamily:
+                                      color: CupertinoColors.systemGrey)),
+                              TextSpan(
+                                  text: "개인정보 보호정책",
+                                  style: TextStyle(
+                                      fontFamily:
                                       fontStyleManager.getPrimarySecondFont(),
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black)),
-                          TextSpan(
-                              text: "에 동의한 것으로 간주됩니다.",
-                              style: TextStyle(
-                                  fontFamily:
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black)),
+                              TextSpan(
+                                  text: "에 동의한 것으로 간주됩니다.",
+                                  style: TextStyle(
+                                      fontFamily:
                                       fontStyleManager.getPrimarySecondFont(),
-                                  color: CupertinoColors.systemGrey)),
-                        ]))
+                                      color: CupertinoColors.systemGrey)),
+                            ]))
                   ],
                 ),
               ),

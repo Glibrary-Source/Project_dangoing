@@ -19,8 +19,14 @@ class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
   // 바텀 네비게이션 바 인덱스
   int _selectedIndex = 0;
+  StoreController storeController = Get.find();
 
   final List<Widget> _navIndex = [HomePage(), MapPage(), MyPage()];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void _onNavTapped(int index) {
     setState(() {

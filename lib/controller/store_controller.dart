@@ -1,10 +1,11 @@
 
 import 'dart:math';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/model/store_list_model.dart';
 import 'package:project_dangoing/service/dango_firebase_service.dart';
 
+import '../pages/main_page.dart';
 import '../vo/store_vo.dart';
 
 class StoreController extends GetxController {
@@ -16,7 +17,6 @@ class StoreController extends GetxController {
   List<StoreVo> categoryFilterList = [];
   StoreVo detailData = StoreVo();
   bool storeLoadState = false;
-
 
   Future<void> getStoreList(String local) async {
     try {
@@ -41,11 +41,31 @@ class StoreController extends GetxController {
     }
   }
 
-  Future<void> getStoreAndRandomList(String local) async {
+  Future<void> getStoreAndRandomList(String local,BuildContext context) async {
     try {
       await getStoreList(local);
       await getRandomStoreList();
     } catch (error) {
+      if(context.mounted) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('인터넷 연결을 확인해주세요')));
+      }
+      storeLoadState = false;
+      throw Exception(error);
+    }
+  }
+
+  Future<void> getStoreAndRandomListSplash(String local,BuildContext context) async {
+    try {
+      await getStoreList(local);
+      await getRandomStoreList();
+    } catch (error) {
+      if(context.mounted) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('인터넷 연결을 확인해주세요')));
+      }
+      storeLoadState = false;
+      Get.off(()=> MainPage());
       throw Exception(error);
     }
   }

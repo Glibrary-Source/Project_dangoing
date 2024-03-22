@@ -1,12 +1,12 @@
 
 import 'package:get/get.dart';
 import 'package:project_dangoing/service/dango_firebase_service.dart';
+import 'package:project_dangoing/service/dango_firebase_user_service.dart';
 import 'package:project_dangoing/vo/user_vo.dart';
 
 class UserController extends GetxController {
 
-
-  final DangoFirebaseService dangoFirebaseService = DangoFirebaseService();
+  final DangoFirebaseUserService dangoFirebaseUserService = DangoFirebaseUserService();
 
   UserVo? myInfo;
 
@@ -14,7 +14,7 @@ class UserController extends GetxController {
   ///유저등록(회원가입)
   Future<void> addUser(String email, String password) async {
     try{
-      // await dangoFirebaseService.SignUpWithEmailAndPassword(email, password);
+      await dangoFirebaseUserService.signUpWithEmailAndPassword(email, password);
     } catch(error) {
       throw error;
     }

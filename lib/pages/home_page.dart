@@ -25,20 +25,8 @@ class _HomePageState extends State<HomePage> {
   List<String> dropDownList = LocalListData().getLocalList();
   String local = prefs.getString("local") ?? "서울특별시";
 
-  @override
-  void initState() {
-    if (prefs.getBool('firstLaunch') ?? true) {
-      storeController.setStoreLoadState(true);
-      _fetchData();
-      prefs.setBool('firstLaunch', false);
-    }
-
-    super.initState();
-  }
-
   Future<void> _fetchData() async {
-    await Future.delayed(Duration(seconds: 1));
-    await storeController.getStoreAndRandomList(local);
+    await storeController.getStoreAndRandomList(local, context);
     setState(() {
       storeController.setStoreLoadState(false);
     });
