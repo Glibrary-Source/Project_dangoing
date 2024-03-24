@@ -40,7 +40,7 @@ class _MyPageState extends State<MyPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      "assets/images/app_main_icon.png",
+                      "assets/images/dangoing_logo.png",
                       height: 50,
                       width: 50,
                     ),

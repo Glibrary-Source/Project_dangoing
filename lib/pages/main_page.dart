@@ -47,16 +47,16 @@ class _MainPageState extends State<MainPage>
                 children: [
                   BottomNavigationBar(
                     fixedColor: Colors.blue,
-                    unselectedItemColor: Colors.blueGrey,
+                    unselectedItemColor: Color(0xff222222),
                     showUnselectedLabels: true,
                     type: BottomNavigationBarType.fixed,
                     items: const [
                       BottomNavigationBarItem(
-                          icon: Icon(Icons.home), label: '홈'),
+                          icon: Icon(Icons.home_outlined), label: '홈'),
                       BottomNavigationBarItem(
-                          icon: Icon(Icons.public), label: '지도'),
+                          icon: Icon(Icons.map_outlined), label: '지도'),
                       BottomNavigationBarItem(
-                          icon: Icon(Icons.person), label: '내정보'),
+                          icon: Icon(Icons.person_outline), label: '내정보'),
                     ],
                     currentIndex: _selectedIndex,
                     onTap: _onNavTapped,
@@ -74,11 +74,11 @@ class _MainPageState extends State<MainPage>
                           backgroundColor: CupertinoColors.systemGrey.withOpacity(0.3),
                           items: const [
                             BottomNavigationBarItem(
-                                icon: Icon(Icons.home), label: '홈'),
+                                icon: Icon(Icons.home_outlined), label: '홈'),
                             BottomNavigationBarItem(
-                                icon: Icon(Icons.public), label: '지도'),
+                                icon: Icon(Icons.map_outlined), label: '지도'),
                             BottomNavigationBarItem(
-                                icon: Icon(Icons.person), label: '내정보'),
+                                icon: Icon(Icons.person_outline), label: '내정보'),
                           ]
                         )
                       ],

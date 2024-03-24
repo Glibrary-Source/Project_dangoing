@@ -41,8 +41,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
   }
 
   launchHomeLink(String url) async {
-    print("https : ${url.substring(0, 8)}");
-    print("http:  ${url.substring(0, 7)}");
     if (url == "") {
       return;
     }
