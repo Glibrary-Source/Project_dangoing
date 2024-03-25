@@ -76,8 +76,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(left: 16, right: 16, top: 16),
-                height: 400,
+                padding: EdgeInsets.only(left: 16, top: 16),
+                height: MediaQuery.sizeOf(context).height * 0.48,
                 child: Column(
                   children: [
                     Row(
@@ -125,17 +125,51 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 10,
                     ),
-                    controller.storeRandom == []
-                        ? SizedBox(height: 50)
+                    controller.storeHomeRandomList == []
+                        ? SizedBox(height: MediaQuery.sizeOf(context).height * 0.3)
                         : Expanded(
                             child: ListView.builder(
-                                itemCount: controller.storeRandom.length,
+                                itemCount: controller.storeHomeRandomList.length,
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
                                   return RecommendStoreListWidget(
                                       controller: controller, index: index);
                                 }),
                           ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 16, top: 16),
+                height: MediaQuery.sizeOf(context).height * 0.48,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(" 🧋요즘 뜨는 카페",
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontFamily:
+                                fontStyleManager.getPrimarySecondFont(),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black)),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    controller.storeHomeRandomList == []
+                        ? SizedBox(height: MediaQuery.sizeOf(context).height * 0.3)
+                        : Expanded(
+                      child: ListView.builder(
+                          itemCount: controller.categoryFilterList.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return RecommendStoreListWidget(
+                                controller: controller, index: index);
+                          }),
+                    ),
                   ],
                 ),
               ),
@@ -147,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(" 카테고리",
+                        Text(" 장소 별 모아보기",
                             style: TextStyle(
                                 fontSize: 22,
                                 fontFamily:

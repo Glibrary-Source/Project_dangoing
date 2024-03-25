@@ -36,17 +36,17 @@ class TextManager {
 
   String checkParking(String item) {
     if(item == "Y") {
-      return "가능";
+      return "주차 가능";
     } else {
-      return "불가능";
+      return "주차 불가능";
     }
   }
 
   String checkInPlace(String item) {
     if(item == "Y") {
-      return "가능";
+      return "내부동반 가능";
     } else {
-      return "불가능";
+      return "내부동반 불가능";
     }
   }
 

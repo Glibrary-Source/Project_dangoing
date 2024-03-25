@@ -13,12 +13,13 @@ class StoreController extends GetxController {
   final DangoFirebaseService dangoFirebaseService = DangoFirebaseService();
 
   List<StoreVo> storeList = [];
-  List<StoreVo> storeRandom = [];
+  List<StoreVo> storeHomeRandomList = [];
+  List<StoreVo> storeHomeRandomCafeList = [];
   List<StoreVo> categoryFilterList = [];
   StoreVo detailData = StoreVo();
   bool storeLoadState = false;
 
-  Future<void> getStoreList(String local) async {
+  Future<void> getInitStoreList(String local) async {
     try {
       StoreListModel storeListModel = await dangoFirebaseService.getStoreList(local);
       storeList.clear();
@@ -29,11 +30,23 @@ class StoreController extends GetxController {
     }
   }
 
-  Future<void> getRandomStoreList() async {
+  Future<void> getHomeRandomStoreList() async {
     try {
-      storeRandom.clear();
+      storeHomeRandomList.clear();
       for (int i = 0; i < 11; i++) {
-        storeRandom.add(storeList[Random().nextInt(storeList.length)]);
+        storeHomeRandomList.add(storeList[Random().nextInt(storeList.length)]);
+      }
+      update();
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<void> getHomeRandomCafeList() async {
+    try {
+      storeHomeRandomCafeList.clear();
+      for (int i = 0; i < 11; i++) {
+        storeHomeRandomCafeList.add(storeList[Random().nextInt(storeList.length)]);
       }
       update();
     } catch (error) {
@@ -43,8 +56,8 @@ class StoreController extends GetxController {
 
   Future<void> getStoreAndRandomList(String local,BuildContext context) async {
     try {
-      await getStoreList(local);
-      await getRandomStoreList();
+      await getInitStoreList(local);
+      await getHomeRandomStoreList();
     } catch (error) {
       if(context.mounted) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -57,8 +70,8 @@ class StoreController extends GetxController {
 
   Future<void> getStoreAndRandomListSplash(String local,BuildContext context) async {
     try {
-      await getStoreList(local);
-      await getRandomStoreList();
+      await getInitStoreList(local);
+      await getHomeRandomStoreList();
     } catch (error) {
       if(context.mounted) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();

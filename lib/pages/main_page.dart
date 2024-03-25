@@ -5,6 +5,7 @@ import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/pages/home_page.dart';
 import 'package:project_dangoing/pages/map_page.dart';
 import 'package:project_dangoing/pages/my_page.dart';
+import 'package:project_dangoing/theme/colors.dart';
 
 import '../global/share_preference.dart';
 
@@ -47,7 +48,7 @@ class _MainPageState extends State<MainPage>
                 children: [
                   BottomNavigationBar(
                     fixedColor: Colors.blue,
-                    unselectedItemColor: Color(0xff222222),
+                    unselectedItemColor: dangoingBlackColor,
                     showUnselectedLabels: true,
                     type: BottomNavigationBarType.fixed,
                     items: const [
