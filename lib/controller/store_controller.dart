@@ -33,7 +33,7 @@ class StoreController extends GetxController {
   Future<void> getHomeRandomStoreList() async {
     try {
       storeHomeRandomList.clear();
-      for (int i = 0; i < 11; i++) {
+      for (int i = 0; i < 10; i++) {
         storeHomeRandomList.add(storeList[Random().nextInt(storeList.length)]);
       }
       update();
@@ -45,8 +45,14 @@ class StoreController extends GetxController {
   Future<void> getHomeRandomCafeList() async {
     try {
       storeHomeRandomCafeList.clear();
-      for (int i = 0; i < 11; i++) {
-        storeHomeRandomCafeList.add(storeList[Random().nextInt(storeList.length)]);
+      List<StoreVo> tempCategoryList = [];
+      for(StoreVo store in storeList) {
+        if(store.CTGRY_THREE_NM == "카페") {
+          tempCategoryList.add(store);
+        }
+      }
+      for (int i = 0; i < 10; i++) {
+        storeHomeRandomCafeList.add(tempCategoryList[Random().nextInt(tempCategoryList.length)]);
       }
       update();
     } catch (error) {
@@ -57,7 +63,8 @@ class StoreController extends GetxController {
   Future<void> getStoreAndRandomList(String local,BuildContext context) async {
     try {
       await getInitStoreList(local);
-      await getHomeRandomStoreList();
+      getHomeRandomStoreList();
+      getHomeRandomCafeList();
     } catch (error) {
       if(context.mounted) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -72,6 +79,7 @@ class StoreController extends GetxController {
     try {
       await getInitStoreList(local);
       await getHomeRandomStoreList();
+      await getHomeRandomCafeList();
     } catch (error) {
       if(context.mounted) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
