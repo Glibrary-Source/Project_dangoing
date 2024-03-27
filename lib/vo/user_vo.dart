@@ -13,7 +13,7 @@ class UserVo {
     this.change_counter
   });
 
-  UserVo.fromDocumentSnapsho(DocumentSnapshot documentSnapshot) {
+  UserVo.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
     uid = documentSnapshot.id;
     email = documentSnapshot['email'];
     nickname = documentSnapshot['nickname'];

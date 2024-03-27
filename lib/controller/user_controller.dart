@@ -1,43 +1,39 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:project_dangoing/service/dango_firebase_service.dart';
-import 'package:project_dangoing/service/dango_firebase_user_service.dart';
+import 'package:project_dangoing/service/firebase_auth_service.dart';
 import 'package:project_dangoing/vo/user_vo.dart';
 
 class UserController extends GetxController {
 
-  final DangoFirebaseUserService dangoFirebaseUserService = DangoFirebaseUserService();
+  final FirebaseAuthService dangoingFirebaseUserService = FirebaseAuthService();
 
   UserVo? myInfo;
 
-
-  ///유저등록(회원가입)
-  Future<void> addUser(String email, String password) async {
+  Future<void> googleLogin(BuildContext context) async {
     try{
-      await dangoFirebaseUserService.signUpWithEmailAndPassword(email, password);
+      await dangoingFirebaseUserService.signInWithGoogle(context);
+    } catch(error) {
+      if(error is FirebaseAuthException) {
+        if(error.code == 'user-not-found') {
+          throw '계정 정보를 찾을 수 없습니다';
+        }
+      } else {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  Future<void> getGoogleUserVo() async{
+    try {
+        myInfo = await dangoingFirebaseUserService.getGoogleUserVo();
+        update();
     } catch(error) {
       throw error;
     }
   }
 
-  ///로그인 (이메일과 비번 직접작성 로그인)
-  Future<void> login(String email, String password) async{
-
-  }
-
-  ///오토로그인
-  Future<void> autoLogin() async {
-
-  }
-
-  /// 로그아웃
-  Future<void> logout() async {
-
-  }
-
-  /// 내 유저정보 가져오기 ( 로그인과 상관없이 내 유저정보를 새로고침해서 다시들고오거나 할때사용)
-  Future<void> getUser(String userUid) async {
-
-  }
 
 }

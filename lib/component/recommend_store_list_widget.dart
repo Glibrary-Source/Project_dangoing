@@ -47,7 +47,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                         fontSize: 12,
                         fontFamily: fontStyleManager.getPrimarySecondFont(),
                         fontWeight: FontWeight.bold,
-                        color: dangoingChipBackGroundColor,
+                        color: dangoingMainColor,
                         height: 1.2
                     ),
                   ),
