@@ -156,6 +156,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                               color: CupertinoColors.systemGrey2, width: 1),
                           borderRadius: BorderRadius.all(Radius.circular(8))),
                       child: ExpansionTile(
+                          initiallyExpanded: true,
                           title: Row(
                             children: [
                               Icon(Icons.info_outline),
@@ -212,6 +213,12 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         ),
                       ],
                     ),
+                    SizedBox(height: 40,),
+                    Text("사용자 리뷰", style: TextStyle(fontFamily: fontStyleManager.getPrimarySecondFont(), fontWeight: FontWeight.bold, fontSize: 18),),
+                    // ListView.builder(
+                    //     itemBuilder: (context, index){
+                    //
+                    //     })
                   ],
                 ),
               )

@@ -8,7 +8,7 @@ class StoreListModel {
 
   StoreListModel({this.storeList});
 
-  StoreListModel.fromQuerySnapShor(QuerySnapshot querySnapshot) {
+  StoreListModel.fromQuerySnapShot(QuerySnapshot querySnapshot) {
     storeList = <StoreVo>[];
     for (DocumentSnapshot item in querySnapshot.docs) {
       storeList!.add(StoreVo.fromDocumentSnapshot(item));

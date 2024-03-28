@@ -23,7 +23,6 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     _fetchData();
-
     userController.getGoogleUserVo();
 
     super.initState();

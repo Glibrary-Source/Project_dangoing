@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/controller/user_controller.dart';
+import 'package:project_dangoing/service/dango_firebase_service.dart';
 import 'package:project_dangoing/service/firebase_auth_service.dart';
+import 'package:project_dangoing/theme/colors.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
 class MyPage extends StatefulWidget {
@@ -13,7 +16,11 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> {
+  TextEditingController nickNameChangeInputController = TextEditingController();
+  String nickName = "";
+
   FontStyleManager fontStyleManager = FontStyleManager();
+  bool nickNameChange = false;
 
   // TextEditingController emailInputController = TextEditingController();
   // TextEditingController passwordInputController = TextEditingController();
@@ -37,15 +44,136 @@ class _MyPageState extends State<MyPage> {
     return GetBuilder<UserController>(builder: (controller) {
       return Scaffold(
         body: controller.myInfo != null
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("이메일 ${controller.myInfo?.email}"),
-                  Text("UID ${controller.myInfo?.uid}"),
-                  Text("NICKNAME ${controller.myInfo?.nickname}"),
-                  Text("CHANGECOUNTER ${controller.myInfo?.change_counter}"),
-                ],
+            ? Padding(
+                padding: const EdgeInsets.only(left: 16, right: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height * 0.35,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/images/dangoing_logo.png",
+                            height: 80,
+                            width: 80,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "댕고잉",
+                                style: TextStyle(
+                                  fontSize: 36,
+                                  fontFamily: fontStyleManager.getPrimaryFont(),
+                                ),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 8),
+                      child: Text(
+                        "Email: ${controller.myInfo?.email}",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: fontStyleManager.getPrimarySecondFont(),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(bottom: 8),
+                          child: Text(
+                            "닉네임: ${controller.myInfo?.nickname}",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontFamily:
+                                    fontStyleManager.getPrimarySecondFont(),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              nickNameChange = !nickNameChange;
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 7),
+                            child: Icon(Icons.edit),
+                          ),
+                        ),
+                      ],
+                    ),
+                    nickNameChange == false
+                        ? SizedBox()
+                        : Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: nickNameChangeInputController,
+                                  onChanged: (value) {
+                                    nickName = value;
+                                  },
+                                ),
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    if(nickName == "") {
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('닉네임을 바르게 작성해주세요')));
+                                    } else {
+                                      if(controller.myInfo!.change_counter!) {
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('닉네임을 이미 변경하신 회원입니다.')));
+                                      } else {
+                                        controller.userNickNameChange(nickName);
+                                      }
+                                    }
+                                    setState(() {
+                                      nickNameChange = false;
+                                      nickNameChangeInputController.clear();
+                                    });
+                                  }, child: Text("변경"))
+                            ],
+                          ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Spacer(),
+                    ElevatedButton(
+                        onPressed: () {
+                          controller.googleLogout();
+                        },
+                        child: SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              "로그아웃",
+                              textAlign: TextAlign.center,
+                            ))),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          DangoFirebaseService().getUserReviewTest("1");
+                        },
+                        child: SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              "데이터 테스트",
+                              textAlign: TextAlign.center,
+                            ))),
+                  ],
+                ),
               )
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -109,7 +237,6 @@ class _MyPageState extends State<MyPage> {
                   ),
                 ],
               ),
-
       );
     });
   }

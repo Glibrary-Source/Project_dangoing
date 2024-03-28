@@ -64,16 +64,15 @@ class FirebaseAuthService {
     );
   }
 
-  Future<UserVo> getGoogleUserVo() async {
+  Future<UserVo?> getGoogleUserVo() async {
     try {
-
       if(auth.currentUser != null) {
         String? userUid = auth.currentUser?.uid;
 
         DocumentSnapshot documentSnapshot = await userCollection.doc(userUid).get();
         return UserVo.fromDocumentSnapshot(documentSnapshot);
       } else {
-        return UserVo();
+        return null;
       }
 
     } catch(error) {
@@ -81,5 +80,26 @@ class FirebaseAuthService {
     }
   }
 
+  Future<UserVo?> googleLogout() async {
+    try{
+      GoogleSignIn().signOut();
+      auth.signOut();
+      return null;
+    } catch(error) {
+      throw error;
+    }
+  }
 
+  Future<void> changeNickName(String nickname) async {
+    try {
+      final Map<String, dynamic> data = {};
+      data['nickname'] = nickname;
+      data['change_counter'] = true;
+      userCollection.doc(auth.currentUser?.uid).update(
+        data
+      );
+    } catch(error) {
+      throw error;
+    }
+  }
 }

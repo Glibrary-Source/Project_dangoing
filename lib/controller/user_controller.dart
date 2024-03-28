@@ -35,5 +35,22 @@ class UserController extends GetxController {
     }
   }
 
+  Future<void> googleLogout() async{
+    try{
+      myInfo = await dangoingFirebaseUserService.googleLogout();
+      update();
+    } catch(error) {
+      throw error;
+    }
+  }
+
+  Future<void> userNickNameChange(String nickName) async {
+    try{
+      await dangoingFirebaseUserService.changeNickName(nickName);
+      getGoogleUserVo();
+    } catch(error) {
+      throw error;
+    }
+  }
 
 }
