@@ -1,13 +1,14 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_dangoing/model/user_review_model.dart';
 
 import '../model/store_list_model.dart';
 import '../vo/reviewVo.dart';
 import '../vo/store_vo.dart';
 
-FirebaseFirestore firestore = FirebaseFirestore.instance;
-CollectionReference store = firestore.collection('pet_location_data');
-CollectionReference storeReview = firestore.collection('user_review_db');
+FirebaseFirestore fireStore = FirebaseFirestore.instance;
+CollectionReference store = fireStore.collection('pet_location_data');
+CollectionReference storeReview = fireStore.collection('user_review_data');
 
 class DangoFirebaseService {
 
@@ -30,35 +31,31 @@ class DangoFirebaseService {
     }
   }
 
-  Future<ReviewVo> getUserReview(String docId) async {
-    try {
+  Future<UserReviewModel> getUserReview(String docId) async {
+    try{
       DocumentSnapshot documentSnapshot = await storeReview.doc(docId).get();
-      return ReviewVo.fromDocumentSnapshot(documentSnapshot);
+      return UserReviewModel.fromDocumentSnapShot(documentSnapshot);
     } catch(error) {
       throw error;
     }
   }
 
-  Future<List<Map<String, ReviewVo>>> getUserReviewTest(String docId) async {
-    List<Map<String,ReviewVo>> reviewList= [];
-    DocumentSnapshot documentSnapshot = await storeReview.doc(docId).get();
-    final data = documentSnapshot.data() as Map<String, dynamic>;
-    for(dynamic doc in data.values) {
-      final reviewData = doc as Map<String, dynamic>;
-      reviewData.forEach((key, value) {
-        final temp = {
-          key: ReviewVo(
-              review_main: value["review_main"],
-              review_nickname: value["review_nickname"],
-              review_score: value["review_score"],
-              review_time: value["review_time"],
-              review_title: value["review_title"]
-          )
-        };
-        reviewList.add(temp);
-      });
+  Future<void> setUserReview(String docId, String uid, String title, String nickname, num score, String main) async {
+    try {
+      final Map<String, dynamic> data = {};
+      data['USER_REVIEW'] = {
+        uid: {
+              "review_title": title,
+              "review_nickname": nickname,
+              "review_score": score,
+              "review_main": main,
+              "review_time": Timestamp.now()
+        }
+      };
+      storeReview.doc(docId).set(data, SetOptions(merge: true));
+    } catch(error) {
+      throw error;
     }
-    return reviewList;
   }
-  
+
 }

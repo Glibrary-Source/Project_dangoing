@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_dangoing/controller/review_controller.dart';
 import 'package:project_dangoing/controller/user_controller.dart';
 import 'package:project_dangoing/service/dango_firebase_service.dart';
 import 'package:project_dangoing/service/firebase_auth_service.dart';
@@ -41,9 +42,9 @@ class _MyPageState extends State<MyPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<UserController>(builder: (controller) {
+    return GetBuilder<UserController>(builder: (userController) {
       return Scaffold(
-        body: controller.myInfo != null
+        body: userController.myInfo != null
             ? Padding(
                 padding: const EdgeInsets.only(left: 16, right: 16),
                 child: Column(
@@ -78,7 +79,7 @@ class _MyPageState extends State<MyPage> {
                     Container(
                       margin: EdgeInsets.only(bottom: 8),
                       child: Text(
-                        "Email: ${controller.myInfo?.email}",
+                        "Email: ${userController.myInfo?.email}",
                         style: TextStyle(
                             fontSize: 18,
                             fontFamily: fontStyleManager.getPrimarySecondFont(),
@@ -91,7 +92,7 @@ class _MyPageState extends State<MyPage> {
                         Container(
                           margin: EdgeInsets.only(bottom: 8),
                           child: Text(
-                            "닉네임: ${controller.myInfo?.nickname}",
+                            "닉네임: ${userController.myInfo?.nickname}",
                             style: TextStyle(
                                 fontSize: 18,
                                 fontFamily:
@@ -129,20 +130,29 @@ class _MyPageState extends State<MyPage> {
                               ),
                               ElevatedButton(
                                   onPressed: () {
-                                    if(nickName == "") {
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('닉네임을 바르게 작성해주세요')));
+                                    if (nickName == "") {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content:
+                                                  Text('닉네임을 바르게 작성해주세요')));
                                     } else {
-                                      if(controller.myInfo!.change_counter!) {
-                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('닉네임을 이미 변경하신 회원입니다.')));
+                                      if (userController
+                                          .myInfo!.change_counter!) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    '닉네임을 이미 변경하신 회원입니다.')));
                                       } else {
-                                        controller.userNickNameChange(nickName);
+                                        userController
+                                            .userNickNameChange(nickName);
                                       }
                                     }
                                     setState(() {
                                       nickNameChange = false;
                                       nickNameChangeInputController.clear();
                                     });
-                                  }, child: Text("변경"))
+                                  },
+                                  child: Text("변경"))
                             ],
                           ),
                     SizedBox(
@@ -151,7 +161,7 @@ class _MyPageState extends State<MyPage> {
                     Spacer(),
                     ElevatedButton(
                         onPressed: () {
-                          controller.googleLogout();
+                          userController.googleLogout();
                         },
                         child: SizedBox(
                             width: double.infinity,
@@ -162,16 +172,6 @@ class _MyPageState extends State<MyPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    ElevatedButton(
-                        onPressed: () {
-                          DangoFirebaseService().getUserReviewTest("1");
-                        },
-                        child: SizedBox(
-                            width: double.infinity,
-                            child: Text(
-                              "데이터 테스트",
-                              textAlign: TextAlign.center,
-                            ))),
                   ],
                 ),
               )
@@ -212,8 +212,8 @@ class _MyPageState extends State<MyPage> {
                     children: [
                       ElevatedButton.icon(
                         onPressed: () async {
-                          await controller.googleLogin(context);
-                          await controller.getGoogleUserVo();
+                          await userController.googleLogin(context);
+                          await userController.getGoogleUserVo();
                         },
                         style: ButtonStyle(
                             backgroundColor:

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
+import 'package:project_dangoing/controller/review_controller.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/controller/user_controller.dart';
 import 'package:project_dangoing/firebase_options.dart';
@@ -26,6 +27,7 @@ void main() async {
 
   Get.put(StoreController());
   Get.put(UserController());
+  Get.put(ReviewController());
   runApp(const MyApp());
 }
 

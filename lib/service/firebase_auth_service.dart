@@ -7,7 +7,7 @@ import 'package:project_dangoing/service/dango_firebase_service.dart';
 import 'package:project_dangoing/vo/user_vo.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
-CollectionReference userCollection = firestore.collection('user_db');
+CollectionReference userCollection = fireStore.collection('user_db');
 
 class FirebaseAuthService {
 

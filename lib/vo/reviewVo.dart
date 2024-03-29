@@ -6,7 +6,7 @@ class ReviewVo {
   String? review_main;
   String? review_nickname;
   num? review_score;
-  dynamic? review_time;
+  Timestamp? review_time;
   String? review_title;
 
   ReviewVo({
@@ -25,7 +25,6 @@ class ReviewVo {
     review_title = documentSnapshot['review_title'];
   }
 
-
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = {};
     data['review_main'] = review_main??"";
@@ -35,4 +34,6 @@ class ReviewVo {
     data['review_title'] = review_title??"";
     return data;
   }
+
+
 }
