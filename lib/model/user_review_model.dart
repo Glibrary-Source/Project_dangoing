@@ -9,7 +9,14 @@ class UserReviewModel {
 
   UserReviewModel.fromDocumentSnapShot(DocumentSnapshot documentSnapshot) {
     reviewList = <Map<String,ReviewVo>> [];
-    final data = documentSnapshot.data() as Map<String, dynamic>;
+    Map<String, dynamic> data = {};
+
+    if(documentSnapshot.data() == null) {
+      data = {};
+    } else {
+      data = documentSnapshot.data() as Map<String, dynamic>;
+    }
+
     for(dynamic doc in data.values) {
       final reviewData = doc as Map<String, dynamic>;
       reviewData.forEach((key, value) {

@@ -15,7 +15,7 @@ class ReviewController extends GetxController {
       UserReviewModel userReviewModel =
           await dangoingFirebaseUserService.getUserReview(docId);
       storeReviewList.clear();
-      storeReviewList = userReviewModel.reviewList!;
+      storeReviewList = userReviewModel.reviewList??[];
       update();
     } catch (error) {
       throw Exception(error);
@@ -29,5 +29,9 @@ class ReviewController extends GetxController {
     } catch (error) {
       throw Exception(error);
     }
+  }
+
+  Future<void> lostReviewData() async {
+    storeReviewList = [];
   }
 }

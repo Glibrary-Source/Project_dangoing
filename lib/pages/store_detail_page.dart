@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/component/detail_page_info_widget.dart';
 import 'package:project_dangoing/component/review_list_widget.dart';
@@ -35,17 +36,17 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
 
   TextEditingController reviewTitleInputController = TextEditingController();
   TextEditingController reviewMainInputController = TextEditingController();
-  TextEditingController reviewScoreInputController = TextEditingController();
   String reviewTitle = "";
   String reviewMain = "";
   num reviewScore = 0;
+
+  final GlobalKey _widgetKey = GlobalKey();
 
   late DetailInfoList detailInfoList;
   late List<String> infoList;
 
   @override
   void initState() {
-
     for (StoreVo store in storeController.storeList) {
       if (store.DOC_ID == docId) {
         data = store;
@@ -55,9 +56,14 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
     }
 
     reviewController.getReviewData(docId);
-    print("docID 입니다: ${docId}");
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    reviewController.lostReviewData();
+    super.dispose();
   }
 
   @override
@@ -175,8 +181,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   " 가게 상세정보",
                                   style: TextStyle(
                                       fontFamily:
-                                          fontStyleManager.getPrimaryFont()
-                                  ),
+                                          fontStyleManager.getPrimaryFont()),
                                 ),
                               ],
                             ),
@@ -240,14 +245,47 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 18),
                       ),
+                      SizedBox(height: 20,),
+                      Container(
+                        width: double.infinity,
+                        key: _widgetKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("  $reviewScore점 ",style: TextStyle(fontFamily: fontStyleManager.getPrimarySecondFont(), fontWeight: FontWeight.bold, color: dangoingMainColor),),
+                              RatingBar.builder(
+                                initialRating: 3,
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                itemCount: 5,
+                                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                itemBuilder: (context, _) => Icon(
+                                  Icons.pets,
+                                  color: dangoingMainColor,
+                                ),
+                                onRatingUpdate: (rating) {
+                                  setState(() {
+                                    reviewScore = rating;
+                                  });
+                                },
+                              ),
+
+                            ],
+                          )),
+                      SizedBox(height: 20,),
                       reviewController.storeReviewList.isEmpty
-                          ? SizedBox(child: Text("데이터 없음"),)
+                          ? SizedBox(
+                              child: Text("데이터 없음"),
+                            )
                           : ListView.builder(
-                            shrinkWrap: true,
+                              shrinkWrap: true,
                               itemCount:
                                   reviewController.storeReviewList.length,
                               itemBuilder: (context, index) {
-                                return ReviewListWidget(review: reviewController.storeReviewList[index]);
+                                return ReviewListWidget(
+                                    review: reviewController
+                                        .storeReviewList[index]);
                               }),
                     ],
                   ),
@@ -255,85 +293,27 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
               ],
             ),
           ),
-          floatingActionButton: GetBuilder<UserController>(
-            builder: (userController) {
-              return FloatingActionButton(onPressed: () async{
-                showDialog(context: context, builder: (context){
-                  return Dialog(
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextField(
-                            onChanged: (value) {
-                              reviewTitle = value;
-                            },
-                            controller: reviewTitleInputController,
-                            decoration: InputDecoration(
-                              hintText: "제목",
-                              hintStyle: TextStyle(
-                                  fontFamily: fontStyleManager.getPrimarySecondFont(),
-                                  color: CupertinoColors.systemGrey,
-                                  fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ),
-                          TextField(
-                            onChanged: (value) {
-                              reviewMain = value;
-                            },
-                            controller: reviewMainInputController,
-                            decoration: InputDecoration(
-                              hintText: "내용",
-                              hintStyle: TextStyle(
-                                  fontFamily: fontStyleManager.getPrimarySecondFont(),
-                                  color: CupertinoColors.systemGrey,
-                                  fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ),
-                          TextField(
-                            onChanged: (value) {
-                              reviewScore = int.parse(value);
-                            },
-                            controller: reviewScoreInputController,
-                            decoration: InputDecoration(
-                              hintText: "점수",
-                              hintStyle: TextStyle(
-                                  fontFamily: fontStyleManager.getPrimarySecondFont(),
-                                  color: CupertinoColors.systemGrey,
-                                  fontWeight: FontWeight.bold
-                              ),
-                            ),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                          ),
-                          SizedBox(height: 10,),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: ElevatedButton(onPressed: () async {
-                                  writeReviewAndCloseDialog(userController);
-                                }, child: Text("작성")),
-                              ),
-                              SizedBox(width: 10,),
-                              Expanded(
-                                child: ElevatedButton(onPressed: (){
-                                  Navigator.of(context).pop();
-                                }, child: Text("취소")),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                });
-              }, child: Icon(Icons.edit_outlined, color: dangoingMainColor,), backgroundColor: dangoingPrimaryColor);
-            }
-          ),
+          floatingActionButton:
+              GetBuilder<UserController>(builder: (userController) {
+            return FloatingActionButton(
+                onPressed: () async {
+                  if (userController.myInfo != null) {
+                    Scrollable.ensureVisible(
+                      _widgetKey.currentContext!,
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                      alignment: 0
+                    );
+                  } else {
+
+                  }
+                },
+                child: Icon(
+                  Icons.edit_outlined,
+                  color: dangoingMainColor,
+                ),
+                backgroundColor: dangoingPrimaryColor);
+          }),
         );
       });
     });
@@ -351,13 +331,11 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
   }
 
   Future<void> writeReviewAndCloseDialog(userController) async {
-    await reviewController.setReviewData(docId, userController.myInfo!.uid!, reviewTitle, userController.myInfo!.nickname!, reviewScore, reviewMain);
+    await reviewController.setReviewData(docId, userController.myInfo!.uid!,
+        reviewTitle, userController.myInfo!.nickname!, reviewScore, reviewMain);
     reviewController.getReviewData(docId);
     reviewTitleInputController.clear();
     reviewMainInputController.clear();
-    reviewScoreInputController.clear();
     Navigator.of(context).pop();
   }
-
-
 }

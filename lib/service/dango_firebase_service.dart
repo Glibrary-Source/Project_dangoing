@@ -57,5 +57,4 @@ class DangoFirebaseService {
       throw error;
     }
   }
-
 }
