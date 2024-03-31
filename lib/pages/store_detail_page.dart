@@ -38,7 +38,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
   TextEditingController reviewMainInputController = TextEditingController();
   String reviewTitle = "";
   String reviewMain = "";
-  num reviewScore = 0;
+  num reviewScore = 3.0;
+  bool reviewEditVisible = false;
 
   final GlobalKey _widgetKey = GlobalKey();
 
@@ -245,35 +246,48 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 18),
                       ),
-                      SizedBox(height: 20,),
-                      Container(
-                        width: double.infinity,
-                        key: _widgetKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("  $reviewScore점 ",style: TextStyle(fontFamily: fontStyleManager.getPrimarySecondFont(), fontWeight: FontWeight.bold, color: dangoingMainColor),),
-                              RatingBar.builder(
-                                initialRating: 3,
-                                minRating: 1,
-                                direction: Axis.horizontal,
-                                itemCount: 5,
-                                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                                itemBuilder: (context, _) => Icon(
-                                  Icons.pets,
-                                  color: dangoingMainColor,
-                                ),
-                                onRatingUpdate: (rating) {
-                                  setState(() {
-                                    reviewScore = rating;
-                                  });
-                                },
-                              ),
-
-                            ],
-                          )),
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      reviewEditVisible
+                          ? Container(
+                              width: double.infinity,
+                              key: _widgetKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "  $reviewScore점 ",
+                                    style: TextStyle(
+                                        fontFamily: fontStyleManager
+                                            .getPrimarySecondFont(),
+                                        fontWeight: FontWeight.bold,
+                                        color: dangoingMainColor),
+                                  ),
+                                  RatingBar.builder(
+                                    initialRating: 3,
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    itemCount: 5,
+                                    itemPadding:
+                                        EdgeInsets.symmetric(horizontal: 4.0),
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.pets,
+                                      color: dangoingMainColor,
+                                    ),
+                                    onRatingUpdate: (rating) {
+                                      setState(() {
+                                        reviewScore = rating;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ))
+                          : SizedBox(),
+                      SizedBox(
+                        height: 20,
+                      ),
                       reviewController.storeReviewList.isEmpty
                           ? SizedBox(
                               child: Text("데이터 없음"),
@@ -298,14 +312,12 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
             return FloatingActionButton(
                 onPressed: () async {
                   if (userController.myInfo != null) {
-                    Scrollable.ensureVisible(
-                      _widgetKey.currentContext!,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                      alignment: 0
-                    );
+                    Scrollable.ensureVisible(_widgetKey.currentContext!,
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        alignment: 0);
+                    reviewEditVisible = true;
                   } else {
-
                   }
                 },
                 child: Icon(
