@@ -1,5 +1,8 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:project_dangoing/theme/colors.dart';
+import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
 import '../vo/reviewVo.dart';
 
@@ -7,23 +10,44 @@ class ReviewListWidget extends StatefulWidget {
   Map<String, ReviewVo> review;
   ReviewListWidget({super.key, required this.review});
 
+  final FontStyleManager fontStyleManager = FontStyleManager();
+
   @override
   State<ReviewListWidget> createState() => _ReviewListWidgetState();
 }
 
 class _ReviewListWidgetState extends State<ReviewListWidget> {
+
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
+      padding: EdgeInsets.all(10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.review.values.first.review_title!),
-          Text(widget.review.values.first.review_nickname!),
-          Text("${widget.review.values.first.review_score!}"),
-          Text("${widget.review.values.first.review_time!}"),
-          Text(widget.review.values.first.review_main!)
+          Row(
+            children: [
+              Expanded(child: Text("${widget.review.values.first.review_nickname!} 님", style: TextStyle(fontFamily: widget.fontStyleManager.getPrimaryFont(), fontSize: 18, color: dangoingMainColor))),
+              Expanded(child: Text("평가: ${widget.review.values.first.review_score!} 점", style: TextStyle(fontFamily: widget.fontStyleManager.getPrimarySecondFont(), fontWeight: FontWeight.bold),textAlign: TextAlign.end,)),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(timeStampToDate(widget.review.values.first.review_time!)),
+            ],
+          ),
+          SizedBox(height: 10,),
+          Text(widget.review.values.first.review_main!),
+          SizedBox(height: 40,)
         ],
       ),
     );
+  }
+
+  String timeStampToDate(Timestamp timestamp) {
+    final dateTime = timestamp.toDate();
+    final formattedDate = "${dateTime.year}년 ${dateTime.month}월 ${dateTime.day}일";
+    return formattedDate;
   }
 }

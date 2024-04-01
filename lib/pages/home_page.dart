@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(" 내 주변 여행지 찾기",
+                            Text(" 🚗 내 주변 여행지 찾기",
                                 style: TextStyle(
                                     fontSize: 22,
                                     fontFamily:

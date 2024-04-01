@@ -26,7 +26,6 @@ class UserReviewModel {
               review_nickname: value["review_nickname"],
               review_score: value["review_score"],
               review_time: value["review_time"],
-              review_title: value["review_title"]
           )
         };
         reviewList!.add(temp);

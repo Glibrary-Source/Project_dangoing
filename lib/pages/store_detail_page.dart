@@ -34,9 +34,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
 
   TextManager textManager = TextManager();
 
-  TextEditingController reviewTitleInputController = TextEditingController();
   TextEditingController reviewMainInputController = TextEditingController();
-  String reviewTitle = "";
   String reviewMain = "";
   num reviewScore = 3.0;
   bool reviewEditVisible = false;
@@ -239,23 +237,10 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       SizedBox(
                         height: 40,
                       ),
-                      Text(
-                        "리뷰 보기",
-                        style: TextStyle(
-                            fontFamily: fontStyleManager.getPrimarySecondFont(),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
                       reviewEditVisible
                           ? Container(
                               width: double.infinity,
-                              key: _widgetKey,
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     "  $reviewScore점 ",
@@ -282,25 +267,101 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       });
                                     },
                                   ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                        left: 10, right: 10, bottom: 10),
+                                    decoration: BoxDecoration(
+                                        color: CupertinoColors.systemGrey5,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: TextField(
+                                      controller: reviewMainInputController,
+                                      maxLength: 400,
+                                      maxLines: 10,
+                                      decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText:
+                                              "리뷰 작성하기\n업주와 다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.유용한 Tip도 남겨주세요!",
+                                          hintStyle: TextStyle(
+                                              fontFamily: fontStyleManager
+                                                  .getPrimarySecondFont(),
+                                              color: CupertinoColors.systemGrey,
+                                              fontWeight: FontWeight.bold)),
+                                      onChanged: (value) {
+                                        reviewMain = value;
+                                        if (value.contains('\n')) {
+                                          final lines = value.split("\n");
+                                          if (lines.length > 10) {
+                                            reviewMainInputController.text =
+                                                lines.sublist(0, 10).join('\n');
+                                          }
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      GetBuilder<UserController>(
+                                          builder: (userController) {
+                                        return ElevatedButton(
+                                            onPressed: () {
+                                              editReview(userController);
+                                            },
+                                            child: Text('리뷰 작성'));
+                                      }),
+                                    ],
+                                  )
                                 ],
                               ))
                           : SizedBox(),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
-                      reviewController.storeReviewList.isEmpty
-                          ? SizedBox(
-                              child: Text("데이터 없음"),
-                            )
-                          : ListView.builder(
-                              shrinkWrap: true,
-                              itemCount:
-                                  reviewController.storeReviewList.length,
-                              itemBuilder: (context, index) {
-                                return ReviewListWidget(
-                                    review: reviewController
-                                        .storeReviewList[index]);
-                              }),
+                      Container(
+                        key: _widgetKey,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: CupertinoColors.systemGrey2, width: 1),
+                            borderRadius: BorderRadius.all(Radius.circular(8))),
+                        child: ExpansionTile(
+                            title: Row(
+                              children: [
+                                Icon(Icons.reviews_outlined),
+                                Text(
+                                  " 리뷰 보기",
+                                  style: TextStyle(
+                                      fontFamily:
+                                          fontStyleManager.getPrimaryFont(),
+                                      height: 1),
+                                ),
+                              ],
+                            ),
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(
+                                    left: 12, right: 12, bottom: 8),
+                                child: reviewController.storeReviewList.isEmpty
+                                    ? Container(
+                                      height: 200,
+                                        child: Center(child: Text("첫 리뷰를 남겨주세요!", style: TextStyle(fontFamily: fontStyleManager.getPrimaryFont(), fontSize: 22),)))
+                                    : ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: reviewController
+                                            .storeReviewList.length,
+                                        itemBuilder: (context, index) {
+                                          return ReviewListWidget(
+                                              review: reviewController
+                                                  .storeReviewList[index]);
+                                        }),
+                              )
+                            ]),
+                      ),
                     ],
                   ),
                 )
@@ -316,8 +377,13 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         duration: Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
                         alignment: 0);
-                    reviewEditVisible = true;
+                    setState(() {
+                      reviewEditVisible = true;
+                    });
                   } else {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text('로그인을 해주세요')));
                   }
                 },
                 child: Icon(
@@ -342,12 +408,19 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
     }
   }
 
-  Future<void> writeReviewAndCloseDialog(userController) async {
-    await reviewController.setReviewData(docId, userController.myInfo!.uid!,
-        reviewTitle, userController.myInfo!.nickname!, reviewScore, reviewMain);
-    reviewController.getReviewData(docId);
-    reviewTitleInputController.clear();
-    reviewMainInputController.clear();
-    Navigator.of(context).pop();
+  editReview(userController) {
+    if (reviewMain == "") {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("리뷰를 작성해주세요")));
+    } else {
+      reviewController.setReviewData(docId, userController.myInfo!.uid!,
+          userController.myInfo!.nickname!, reviewScore, reviewMain);
+      reviewController.setReviewDataMyPage(docId, userController.myInfo!.uid!,
+          userController.myInfo!.nickname!, reviewScore, reviewMain);
+      reviewMainInputController.clear();
+      setState(() {
+        reviewEditVisible = false;
+      });
+    }
   }
 }
