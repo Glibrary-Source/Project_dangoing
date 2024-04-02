@@ -31,5 +31,4 @@ class ReviewVo {
     return data;
   }
 
-
 }

@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:project_dangoing/model/user_model.dart';
 import 'package:project_dangoing/service/firebase_auth_service.dart';
 import 'package:project_dangoing/vo/user_vo.dart';
 
@@ -9,7 +10,7 @@ class UserController extends GetxController {
 
   final FirebaseAuthService dangoingFirebaseUserService = FirebaseAuthService();
 
-  UserVo? myInfo;
+  UserModel? myModel;
 
   Future<void> googleLogin(BuildContext context) async {
     try{
@@ -26,10 +27,10 @@ class UserController extends GetxController {
     }
   }
 
-  Future<void> getGoogleUserVo() async{
+  Future<void> getGoogleUserModel() async{
     try {
-        myInfo = await dangoingFirebaseUserService.getGoogleUserVo();
-        update();
+      myModel = await dangoingFirebaseUserService.getGoogleUserModel();
+      update();
     } catch(error) {
       throw error;
     }
@@ -37,7 +38,7 @@ class UserController extends GetxController {
 
   Future<void> googleLogout() async{
     try{
-      myInfo = await dangoingFirebaseUserService.googleLogout();
+      myModel = await dangoingFirebaseUserService.googleLogout();
       update();
     } catch(error) {
       throw error;
@@ -47,7 +48,7 @@ class UserController extends GetxController {
   Future<void> userNickNameChange(String nickName) async {
     try{
       await dangoingFirebaseUserService.changeNickName(nickName);
-      getGoogleUserVo();
+      getGoogleUserModel();
     } catch(error) {
       throw error;
     }

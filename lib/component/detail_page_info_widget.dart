@@ -21,10 +21,9 @@ class _DetailPageInfoWidgetState extends State<DetailPageInfoWidget> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        Flexible(child: Container(
             margin: EdgeInsets.only(bottom: 4),
-            child: Text(widget.info, style: TextStyle(fontFamily: fontStyleManager.getPrimarySecondFont()),)
-        ),
+            child: Text(widget.info, style: TextStyle(fontFamily: fontStyleManager.getPrimarySecondFont()),))),
       ],
     );
   }

@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project_dangoing/controller/user_controller.dart';
 import 'package:project_dangoing/data/random_nick_name_data.dart';
+import 'package:project_dangoing/model/user_model.dart';
 import 'package:project_dangoing/service/dango_firebase_service.dart';
 import 'package:project_dangoing/vo/user_vo.dart';
 
@@ -59,12 +60,12 @@ class FirebaseAuthService {
     // 이미 db에 있는지 확인 이 절차가 없으면 로그인 할 때마다 기존데이터가 변경됨
     DocumentSnapshot querySnapshot = await userCollection.doc(userUid).get();
     if(querySnapshot.exists) {
-      await userController.getGoogleUserVo();
+      await userController.getGoogleUserModel();
       return;
     }
 
     await userCollection.doc(userUid).set(userVo.toMap()).then((value) {
-      userController.getGoogleUserVo();
+      userController.getGoogleUserModel();
     });
   }
 
@@ -89,7 +90,22 @@ class FirebaseAuthService {
     }
   }
 
-  Future<UserVo?> googleLogout() async {
+  Future<UserModel?> getGoogleUserModel() async {
+    try {
+      if(auth.currentUser != null) {
+        String? userUid = auth.currentUser?.uid;
+
+        DocumentSnapshot documentSnapshot = await userCollection.doc(userUid).get();
+        return UserModel.fromDocumentSnapShot(documentSnapshot);
+      } else {
+        return null;
+      }
+    } catch(error) {
+      throw error;
+    }
+  }
+
+  Future<UserModel?> googleLogout() async {
     try{
       GoogleSignIn().signOut();
       auth.signOut();
