@@ -75,21 +75,6 @@ class FirebaseAuthService {
     );
   }
 
-  Future<UserVo?> getGoogleUserVo() async {
-    try {
-      if(auth.currentUser != null) {
-        String? userUid = auth.currentUser?.uid;
-
-        DocumentSnapshot documentSnapshot = await userCollection.doc(userUid).get();
-        return UserVo.fromDocumentSnapshot(documentSnapshot);
-      } else {
-        return null;
-      }
-    } catch(error) {
-      throw error;
-    }
-  }
-
   Future<UserModel?> getGoogleUserModel() async {
     try {
       if(auth.currentUser != null) {

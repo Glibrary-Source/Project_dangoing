@@ -22,18 +22,18 @@ class ReviewController extends GetxController {
     }
   }
 
-  Future<void> setReviewData(String docId, String uid, String nickname, num score, String main) async {
+  Future<void> setReviewData(String docId, String uid, String nickname, num score, String main, String storeName) async {
     try {
-      await dangoingFirebaseUserService.setUserReview(docId, uid,nickname, score, main);
+      await dangoingFirebaseUserService.setUserReview(docId, uid,nickname, score, main, storeName);
       getReviewData(docId);
     } catch (error) {
       throw Exception(error);
     }
   }
 
-  Future<void> setReviewDataMyPage(String docId, String uid, String nickname, num score, String main) async {
+  Future<void> setReviewDataMyPage(String docId, String uid, String nickname, num score, String main, String storeName) async {
     try {
-      await dangoingFirebaseUserService.setUserReviewMyPage(docId, uid,nickname, score, main);
+      await dangoingFirebaseUserService.setUserReviewMyPage(docId, uid,nickname, score, main, storeName);
     } catch (error) {
       throw Exception(error);
     }

@@ -3,12 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/model/user_model.dart';
+import 'package:project_dangoing/service/dango_firebase_service.dart';
 import 'package:project_dangoing/service/firebase_auth_service.dart';
-import 'package:project_dangoing/vo/user_vo.dart';
 
 class UserController extends GetxController {
 
   final FirebaseAuthService dangoingFirebaseUserService = FirebaseAuthService();
+  final DangoFirebaseService dangoingFirebaseService = DangoFirebaseService();
 
   UserModel? myModel;
 
@@ -31,6 +32,16 @@ class UserController extends GetxController {
     try {
       myModel = await dangoingFirebaseUserService.getGoogleUserModel();
       update();
+    } catch(error) {
+      throw error;
+    }
+  }
+
+  Future<void> deleteReview(String docId, String uid) async {
+    try {
+      await dangoingFirebaseService.deleteReview(docId, uid);
+      await dangoingFirebaseService.deleteUserReview(docId, uid);
+      getGoogleUserModel();
     } catch(error) {
       throw error;
     }

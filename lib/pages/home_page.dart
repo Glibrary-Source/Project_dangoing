@@ -255,7 +255,6 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (context, index) {
                             return CategoryStoreListWidget(
                                 index: index,
-                                controller: controller,
                                 categoryListData: categoryListMap);
                           }),
                     ),

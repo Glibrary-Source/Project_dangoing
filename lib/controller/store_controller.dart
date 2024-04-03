@@ -78,8 +78,8 @@ class StoreController extends GetxController {
   Future<void> getStoreAndRandomListSplash(String local,BuildContext context) async {
     try {
       await getInitStoreList(local);
-      await getHomeRandomStoreList();
-      await getHomeRandomCafeList();
+      getHomeRandomStoreList();
+      getHomeRandomCafeList();
     } catch (error) {
       if(context.mounted) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();

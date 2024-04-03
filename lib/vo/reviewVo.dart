@@ -7,12 +7,14 @@ class ReviewVo {
   String? review_nickname;
   num? review_score;
   Timestamp? review_time;
+  String? store_name;
 
   ReviewVo({
     this.review_main,
     this.review_nickname,
     this.review_score,
     this.review_time,
+    this.store_name
   });
 
   ReviewVo.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
@@ -20,6 +22,7 @@ class ReviewVo {
     review_nickname = documentSnapshot['review_nickname'];
     review_score = documentSnapshot['review_score'];
     review_time = documentSnapshot['review_time'];
+    store_name = documentSnapshot['store_name'];
   }
 
   Map<String, dynamic> toMap() {
@@ -28,6 +31,7 @@ class ReviewVo {
     data['review_nickname'] = review_nickname??"";
     data['review_score'] = review_score??"";
     data['review_time'] = review_time??false;
+    data['store_name'] = store_name??"";
     return data;
   }
 

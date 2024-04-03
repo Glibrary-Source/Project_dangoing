@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
-import 'package:project_dangoing/data/category_list_data.dart';
 import 'package:project_dangoing/pages/store_list_page.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
 class CategoryStoreListWidget extends StatefulWidget {
-  final index;
-  StoreController controller;
-  Map<String, String> categoryListData;
+  final int index;
+  final Map<String, String> categoryListData;
 
-  CategoryStoreListWidget({super.key, required this.index, required this.controller,required this.categoryListData});
+  const CategoryStoreListWidget({super.key, required this.index,required this.categoryListData});
 
   @override
   State<CategoryStoreListWidget> createState() =>

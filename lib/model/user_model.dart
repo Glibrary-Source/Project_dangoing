@@ -27,14 +27,19 @@ class UserModel {
     uid = data['uid'];
     change_counter = data['change_counter'];
 
-    data['USER_REVIEW'].forEach((reviewId, reviewData) {
-      final review = ReviewVo(
-        review_main: reviewData["review_main"],
-        review_nickname: reviewData["review_nickname"],
-        review_score: reviewData["review_score"],
-        review_time: reviewData["review_time"],
-      );
-      reviewList!.add({reviewId : review});
-    });
+    if(data['USER_REVIEW'] == null) {
+      reviewList = [];
+    } else {
+      data['USER_REVIEW'].forEach((reviewId, reviewData) {
+        final review = ReviewVo(
+          review_main: reviewData["review_main"],
+          review_nickname: reviewData["review_nickname"],
+          review_score: reviewData["review_score"],
+          review_time: reviewData["review_time"],
+          store_name: reviewData["store_name"]
+        );
+        reviewList!.add({reviewId : review});
+      });
+    }
   }
 }

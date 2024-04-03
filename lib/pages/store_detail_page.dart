@@ -173,9 +173,11 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: data.HMPG_URL == "" ? null :() {
-                                launchHomeLink(data.HMPG_URL ?? "");
-                              },
+                              onPressed: data.HMPG_URL == ""
+                                  ? null
+                                  : () {
+                                      launchHomeLink(data.HMPG_URL ?? "");
+                                    },
                               style: ButtonStyle(
                                 backgroundColor: data.HMPG_URL == ""
                                     ? MaterialStateProperty.all(Colors.grey)
@@ -183,23 +185,22 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                               ),
                               child: data.HMPG_URL == ""
                                   ? Text(
-                                "홈페이지 없음",
-                                style: TextStyle(
-                                    fontFamily: fontStyleManager
-                                        .getPrimarySecondFont(),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
-                              )
+                                      "홈페이지 없음",
+                                      style: TextStyle(
+                                          fontFamily: fontStyleManager
+                                              .getPrimarySecondFont(),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    )
                                   : Text(
-                                "공식 홈페이지로 이동",
-                                style: TextStyle(
-                                    fontFamily: fontStyleManager
-                                        .getPrimarySecondFont(),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    color: Colors.lightBlue
-                                ),
-                              ),
+                                      "공식 홈페이지로 이동",
+                                      style: TextStyle(
+                                          fontFamily: fontStyleManager
+                                              .getPrimarySecondFont(),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                          color: Colors.lightBlue),
+                                    ),
                             ),
                           ),
                         ],
@@ -229,11 +230,12 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             children: [
                               Container(
                                   padding: EdgeInsets.only(
-                                                                                                                 left: 12, right: 12, bottom: 8),
+                                      left: 12, right: 12, bottom: 8),
                                   child: ListView.builder(
                                       padding: EdgeInsets.zero,
                                       itemCount: infoList.length,
-                                      physics: const NeverScrollableScrollPhysics(),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
                                       itemBuilder: (context, index) {
                                         return DetailPageInfoWidget(
@@ -245,7 +247,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         height: 5,
                       ),
                       SizedBox(
-                        height: reviewEditVisible ? null :0,
+                        height: reviewEditVisible ? null : 0,
                         child: AnimatedOpacity(
                             opacity: reviewEditVisible ? 1.0 : 0.0,
                             duration: Duration(milliseconds: 500),
@@ -270,49 +272,90 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                           ),
                                         ),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
                                           children: [
                                             GetBuilder<UserController>(
                                                 builder: (userController) {
-                                                  return IconButton(onPressed: () {
-                                                    if (reviewMain == "") {
-                                                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("리뷰를 작성해주세요")));
-                                                    } else {
-                                                      showDialog(
-                                                          context: context,
-                                                          barrierDismissible: true,
-                                                          builder: ((context) {
-                                                            return AlertDialog(
-                                                              title: Text("리뷰 작성", style: TextStyle(fontFamily: fontStyleManager.getPrimarySecondFont(), fontWeight: FontWeight.bold),),
-                                                              content: Text("후기를 남기시겠습니까?", style: TextStyle(fontFamily: fontStyleManager.getPrimarySecondFont())),
-                                                              actions: <Widget>[
-                                                                Container(
-                                                                  child: ElevatedButton(
-                                                                      onPressed: (){
-                                                                        editReview(userController);
-                                                                        Navigator.of(context).pop();
-                                                                      },
-                                                                      child: Text("네", style: TextStyle(fontFamily: fontStyleManager.getPrimarySecondFont(), fontWeight: FontWeight.bold),)),
-                                                                ),
-                                                                Container(
-                                                                  child: ElevatedButton(
-                                                                      onPressed: (){
-                                                                        Navigator.of(context).pop();
-                                                                      },
-                                                                      child: Text("아니오", style: TextStyle(fontFamily: fontStyleManager.getPrimarySecondFont(), fontWeight: FontWeight.bold),)),
-                                                                )
-                                                              ],
-                                                            );
-                                                          })
-                                                      );
-                                                    }
-                                                  },
-                                                    icon: Icon(Icons.edit),
-                                                    iconSize: 30,
-                                                    color: dangoingMainColor,
-                                                  );
-                                                }),
+                                              return IconButton(
+                                                onPressed: () {
+                                                  if (reviewMain == "") {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .hideCurrentSnackBar();
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(SnackBar(
+                                                            content: Text(
+                                                                "리뷰를 작성해주세요")));
+                                                  } else {
+                                                    showDialog(
+                                                        context: context,
+                                                        barrierDismissible:
+                                                            true,
+                                                        builder: ((context) {
+                                                          return AlertDialog(
+                                                            title: Text(
+                                                              "리뷰 작성",
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      fontStyleManager
+                                                                          .getPrimarySecondFont(),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                            content: Text(
+                                                                "후기를 남기시겠습니까?",
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        fontStyleManager
+                                                                            .getPrimarySecondFont())),
+                                                            actions: <Widget>[
+                                                              Container(
+                                                                child:
+                                                                    ElevatedButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          editReview(
+                                                                              userController);
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        },
+                                                                        child:
+                                                                            Text(
+                                                                          "네",
+                                                                          style: TextStyle(
+                                                                              fontFamily: fontStyleManager.getPrimarySecondFont(),
+                                                                              fontWeight: FontWeight.bold),
+                                                                        )),
+                                                              ),
+                                                              Container(
+                                                                child:
+                                                                    ElevatedButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        },
+                                                                        child:
+                                                                            Text(
+                                                                         "아니오",
+                                                                          style: TextStyle(
+                                                                              fontFamily: fontStyleManager.getPrimarySecondFont(),
+                                                                              fontWeight: FontWeight.bold),
+                                                                        )),
+                                                              )
+                                                            ],
+                                                          );
+                                                        }));
+                                                  }
+                                                },
+                                                icon: Icon(Icons.edit),
+                                                iconSize: 30,
+                                                color: dangoingMainColor,
+                                              );
+                                            }),
                                           ],
                                         )
                                       ],
@@ -331,7 +374,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       direction: Axis.horizontal,
                                       itemCount: 5,
                                       itemPadding:
-                                      EdgeInsets.symmetric(horizontal: 4.0),
+                                          EdgeInsets.symmetric(horizontal: 4.0),
                                       itemBuilder: (context, _) => Icon(
                                         Icons.pets,
                                         color: dangoingMainColor,
@@ -342,14 +385,16 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                         });
                                       },
                                     ),
-                                    SizedBox(height: 10,),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
                                     Container(
                                       padding: EdgeInsets.only(
                                           left: 10, right: 10, bottom: 10),
                                       decoration: BoxDecoration(
                                           color: CupertinoColors.systemGrey5,
                                           borderRadius:
-                                          BorderRadius.circular(10)),
+                                              BorderRadius.circular(10)),
                                       child: TextField(
                                         controller: reviewMainInputController,
                                         maxLength: 400,
@@ -357,11 +402,12 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                         decoration: InputDecoration(
                                             border: InputBorder.none,
                                             hintText:
-                                            "리뷰 작성하기\n업주와 다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.유용한 Tip도 남겨주세요!",
+                                                "리뷰 작성하기\n업주와 다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.유용한 Tip도 남겨주세요!",
                                             hintStyle: TextStyle(
                                                 fontFamily: fontStyleManager
                                                     .getPrimarySecondFont(),
-                                                color: CupertinoColors.systemGrey,
+                                                color:
+                                                    CupertinoColors.systemGrey,
                                                 fontWeight: FontWeight.bold)),
                                         onChanged: (value) {
                                           reviewMain = value;
@@ -369,7 +415,9 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                             final lines = value.split("\n");
                                             if (lines.length > 10) {
                                               reviewMainInputController.text =
-                                                  lines.sublist(0, 10).join('\n');
+                                                  lines
+                                                      .sublist(0, 10)
+                                                      .join('\n');
                                             }
                                           }
                                         },
@@ -379,8 +427,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       height: 10,
                                     ),
                                   ],
-                                ))
-                        ),
+                                ))),
                       ),
                       SizedBox(
                         height: 10,
@@ -394,9 +441,10 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         child: ExpansionTile(
                             shape: Border(),
                             onExpansionChanged: (value) async {
-                              Future.delayed(Duration(milliseconds: 300), (){
-                                if(value) {
-                                  Scrollable.ensureVisible(_widgetKey.currentContext!,
+                              Future.delayed(Duration(milliseconds: 300), () {
+                                if (value) {
+                                  Scrollable.ensureVisible(
+                                      _widgetKey.currentContext!,
                                       duration: Duration(milliseconds: 300),
                                       curve: Curves.easeInOut,
                                       alignment: 0);
@@ -421,19 +469,28 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                     left: 12, right: 12, bottom: 8),
                                 child: reviewController.storeReviewList.isEmpty
                                     ? Container(
-                                      height: 200,
-                                        child: Center(child: Text("첫 리뷰를 남겨주세요!", style: TextStyle(fontFamily: fontStyleManager.getPrimaryFont(), fontSize: 22),)))
+                                        height: 200,
+                                        child: Center(
+                                            child: Text(
+                                          "첫 리뷰를 남겨주세요!",
+                                          style: TextStyle(
+                                              fontFamily: fontStyleManager
+                                                  .getPrimaryFont(),
+                                              fontSize: 22),
+                                        )))
                                     : SizedBox(
-                                  height: MediaQuery.sizeOf(context).height*0.8,
-                                      child: ListView.builder(
-                                          itemCount: reviewController
-                                              .storeReviewList.length,
-                                          itemBuilder: (context, index) {
-                                            return ReviewListWidget(
-                                                review: reviewController
-                                                    .storeReviewList[index]);
-                                          }),
-                                    ),
+                                        height:
+                                            MediaQuery.sizeOf(context).height *
+                                                0.8,
+                                        child: ListView.builder(
+                                            itemCount: reviewController
+                                                .storeReviewList.length,
+                                            itemBuilder: (context, index) {
+                                              return ReviewListWidget(
+                                                  review: reviewController
+                                                      .storeReviewList[index]);
+                                            }),
+                                      ),
                               )
                             ]),
                       ),
@@ -452,7 +509,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                     setState(() {
                       reviewEditVisible = !reviewEditVisible;
                     });
-                    Future.delayed(Duration(milliseconds: 300), (){
+                    Future.delayed(Duration(milliseconds: 300), () {
                       Scrollable.ensureVisible(_reviewKey.currentContext!,
                           duration: Duration(milliseconds: 300),
                           curve: Curves.easeInOut,
@@ -486,21 +543,17 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
     }
   }
 
-  editReview(userController) {
-      // reviewController.setReviewData(docId, userController.myInfo!.uid!,
-      //     userController.myInfo!.nickname!, reviewScore, reviewMain);
-      // reviewController.setReviewDataMyPage(docId, userController.myInfo!.uid!,
-      //     userController.myInfo!.nickname!, reviewScore, reviewMain);
-        reviewController.setReviewData(docId, userController.myModel!.uid!,
-            userController.myModel!.nickname!, reviewScore, reviewMain);
-        reviewController.setReviewDataMyPage(docId, userController.myModel!.uid!,
-            userController.myModel!.nickname!, reviewScore, reviewMain);
-      reviewMainInputController.clear();
-      setState(() {
-        reviewEditVisible = false;
-      });
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("리뷰가 작성되었습니다.")));
-
+  editReview(UserController userController) {
+    reviewController.setReviewData(docId, userController.myModel!.uid!,
+        userController.myModel!.nickname!, reviewScore, reviewMain, data.FCLTY_NM??"");
+    reviewController.setReviewDataMyPage(docId, userController.myModel!.uid!,
+        userController.myModel!.nickname!, reviewScore, reviewMain, data.FCLTY_NM??"");
+    reviewMainInputController.clear();
+    setState(() {
+      reviewEditVisible = false;
+    });
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("리뷰가 작성되었습니다.")));
   }
 }

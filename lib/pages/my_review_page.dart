@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_dangoing/component/my_review_list_widget.dart';
 import 'package:project_dangoing/controller/user_controller.dart';
-import 'package:project_dangoing/model/user_model.dart';
 import 'package:project_dangoing/service/firebase_auth_service.dart';
+import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
-import '../vo/reviewVo.dart';
 
 class MyReviewPage extends StatefulWidget {
   const MyReviewPage({super.key});
@@ -15,23 +15,47 @@ class MyReviewPage extends StatefulWidget {
 
 class _MyReviewPageState extends State<MyReviewPage> {
   FirebaseAuthService firebaseAuthService = FirebaseAuthService();
+  FontStyleManager fontStyleManager = FontStyleManager();
+  UserController userController = Get.find();
+
+  @override
+  void initState() {
+    userController.getGoogleUserModel();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GetBuilder<UserController>(
+    return GetBuilder<UserController>(
         builder: (userController) {
-          return ElevatedButton(onPressed: () async {
-            userController.getGoogleUserModel();
-            Future.delayed(Duration(seconds: 3), (){
-              for(final doc in userController.myModel!.reviewList!) {
-                print(doc.keys.first);
-                print(doc.values.first.review_main);
-              }
-            });
-          }, child: Text("테스트입니다"));
+          return Scaffold(
+              body: Column(
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    height: MediaQuery
+                        .sizeOf(context)
+                        .height * 0.1,
+                    child: Center(child: Text("작성한 리뷰", style: TextStyle(
+                        fontFamily: fontStyleManager.getPrimaryFont(),
+                        fontSize: 22),)),
+                  ),
+                  SizedBox(
+                    height: MediaQuery
+                        .sizeOf(context)
+                        .height * 0.9,
+                    child: userController.myModel?.reviewList!.isEmpty??false
+                    ? Center(child: Text("작성한 리뷰 없음", style: TextStyle(fontFamily: fontStyleManager.getPrimarySecondFont(), fontWeight: FontWeight.bold, fontSize: 22),))
+                    : ListView.builder(
+                        itemCount: userController.myModel?.reviewList?.length,
+                        itemBuilder: (context, index) {
+                          return MyReviewListWidget(review: userController.myModel!.reviewList![index], myModel: userController.myModel!,);
+                        }),
+                  )
+                ],
+              )
+          );
         }
-      ),
     );
   }
 }
