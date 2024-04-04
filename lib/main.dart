@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
+import 'package:project_dangoing/controller/location_controller.dart';
 import 'package:project_dangoing/controller/review_controller.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/controller/user_controller.dart';
@@ -28,6 +30,13 @@ void main() async {
   Get.put(StoreController());
   Get.put(UserController());
   Get.put(ReviewController());
+  Get.put(LocationController());
+
+  // naver map
+  await NaverMapSdk.instance.initialize(clientId: "7aqsstdyto",onAuthFailed: (ex){
+    print("***********네이버맵 인증오류 : $ex ***********");
+  });
+
   runApp(const MyApp());
 }
 

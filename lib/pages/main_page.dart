@@ -1,13 +1,14 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_dangoing/controller/location_controller.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/pages/home_page.dart';
 import 'package:project_dangoing/pages/map_page.dart';
 import 'package:project_dangoing/pages/my_page.dart';
 import 'package:project_dangoing/theme/colors.dart';
-
-import '../global/share_preference.dart';
+import 'package:project_dangoing/utils/permission_manager.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -18,6 +19,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
+  LocationController locationController = Get.find();
+
   // 바텀 네비게이션 바 인덱스
   int _selectedIndex = 0;
   StoreController storeController = Get.find();
@@ -26,6 +29,11 @@ class _MainPageState extends State<MainPage>
 
   @override
   void initState() {
+    // 위치정보 불러오는 코드
+    PermissionManager permissionManager = PermissionManager(locationController: locationController);
+    permissionManager.locationPermission();
+    locationController.getLocation();
+
     super.initState();
   }
 
