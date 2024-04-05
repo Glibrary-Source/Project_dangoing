@@ -49,6 +49,7 @@ class _MyPageState extends State<MyPage> {
         if (lastPopTime == null ||
             now.difference(lastPopTime) > Duration(seconds: 2)) {
           lastPopTime = now;
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('뒤로 버튼을 한 번 더 누르면 앱이 종료됩니다.'),
@@ -63,7 +64,6 @@ class _MyPageState extends State<MyPage> {
       child: GetBuilder<UserController>(builder: (userController) {
         return Scaffold(
           body: SingleChildScrollView(
-            // child: userController.myInfo != null
             child: userController.myModel != null
                 ? Container(
                     height: MediaQuery.sizeOf(context).height*0.92,
@@ -102,7 +102,6 @@ class _MyPageState extends State<MyPage> {
                           Container(
                             margin: EdgeInsets.only(bottom: 8),
                             child: Text(
-                              // "Email: ${userController.myInfo?.email}",
                               "Email: ${userController.myModel?.email}",
                               style: TextStyle(
                                   fontSize: 18,
@@ -117,7 +116,6 @@ class _MyPageState extends State<MyPage> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 8, top: 4),
                                 child: Text(
-                                  // "닉네임: ${userController.myInfo?.nickname}",
                                   "닉네임: ${userController.myModel?.nickname}",
                                   style: TextStyle(
                                       fontSize: 18,
@@ -177,11 +175,6 @@ class _MyPageState extends State<MyPage> {
                                                     content: Text(
                                                         '닉네임을 바르게 작성해주세요')));
                                           } else {
-                                            // if (userController.myInfo!.change_counter!) {
-                                            //   ScaffoldMessenger.of(context)
-                                            //       .showSnackBar(SnackBar(
-                                            //           content: Text(
-                                            //               '닉네임을 이미 변경하신 회원입니다.')));
                                             if (userController.myModel!.change_counter!) {
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(SnackBar(

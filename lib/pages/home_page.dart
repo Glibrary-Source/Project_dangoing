@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
         final now = DateTime.now();
         if (lastPopTime == null || now.difference(lastPopTime) > Duration(seconds: 2)) {
           lastPopTime = now;
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('뒤로 버튼을 한 번 더 누르면 앱이 종료됩니다.'),

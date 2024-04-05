@@ -19,7 +19,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
-  LocationController locationController = Get.find();
 
   // 바텀 네비게이션 바 인덱스
   int _selectedIndex = 0;
@@ -30,9 +29,8 @@ class _MainPageState extends State<MainPage>
   @override
   void initState() {
     // 위치정보 불러오는 코드
-    PermissionManager permissionManager = PermissionManager(locationController: locationController);
+    PermissionManager permissionManager = PermissionManager();
     permissionManager.locationPermission();
-    locationController.getLocation();
 
     super.initState();
   }

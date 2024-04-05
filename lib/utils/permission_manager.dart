@@ -5,13 +5,10 @@ import 'package:project_dangoing/controller/location_controller.dart';
 
 class PermissionManager {
 
-  LocationController? locationController;
-
-  PermissionManager({required this.locationController});
-
   void locationPermission() async {
     var requestStatus = await Permission.location.request();
     var status = await Permission.location.status;
+
     if (requestStatus.isGranted && status.isLimited) {
       // isLimited - 제한적 동의 (ios 14< )
 
@@ -19,7 +16,6 @@ class PermissionManager {
       if(await Permission.locationWhenInUse.serviceStatus.isEnabled) {
         // 요청 동의 + gps 켜짐
         print("권한 허가됨");
-        locationController!.getLocation();
       } else {
         print("serviceStatusIsDisabled");
       }
