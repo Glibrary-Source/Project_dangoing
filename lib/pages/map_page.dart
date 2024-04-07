@@ -88,12 +88,7 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
-
-
   void addStoreMarker() async {
-    final marker = NMarker(id: 'test',position: NLatLng(37.506932467450326, 127.05578661133796));
-    naverMapController?.addOverlay(marker);
-
     List<NAddableOverlay> overlay = [];
 
     final iconImage = NOverlayImage.fromAssetImage("assets/icons/icon_map_cafe.png");
