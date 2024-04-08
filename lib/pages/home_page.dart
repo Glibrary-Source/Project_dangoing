@@ -11,6 +11,7 @@ import 'package:project_dangoing/data/local_list_data.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
 import '../global/share_preference.dart';
+import '../utils/map_status_manager.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,8 +24,8 @@ class _HomePageState extends State<HomePage> {
   StoreController storeController = Get.find();
   CategoryListData categoryListData = CategoryListData();
   FontStyleManager fontStyleManager = FontStyleManager();
-  Map<String, String> categoryListMap = CategoryListData().getCategoryMap();
-  List<String> dropDownList = LocalListData().getLocalList();
+  CategoryListData categoryListMap = CategoryListData();
+  LocalListData localListData = LocalListData();
   String local = prefs.getString("local") ?? "서울특별시";
   var lastPopTime;
 
@@ -92,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                             "반려동물과 여행할\n장소를 찾아보세요",
                             style: TextStyle(
                                 fontSize: 36,
-                                fontFamily: fontStyleManager.getPrimaryFont(),
+                                fontFamily: fontStyleManager.primaryFont,
                                 color: Colors.white),
                           )
                         ],
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                       fontSize: 22,
                                       fontFamily:
-                                          fontStyleManager.getPrimarySecondFont(),
+                                          fontStyleManager.primarySecondFont,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black)),
                               Expanded(
@@ -117,8 +118,7 @@ class _HomePageState extends State<HomePage> {
                                   padding: EdgeInsets.only(right: 8),
                                   alignment: Alignment.topRight,
                                   child: DropdownButton(
-                                    items: dropDownList
-                                        .map<DropdownMenuItem<String>>(
+                                    items: localListData.dropDownList.map<DropdownMenuItem<String>>(
                                             (String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                                           value,
                                           style: TextStyle(
                                               fontFamily: fontStyleManager
-                                                  .getPrimarySecondFont()),
+                                                  .primarySecondFont),
                                         ),
                                       );
                                     }).toList(),
@@ -161,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: fontStyleManager
-                                          .getPrimarySecondFont()),
+                                          .primarySecondFont),
                                 ),
                               ),
                             ),
@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                       fontSize: 22,
                                       fontFamily:
-                                          fontStyleManager.getPrimarySecondFont(),
+                                          fontStyleManager.primarySecondFont,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black)),
                             ],
@@ -210,7 +210,7 @@ class _HomePageState extends State<HomePage> {
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: fontStyleManager
-                                          .getPrimarySecondFont()),
+                                          .primarySecondFont),
                                 ),
                               ),
                             ),
@@ -238,7 +238,7 @@ class _HomePageState extends State<HomePage> {
                               style: TextStyle(
                                   fontSize: 22,
                                   fontFamily:
-                                      fontStyleManager.getPrimarySecondFont(),
+                                      fontStyleManager.primarySecondFont,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black)),
                           SizedBox(
@@ -252,11 +252,11 @@ class _HomePageState extends State<HomePage> {
                       height: MediaQuery.sizeOf(context).height * 0.12,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: categoryListMap.length,
+                          itemCount: categoryListMap.categoryMap.length,
                           itemBuilder: (context, index) {
                             return CategoryStoreListWidget(
                                 index: index,
-                                categoryListData: categoryListMap);
+                                categoryListData: categoryListMap.categoryMap);
                           }),
                     ),
                     SizedBox(height: 10,)

@@ -49,7 +49,7 @@ class _CategoryStoreListWidgetState extends State<CategoryStoreListWidget> {
                           ),
                 ),
               )),
-          Text(categoryTitleList[widget.index], style: TextStyle(fontFamily: fontStyleManager.getPrimarySecondFont(),),)
+          Text(categoryTitleList[widget.index], style: TextStyle(fontFamily: fontStyleManager.primarySecondFont,),)
         ],
       ),
     );

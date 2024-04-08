@@ -1,5 +1,10 @@
 
 class LocalListData {
+  static final LocalListData instance = LocalListData._internal();
+  factory LocalListData()=>instance;
+  LocalListData._internal();
+
+
   List<String> dropDownList = [
     "서울특별시",
     "강원도" ,
@@ -19,7 +24,4 @@ class LocalListData {
     "충청남도" ,
     "충청북도"];
 
-  List<String> getLocalList() {
-    return dropDownList;
-  }
 }

@@ -23,7 +23,7 @@ class _DetailPageInfoWidgetState extends State<DetailPageInfoWidget> {
       children: [
         Flexible(child: Container(
             margin: EdgeInsets.only(bottom: 4),
-            child: Text(widget.info, style: TextStyle(fontFamily: fontStyleManager.getPrimarySecondFont()),))),
+            child: Text(widget.info, style: TextStyle(fontFamily: fontStyleManager.primarySecondFont),))),
       ],
     );
   }

@@ -15,7 +15,6 @@ class PermissionManager {
       //요청 동의됨
       if(await Permission.locationWhenInUse.serviceStatus.isEnabled) {
         // 요청 동의 + gps 켜짐
-        print("권한 허가됨");
       } else {
         print("serviceStatusIsDisabled");
       }

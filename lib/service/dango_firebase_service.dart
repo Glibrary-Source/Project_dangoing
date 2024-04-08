@@ -11,6 +11,7 @@ CollectionReference storeReview = fireStore.collection('dangoing_review_db');
 CollectionReference user = fireStore.collection('dangoing_user_db');
 
 class DangoFirebaseService {
+
   Future<StoreListModel> getStoreList(String local) async {
     try {
       QuerySnapshot querySnapshot =

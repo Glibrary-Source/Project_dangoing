@@ -37,7 +37,7 @@ class _MyReviewPageState extends State<MyReviewPage> {
                         .sizeOf(context)
                         .height * 0.1,
                     child: Center(child: Text("작성한 리뷰", style: TextStyle(
-                        fontFamily: fontStyleManager.getPrimaryFont(),
+                        fontFamily: fontStyleManager.primaryFont,
                         fontSize: 22),)),
                   ),
                   SizedBox(
@@ -45,7 +45,7 @@ class _MyReviewPageState extends State<MyReviewPage> {
                         .sizeOf(context)
                         .height * 0.9,
                     child: userController.myModel?.reviewList!.isEmpty??false
-                    ? Center(child: Text("작성한 리뷰 없음", style: TextStyle(fontFamily: fontStyleManager.getPrimarySecondFont(), fontWeight: FontWeight.bold, fontSize: 22),))
+                    ? Center(child: Text("작성한 리뷰 없음", style: TextStyle(fontFamily: fontStyleManager.primarySecondFont, fontWeight: FontWeight.bold, fontSize: 22),))
                     : ListView.builder(
                         itemCount: userController.myModel?.reviewList?.length,
                         itemBuilder: (context, index) {

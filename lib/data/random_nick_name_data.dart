@@ -1,4 +1,5 @@
 class RandomNickNameData {
+
   List<String> nickName = [
     "퍼피",
     "키티",

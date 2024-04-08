@@ -86,7 +86,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       Text(data.FCLTY_NM ?? "없음",
                           style: TextStyle(
                               fontSize: 28,
-                              fontFamily: fontStyleManager.getPrimaryFont())),
+                              fontFamily: fontStyleManager.primaryFont)),
                       SizedBox(
                         height: 10,
                       ),
@@ -106,7 +106,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 22,
                                       fontFamily: fontStyleManager
-                                          .getPrimarySecondFont(),
+                                          .primarySecondFont,
                                       color: CupertinoColors.systemGrey))),
                         ],
                       ),
@@ -125,7 +125,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                         fontSize: 16,
                                         height: 1.2,
                                         fontFamily: fontStyleManager
-                                            .getPrimarySecondFont(),
+                                            .primarySecondFont,
                                         fontWeight: FontWeight.bold,
                                         color: CupertinoColors.systemGrey)),
                                 SizedBox(height: 5),
@@ -134,7 +134,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                         fontSize: 18,
                                         height: 1.2,
                                         fontFamily: fontStyleManager
-                                            .getPrimarySecondFont()))
+                                            .primarySecondFont))
                               ],
                             ),
                           ),
@@ -147,7 +147,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontFamily: fontStyleManager
-                                            .getPrimarySecondFont(),
+                                            .primarySecondFont,
                                         fontWeight: FontWeight.bold,
                                         height: 1.0,
                                         color: CupertinoColors.systemGrey)),
@@ -159,7 +159,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                         fontSize: 18,
                                         height: 1.4,
                                         fontFamily: fontStyleManager
-                                            .getPrimarySecondFont()))
+                                            .primarySecondFont))
                               ],
                             ),
                           )
@@ -188,7 +188,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       "홈페이지 없음",
                                       style: TextStyle(
                                           fontFamily: fontStyleManager
-                                              .getPrimarySecondFont(),
+                                              .primarySecondFont,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18),
                                     )
@@ -196,7 +196,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       "공식 홈페이지로 이동",
                                       style: TextStyle(
                                           fontFamily: fontStyleManager
-                                              .getPrimarySecondFont(),
+                                              .primarySecondFont,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18,
                                           color: Colors.lightBlue),
@@ -223,7 +223,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   " 가게 상세정보",
                                   style: TextStyle(
                                       fontFamily:
-                                          fontStyleManager.getPrimaryFont()),
+                                          fontStyleManager.primaryFont),
                                 ),
                               ],
                             ),
@@ -265,7 +265,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily: fontStyleManager
-                                                  .getPrimaryFont(),
+                                                  .primaryFont,
                                               fontSize: 24,
                                               color: dangoingMainColor,
                                             ),
@@ -300,7 +300,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                                               style: TextStyle(
                                                                   fontFamily:
                                                                       fontStyleManager
-                                                                          .getPrimarySecondFont(),
+                                                                          .primarySecondFont,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold),
@@ -310,7 +310,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         fontStyleManager
-                                                                            .getPrimarySecondFont())),
+                                                                            .primarySecondFont)),
                                                             actions: <Widget>[
                                                               Container(
                                                                 child:
@@ -326,7 +326,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                                                             Text(
                                                                           "네",
                                                                           style: TextStyle(
-                                                                              fontFamily: fontStyleManager.getPrimarySecondFont(),
+                                                                              fontFamily: fontStyleManager.primarySecondFont,
                                                                               fontWeight: FontWeight.bold),
                                                                         )),
                                                               ),
@@ -342,7 +342,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                                                             Text(
                                                                          "아니오",
                                                                           style: TextStyle(
-                                                                              fontFamily: fontStyleManager.getPrimarySecondFont(),
+                                                                              fontFamily: fontStyleManager.primarySecondFont,
                                                                               fontWeight: FontWeight.bold),
                                                                         )),
                                                               )
@@ -364,7 +364,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       "$reviewScore점",
                                       style: TextStyle(
                                           fontFamily: fontStyleManager
-                                              .getPrimarySecondFont(),
+                                              .primarySecondFont,
                                           fontWeight: FontWeight.bold,
                                           color: dangoingMainColor),
                                     ),
@@ -405,7 +405,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                                 "리뷰 작성하기\n업주와 다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.유용한 Tip도 남겨주세요!",
                                             hintStyle: TextStyle(
                                                 fontFamily: fontStyleManager
-                                                    .getPrimarySecondFont(),
+                                                    .primarySecondFont,
                                                 color:
                                                     CupertinoColors.systemGrey,
                                                 fontWeight: FontWeight.bold)),
@@ -458,7 +458,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   " 리뷰 보기",
                                   style: TextStyle(
                                       fontFamily:
-                                          fontStyleManager.getPrimaryFont(),
+                                          fontStyleManager.primaryFont,
                                       height: 1),
                                 ),
                               ],
@@ -475,7 +475,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                           "첫 리뷰를 남겨주세요!",
                                           style: TextStyle(
                                               fontFamily: fontStyleManager
-                                                  .getPrimaryFont(),
+                                                  .primaryFont,
                                               fontSize: 22),
                                         )))
                                     : SizedBox(

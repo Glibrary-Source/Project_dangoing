@@ -45,7 +45,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                     "${widget.StoreVoList[widget.index].CTGRY_THREE_NM}",
                     style: TextStyle(
                         fontSize: 12,
-                        fontFamily: fontStyleManager.getPrimarySecondFont(),
+                        fontFamily: fontStyleManager.primarySecondFont,
                         fontWeight: FontWeight.bold,
                         color: dangoingMainColor,
                         height: 1.2
@@ -81,7 +81,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                           style: TextStyle(
                               height: 1.2,
                               fontSize: 24,
-                              fontFamily: fontStyleManager.getPrimaryFont()),
+                              fontFamily: fontStyleManager.primaryFont),
                         ),
                       ),
                       SizedBox(
@@ -95,7 +95,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                           softWrap: false,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontFamily: fontStyleManager.getPrimarySecondFont(),
+                              fontFamily: fontStyleManager.primarySecondFont,
                               height: 1.2,
                               fontSize: 18),
                           textAlign: TextAlign.left,
@@ -109,7 +109,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                           softWrap: false,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontFamily: fontStyleManager.getPrimarySecondFont(),
+                              fontFamily: fontStyleManager.primarySecondFont,
                               height: 1.2,
                               fontSize: 18),
                           textAlign: TextAlign.left,
@@ -128,7 +128,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                                   textManager.checkParking(widget.StoreVoList[widget.index].PARKNG_POSBL_AT??"N"),
                                   style: TextStyle(
                                       fontSize: 16,
-                                      fontFamily: fontStyleManager.getPrimarySecondFont(),
+                                      fontFamily: fontStyleManager.primarySecondFont,
                                       fontWeight: FontWeight.bold,
                                       color: dangoingChipTextColor
                                   ),
@@ -146,7 +146,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                                   textManager.checkInPlace(widget.StoreVoList[widget.index].IN_PLACE_ACP_POSBL_AT??"N"),
                                   style: TextStyle(
                                       fontSize: 16,
-                                      fontFamily: fontStyleManager.getPrimarySecondFont(),
+                                      fontFamily: fontStyleManager.primarySecondFont,
                                       fontWeight: FontWeight.bold,
                                       color: dangoingChipTextColor
                                   ),
@@ -172,7 +172,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                                   }",
                                   style: TextStyle(
                                       fontSize: 16,
-                                      fontFamily: fontStyleManager.getPrimarySecondFont(),
+                                      fontFamily: fontStyleManager.primarySecondFont,
                                       fontWeight: FontWeight.bold,
                                       color: dangoingChipTextColor
                                   ),

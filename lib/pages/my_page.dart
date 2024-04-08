@@ -12,6 +12,7 @@ import 'package:project_dangoing/service/dango_firebase_service.dart';
 import 'package:project_dangoing/service/firebase_auth_service.dart';
 import 'package:project_dangoing/theme/colors.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
+import 'package:project_dangoing/utils/map_status_manager.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -90,7 +91,7 @@ class _MyPageState extends State<MyPage> {
                                       style: TextStyle(
                                         fontSize: 36,
                                         fontFamily:
-                                            fontStyleManager.getPrimaryFont(),
+                                            fontStyleManager.primaryFont,
                                       ),
                                       textAlign: TextAlign.center,
                                     )
@@ -106,7 +107,7 @@ class _MyPageState extends State<MyPage> {
                               style: TextStyle(
                                   fontSize: 18,
                                   fontFamily:
-                                      fontStyleManager.getPrimarySecondFont(),
+                                      fontStyleManager.primarySecondFont,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -120,7 +121,7 @@ class _MyPageState extends State<MyPage> {
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontFamily: fontStyleManager
-                                          .getPrimarySecondFont(),
+                                          .primarySecondFont,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -244,7 +245,7 @@ class _MyPageState extends State<MyPage> {
                                     style: TextStyle(
                                       fontSize: 36,
                                       fontFamily:
-                                          fontStyleManager.getPrimaryFont(),
+                                          fontStyleManager.primaryFont,
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
@@ -274,7 +275,7 @@ class _MyPageState extends State<MyPage> {
                                   "구글 로그인",
                                   style: TextStyle(
                                       fontFamily:
-                                          fontStyleManager.getPrimarySecondFont(),
+                                          fontStyleManager.primarySecondFont,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black),
                                 ),

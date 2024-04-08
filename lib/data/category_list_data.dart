@@ -1,5 +1,8 @@
 
 class CategoryListData {
+  static final CategoryListData instance = CategoryListData._internal();
+  factory CategoryListData()=>instance;
+  CategoryListData._internal();
 
   Map<String, String> categoryMap = {
     "문예회관" : "assets/images/img_category_item_korea_gate.png",
@@ -13,11 +16,5 @@ class CategoryListData {
     "위탁관리": "assets/images/img_category_item_korea_management.png",
     "펜션": "assets/images/img_category_item_korea_swimming_pool.png"
   };
-
-  Map<String, String> getCategoryMap() {
-    return categoryMap;
-  }
-
-
 
 }

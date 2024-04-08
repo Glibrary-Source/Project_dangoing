@@ -49,7 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             "댕고잉",
                             style: TextStyle(
                               fontSize: 36,
-                              fontFamily: fontStyleManager.getPrimaryFont(),
+                              fontFamily: fontStyleManager.primaryFont,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -78,7 +78,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           hintText: "이메일",
                           hintStyle: TextStyle(
                               fontFamily:
-                              fontStyleManager.getPrimarySecondFont(),
+                              fontStyleManager.primarySecondFont,
                               color: CupertinoColors.systemGrey,
                               fontWeight: FontWeight.bold)),
                       onChanged: (value) {
@@ -100,7 +100,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         hintText: "비밀번호",
                         hintStyle: TextStyle(
-                            fontFamily: fontStyleManager.getPrimarySecondFont(),
+                            fontFamily: fontStyleManager.primarySecondFont,
                             color: CupertinoColors.systemGrey,
                             fontWeight: FontWeight.bold),
                         focusColor: Colors.red,
@@ -124,7 +124,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         hintText: "비밀번호 확인",
                         hintStyle: TextStyle(
-                            fontFamily: fontStyleManager.getPrimarySecondFont(),
+                            fontFamily: fontStyleManager.primarySecondFont,
                             color: CupertinoColors.systemGrey,
                             fontWeight: FontWeight.bold
                         ),
@@ -171,7 +171,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               "회원 가입",
                               style: TextStyle(
                                   fontFamily:
-                                  fontStyleManager.getPrimarySecondFont(),
+                                  fontStyleManager.primarySecondFont,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
@@ -190,34 +190,34 @@ class _SignUpPageState extends State<SignUpPage> {
                             text: "계속 진행하면 댕고잉의 ",
                             style: TextStyle(
                                 fontFamily:
-                                fontStyleManager.getPrimarySecondFont(),
+                                fontStyleManager.primarySecondFont,
                                 color: CupertinoColors.systemGrey),
                             children: [
                               TextSpan(
                                   text: "서비스 약관 ",
                                   style: TextStyle(
                                       fontFamily:
-                                      fontStyleManager.getPrimarySecondFont(),
+                                      fontStyleManager.primarySecondFont,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black)),
                               TextSpan(
                                   text: "및 ",
                                   style: TextStyle(
                                       fontFamily:
-                                      fontStyleManager.getPrimarySecondFont(),
+                                      fontStyleManager.primarySecondFont,
                                       color: CupertinoColors.systemGrey)),
                               TextSpan(
                                   text: "개인정보 보호정책",
                                   style: TextStyle(
                                       fontFamily:
-                                      fontStyleManager.getPrimarySecondFont(),
+                                      fontStyleManager.primarySecondFont,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black)),
                               TextSpan(
                                   text: "에 동의한 것으로 간주됩니다.",
                                   style: TextStyle(
                                       fontFamily:
-                                      fontStyleManager.getPrimarySecondFont(),
+                                      fontStyleManager.primarySecondFont,
                                       color: CupertinoColors.systemGrey)),
                             ]))
                   ],

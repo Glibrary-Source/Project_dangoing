@@ -2,14 +2,10 @@
 import 'dart:ui';
 
 class FontStyleManager {
+  static final FontStyleManager instance = FontStyleManager._internal();
+  factory FontStyleManager()=>instance;
+  FontStyleManager._internal();
 
-  String getPrimaryFont() {
-    return "gamtan_tantan";
-  }
-
-  String getPrimarySecondFont() {
-    return "gamtan_dotum_regular";
-  }
-
-
+  String primaryFont = "gamtan_tantan";
+  String primarySecondFont = "gamtan_dotum_regular";
 }

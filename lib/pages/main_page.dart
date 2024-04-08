@@ -2,13 +2,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_dangoing/controller/location_controller.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/pages/home_page.dart';
 import 'package:project_dangoing/pages/map_page.dart';
 import 'package:project_dangoing/pages/my_page.dart';
 import 'package:project_dangoing/theme/colors.dart';
-import 'package:project_dangoing/utils/permission_manager.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -26,16 +24,7 @@ class _MainPageState extends State<MainPage>
 
   final List<Widget> _navIndex = [HomePage(), MapPage(), MyPage()];
 
-  @override
-  void initState() {
-    // 위치정보 불러오는 코드
-    PermissionManager permissionManager = PermissionManager();
-    permissionManager.locationPermission();
-
-    super.initState();
-  }
-
-  void _onNavTapped(int index) {
+  void _onNavTapped(int index) async {
     setState(() {
       _selectedIndex = index;
     });
