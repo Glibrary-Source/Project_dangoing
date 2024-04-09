@@ -21,14 +21,29 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  ExpansionTileController categoryTileController = ExpansionTileController();
+
   LocationController locationController = Get.find();
   StoreController storeController = Get.find();
   PermissionManager permissionManager = PermissionManager();
   MapStatusManager mapStatusManager = MapStatusManager();
   CategoryListData categoryListData = CategoryListData();
+  bool categoryExtend = false;
 
   var lastPopTime;
   NaverMapController? naverMapController;
+
+  @override
+  void initState() {
+    permissionManager.locationPermission();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    naverMapController!.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +81,8 @@ class _MapPageState extends State<MapPage> {
                   northEast: NLatLng(44.35, 132.0),
                 ),
                 logoAlign: NLogoAlign.rightBottom,
-                logoMargin: EdgeInsets.all(10)),
+                logoMargin: EdgeInsets.all(10),
+                liteModeEnable: true),
             onMapReady: (controller) async {
               naverMapController = controller;
 
@@ -75,12 +91,17 @@ class _MapPageState extends State<MapPage> {
                 mapStatusManager.checkMapFirstLoad();
               }
 
-              addStoreMarker();
+              await MapStatusManager()
+                  .setMarkerList(naverMapController!, storeController, context);
+              MapStatusManager().visibleManager();
             },
             onCameraIdle: () async {
               // 사용자가 보던 위치 저장
               var position = await naverMapController?.getCameraPosition();
               mapStatusManager.currentCameraPosition(position);
+            },
+            onMapTapped: (NPoint point, NLatLng latLng) {
+              categoryTileController.collapse();
             },
           ),
           Positioned(
@@ -96,33 +117,31 @@ class _MapPageState extends State<MapPage> {
                       Icons.location_on,
                       color: dangoingMainColor,
                     ))),
-            bottom: 10,
+            bottom: 20,
             left: 10,
           ),
           Positioned(
-            top: 20,
+            top: MediaQuery.sizeOf(context).height * 0.04,
             left: 10,
             right: 10,
             child: Container(
               decoration: BoxDecoration(
-                  border: Border.all(
-                      color: CupertinoColors.systemGrey2, width: 1),
+                  border:
+                      Border.all(color: CupertinoColors.systemGrey2, width: 1),
                   borderRadius: BorderRadius.all(Radius.circular(8))),
               child: ExpansionTile(
+                controller: categoryTileController,
                 shape: const ContinuousRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
                 collapsedShape: ContinuousRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20))
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
                 title: Text(" 카테고리별로 보기"),
                 backgroundColor: Colors.white,
                 collapsedBackgroundColor: Colors.white,
                 children: [
                   GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 4.0),
+                        crossAxisCount: 2, childAspectRatio: 4.0),
                     padding: EdgeInsets.zero,
                     itemCount: categoryListData.categoryMap.length,
                     shrinkWrap: true,
@@ -143,40 +162,13 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
-  void addStoreMarker() async {
-    for(String category in categoryListData.categoryMap.keys) {
-
-      if(MapCategoryCheckManager().getCheckValue(category)!) {
-        List<NAddableOverlay> overlay = [];
-        var iconImage = MapCategoryCheckManager().getIconImage(category);
-
-        for (var doc in storeController.storeList) {
-          if (doc.CTGRY_THREE_NM == category) {
-            final myLatLng = NLatLng(doc.LC_LA!, doc.LC_LO!);
-            final myLocationMarker =
-            NMarker(id: "${doc.FCLTY_NM}", position: myLatLng, icon: iconImage);
-
-            overlay.add(myLocationMarker);
-          }
-        }
-
-        Set<NAddableOverlay> setOverlay = Set.from(overlay);
-        naverMapController?.addOverlayAll(setOverlay);
-      }
-    }
-
-  }
-
   void myLocationAddMarker(PermissionManager permissionManager) async {
-    permissionManager.locationPermission();
-
     await locationController.getCurrentLocation();
 
     final myLatLng = NLatLng(locationController.locationData?.latitude ?? 0,
         locationController.locationData?.longitude ?? 0);
 
     final position = NCameraUpdate.withParams(target: myLatLng, zoom: 13);
-
     const iconImage = NOverlayImage.fromAssetImage(
         "assets/icons/icon_current_location(50).png");
 

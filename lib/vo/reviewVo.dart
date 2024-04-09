@@ -14,7 +14,7 @@ class ReviewVo {
     this.review_nickname,
     this.review_score,
     this.review_time,
-    this.store_name
+    this.store_name,
   });
 
   ReviewVo.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {

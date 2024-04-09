@@ -35,7 +35,7 @@ class _MyReviewPageState extends State<MyReviewPage> {
                     width: double.infinity,
                     height: MediaQuery
                         .sizeOf(context)
-                        .height * 0.1,
+                        .height * 0.15,
                     child: Center(child: Text("작성한 리뷰", style: TextStyle(
                         fontFamily: fontStyleManager.primaryFont,
                         fontSize: 22),)),
@@ -43,11 +43,12 @@ class _MyReviewPageState extends State<MyReviewPage> {
                   SizedBox(
                     height: MediaQuery
                         .sizeOf(context)
-                        .height * 0.9,
+                        .height * 0.85,
                     child: userController.myModel?.reviewList!.isEmpty??false
                     ? Center(child: Text("작성한 리뷰 없음", style: TextStyle(fontFamily: fontStyleManager.primarySecondFont, fontWeight: FontWeight.bold, fontSize: 22),))
                     : ListView.builder(
                         itemCount: userController.myModel?.reviewList?.length,
+                        padding: EdgeInsets.zero,
                         itemBuilder: (context, index) {
                           return MyReviewListWidget(review: userController.myModel!.reviewList![index], myModel: userController.myModel!,);
                         }),

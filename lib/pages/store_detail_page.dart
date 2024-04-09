@@ -18,7 +18,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class StoreDetailPage extends StatefulWidget {
-  const StoreDetailPage({super.key});
+
+  const StoreDetailPage( {super.key});
 
   @override
   State<StoreDetailPage> createState() => _StoreDetailPageState();
@@ -57,7 +58,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
     }
 
     reviewController.getReviewData(docId);
-
     super.initState();
   }
 

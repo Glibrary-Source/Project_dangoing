@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
 import 'package:project_dangoing/utils/map_category_check_manager.dart';
+import 'package:project_dangoing/utils/map_status_manager.dart';
 
 class MapCategoryWidget extends StatefulWidget {
 
@@ -25,6 +26,9 @@ class _MapCategoryWidgetState extends State<MapCategoryWidget> {
             onChanged: (value) {
               setState(() {
                 MapCategoryCheckManager().setCheckValue(widget.categoryName, value!);
+                for(var marker in MapStatusManager().storeMarkerMap[widget.categoryName]!) {
+                  marker.setIsVisible(value);
+                }
               });
             },
         ),

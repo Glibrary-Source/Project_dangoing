@@ -49,7 +49,7 @@ class DangoFirebaseService {
           "review_score": score,
           "review_main": main,
           "review_time": Timestamp.now(),
-          "store_name": storeName
+          "store_name": storeName,
         }
       };
       await storeReview.doc(docId).set(data, SetOptions(merge: true));
@@ -68,11 +68,11 @@ class DangoFirebaseService {
 
       storeNewMap.remove(uid);
 
-      storeReview.doc(docId).set(
+      storeReview.doc(docId).update(
         {
           "USER_REVIEW": storeNewMap
         }
-      ,SetOptions(merge: true));
+      );
 
     } catch(error) {
       throw error;
@@ -108,7 +108,7 @@ class DangoFirebaseService {
           "review_score": score,
           "review_main": main,
           "review_time": Timestamp.now(),
-          "store_name": storeName
+          "store_name": storeName,
         }
       };
       user.doc(uid).set(data, SetOptions(merge: true));

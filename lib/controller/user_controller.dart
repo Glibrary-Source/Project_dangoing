@@ -39,7 +39,7 @@ class UserController extends GetxController {
 
   Future<void> deleteReview(String docId, String uid) async {
     try {
-      await dangoingFirebaseService.deleteReview(docId, uid);
+      dangoingFirebaseService.deleteReview(docId, uid);
       await dangoingFirebaseService.deleteUserReview(docId, uid);
       getGoogleUserModel();
     } catch(error) {

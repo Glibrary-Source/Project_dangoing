@@ -15,25 +15,29 @@ class ReviewController extends GetxController {
       UserReviewModel userReviewModel =
           await dangoingFirebaseUserService.getUserReview(docId);
       storeReviewList.clear();
-      storeReviewList = userReviewModel.reviewList??[];
+      storeReviewList = userReviewModel.reviewList ?? [];
       update();
     } catch (error) {
       throw Exception(error);
     }
   }
 
-  Future<void> setReviewData(String docId, String uid, String nickname, num score, String main, String storeName) async {
+  Future<void> setReviewData(String docId, String uid, String nickname,
+      num score, String main, String storeName) async {
     try {
-      await dangoingFirebaseUserService.setUserReview(docId, uid,nickname, score, main, storeName);
+      await dangoingFirebaseUserService.setUserReview(
+          docId, uid, nickname, score, main, storeName);
       getReviewData(docId);
     } catch (error) {
       throw Exception(error);
     }
   }
 
-  Future<void> setReviewDataMyPage(String docId, String uid, String nickname, num score, String main, String storeName) async {
+  Future<void> setReviewDataMyPage(String docId, String uid, String nickname,
+      num score, String main, String storeName) async {
     try {
-      await dangoingFirebaseUserService.setUserReviewMyPage(docId, uid,nickname, score, main, storeName);
+      await dangoingFirebaseUserService.setUserReviewMyPage(
+          docId, uid, nickname, score, main, storeName);
     } catch (error) {
       throw Exception(error);
     }

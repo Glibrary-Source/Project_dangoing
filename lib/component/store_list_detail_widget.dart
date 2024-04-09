@@ -26,8 +26,7 @@ class _StoreListDetailWidgetState extends State<StoreListDetailWidget> {
     return GestureDetector(
       onTap: () {
         Get.to(() => StoreDetailPage(),
-            arguments:
-                widget.controller.categoryFilterList[widget.index].DOC_ID);
+            arguments: widget.controller.categoryFilterList[widget.index].DOC_ID);
       },
       child: Container(
         margin: EdgeInsets.only(left: 8, right: 8),
