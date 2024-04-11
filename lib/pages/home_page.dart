@@ -8,6 +8,7 @@ import 'package:project_dangoing/component/recommend_store_list_widget.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/data/category_list_data.dart';
 import 'package:project_dangoing/data/local_list_data.dart';
+import 'package:project_dangoing/theme/colors.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
 import '../global/share_preference.dart';
@@ -42,17 +43,22 @@ class _HomePageState extends State<HomePage> {
       canPop: false,
       onPopInvoked: (bool didPop) {
         final now = DateTime.now();
-        if (lastPopTime == null || now.difference(lastPopTime) > Duration(seconds: 2)) {
+        if (lastPopTime == null ||
+            now.difference(lastPopTime) > Duration(seconds: 2)) {
           lastPopTime = now;
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('뒤로 버튼을 한 번 더 누르면 앱이 종료됩니다.'),
+              content: Text(
+                  '뒤로 버튼을 한번더 누르면 앱이 종료됩니다.',
+                style: TextStyle(
+                  fontFamily: fontStyleManager.suit
+                ),
+              ),
             ),
           );
-          return ;
+          return;
         } else {
-          // 두 번 연속으로 뒤로가기 버튼을 누르면 앱 종료
           exit(0);
         }
       },
@@ -65,85 +71,142 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.only(left: 16, top: 24),
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.sizeOf(context).height * 0.05,
+                          left: 16,
+                          right: 16),
                       child: Row(
-                        mainAxisSize: MainAxisSize.max,
                         children: [
-                          Image.asset(
-                            "assets/images/dangoing_logo.png",
-                            height: 48,
-                            width: 48,
+                          Flexible(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  "assets/logo/main_logo.png",
+                                  height: 57,
+                                  width: 148,
+                                ),
+                              ],
+                            ),
                           ),
-                          Image.asset(
-                            "assets/images/dangoingTitle.png",
-                            height: 64,
-                            width: 64,
+                          Flexible(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    showModalBottomSheet(
+                                        context: context,
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(25),
+                                          ),
+                                        ),
+                                        builder: (context) {
+                                          return SizedBox(
+                                            width: double.infinity,
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                0.33,
+                                            child: Column(
+                                              children: [
+                                                SizedBox(height: 10,),
+                                                Image.asset("assets/images/location_indicator.png", width: 60, height: 15,),
+                                                SizedBox(
+                                                  height: 30,
+                                                ),
+                                                Text(
+                                                  "관심 지역 설정",
+                                                  style: TextStyle(
+                                                      fontSize: 28,
+                                                    fontWeight: fontStyleManager.weightCategoryTitle
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 40,
+                                                ),
+                                                 Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: 15,
+                                                      right: 15,
+                                                      top: 10,
+                                                      bottom: 10),
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          width: 1,
+                                                          color: Color(
+                                                              0xffFFD2B0)),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8)),
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          0.9,
+                                                  child: DropdownButton(
+                                                    underline: SizedBox.shrink(),
+                                                    itemHeight: 50,
+                                                    icon: Image.asset("assets/images/location_dropbox_arrow.png", width: 44,height: 44,),
+                                                    isExpanded: true,
+                                                    items: localListData
+                                                        .dropDownList
+                                                        .map<DropdownMenuItem<String>>((String value) {
+                                                      return DropdownMenuItem<String>(
+                                                        value: value,
+                                                        child: Text(
+                                                          value,
+                                                          style: TextStyle(
+                                                            fontSize: 22,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }).toList(),
+                                                    onChanged: (String? value) {
+                                                      local = value ?? "서울특별시";
+                                                      prefs.setString(
+                                                          "local", local);
+                                                      setState(() {
+                                                        controller
+                                                            .setStoreLoadState(
+                                                                true);
+                                                      });
+
+                                                      Navigator.pop(context);
+                                                      _fetchData();
+                                                    },
+                                                    value: local,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        });
+                                  },
+                                  icon: Image.asset(
+                                    "assets/icons/icon_mylocation_map.png",
+                                    width: 32,
+                                    height: 32,
+                                  ),
+                                  highlightColor: dangoingMainColor,
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),
                     ),
                     Container(
-                      decoration: BoxDecoration(color: Colors.black),
-                      padding: EdgeInsets.only(left: 8),
-                      height: MediaQuery.sizeOf(context).height * 0.25,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "반려동물과 여행할\n장소를 찾아보세요",
-                            style: TextStyle(
-                                fontSize: 36,
-                                fontFamily: fontStyleManager.primaryFont,
-                                color: Colors.white),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 16, top: 16),
+                      padding: EdgeInsets.only(left: 16, top: 32, bottom: 22),
                       child: Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(" 🚗 내 주변 여행지 찾기",
+                              Text(" 내 주변 장소 찾기",
                                   style: TextStyle(
                                       fontSize: 22,
-                                      fontFamily:
-                                          fontStyleManager.primarySecondFont,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: fontStyleManager.weightTitle,
                                       color: Colors.black)),
-                              Expanded(
-                                child: Container(
-                                  padding: EdgeInsets.only(right: 8),
-                                  alignment: Alignment.topRight,
-                                  child: DropdownButton(
-                                    items: localListData.dropDownList.map<DropdownMenuItem<String>>(
-                                            (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(
-                                          value,
-                                          style: TextStyle(
-                                              fontFamily: fontStyleManager
-                                                  .primarySecondFont),
-                                        ),
-                                      );
-                                    }).toList(),
-                                    onChanged: (String? value) {
-                                      local = value ?? "서울특별시";
-                                      prefs.setString("local", local);
-
-                                      setState(() {
-                                        controller.setStoreLoadState(true);
-                                      });
-
-                                      _fetchData();
-                                    },
-                                    value: local,
-                                  ),
-                                ),
-                              )
                             ],
                           ),
                         ],
@@ -158,41 +221,45 @@ class _HomePageState extends State<HomePage> {
                                 child: Text(
                                   "인터넷을 확인해주세요",
                                   style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: fontStyleManager
-                                          .primarySecondFont),
+                                    fontSize: 24,
+                                    fontFamily: fontStyleManager.suit,
+                                  ),
                                 ),
                               ),
                             ),
                           )
                         : Container(
                             padding: EdgeInsets.only(left: 16),
-                            height: MediaQuery.sizeOf(context).height * 0.38,
+                            height: MediaQuery.sizeOf(context).height * 0.37,
                             child: ListView.builder(
-                                itemCount: controller.storeHomeRandomList.length,
+                                itemCount:
+                                    controller.storeHomeRandomList.length,
                                 scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
                                 itemBuilder: (context, index) {
                                   return RecommendStoreListWidget(
-                                      StoreVoList: controller.storeHomeRandomList,
+                                      StoreVoList:
+                                          controller.storeHomeRandomList,
                                       index: index);
                                 }),
                           ),
-                    SizedBox(height: 5,),
+                    SizedBox(
+                      height: 16,
+                    ),
                     Container(
-                      padding: EdgeInsets.only(left: 16, top: 16),
+                      padding: EdgeInsets.only(left: 16, top: 16, bottom: 22),
                       child: Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(" 🧋요즘 뜨는 카페",
+                              Text(" 요즘 뜨는 카페",
                                   style: TextStyle(
                                       fontSize: 22,
-                                      fontFamily:
-                                          fontStyleManager.primarySecondFont,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black)),
+                                      fontFamily: fontStyleManager.suit,
+                                      fontWeight: fontStyleManager.weightTitle,
+                                      color: Colors.black)
+                              ),
                             ],
                           ),
                         ],
@@ -207,10 +274,9 @@ class _HomePageState extends State<HomePage> {
                                 child: Text(
                                   "인터넷을 확인해주세요",
                                   style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: fontStyleManager
-                                          .primarySecondFont),
+                                    fontSize: 24,
+                                    fontFamily: fontStyleManager.suit,
+                                  ),
                                 ),
                               ),
                             ),
@@ -229,17 +295,19 @@ class _HomePageState extends State<HomePage> {
                                       index: index);
                                 }),
                           ),
+                    SizedBox(
+                      height: 32,
+                    ),
                     Container(
-                      padding: EdgeInsets.only(left: 16),
+                      padding: EdgeInsets.only(left: 16, bottom: 18),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(" 장소 별 모아보기",
+                          Text(" 장소별 모아보기",
                               style: TextStyle(
                                   fontSize: 22,
-                                  fontFamily:
-                                      fontStyleManager.primarySecondFont,
-                                  fontWeight: FontWeight.bold,
+                                  fontFamily: fontStyleManager.suit,
+                                  fontWeight: fontStyleManager.weightTitle,
                                   color: Colors.black)),
                           SizedBox(
                             height: 8,
@@ -249,7 +317,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Container(
                       padding: EdgeInsets.only(left: 16),
-                      height: MediaQuery.sizeOf(context).height * 0.12,
+                      height: MediaQuery.sizeOf(context).height * 0.14,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: categoryListMap.categoryMap.length,
@@ -259,25 +327,10 @@ class _HomePageState extends State<HomePage> {
                                 categoryListData: categoryListMap.categoryMap);
                           }),
                     ),
-                    SizedBox(height: 10,)
                   ],
                 ),
               ),
             ),
-            controller.storeLoadState
-                ? Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                      color: CupertinoColors.systemGrey.withOpacity(0.5),
-                    ),
-                    child: Center(
-                        child: Container(
-                            width: 50,
-                            height: 50,
-                            child: CircularProgressIndicator())),
-                  )
-                : SizedBox(),
           ],
         );
       }),

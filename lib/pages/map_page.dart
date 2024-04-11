@@ -9,7 +9,6 @@ import 'package:project_dangoing/controller/location_controller.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/data/category_list_data.dart';
 import 'package:project_dangoing/theme/colors.dart';
-import 'package:project_dangoing/utils/map_category_check_manager.dart';
 import 'package:project_dangoing/utils/map_status_manager.dart';
 import 'package:project_dangoing/utils/permission_manager.dart';
 
@@ -82,7 +81,7 @@ class _MapPageState extends State<MapPage> {
                 ),
                 logoAlign: NLogoAlign.rightBottom,
                 logoMargin: EdgeInsets.all(10),
-                liteModeEnable: true),
+                liteModeEnable: false),
             onMapReady: (controller) async {
               naverMapController = controller;
 
@@ -97,11 +96,12 @@ class _MapPageState extends State<MapPage> {
             },
             onCameraIdle: () async {
               // 사용자가 보던 위치 저장
-              var position = await naverMapController?.getCameraPosition();
-              mapStatusManager.currentCameraPosition(position);
+              // var position = await naverMapController?.getCameraPosition();
+              // mapStatusManager.currentCameraPosition(position);
             },
             onMapTapped: (NPoint point, NLatLng latLng) {
               categoryTileController.collapse();
+              naverMapController!.clearOverlays(type: NOverlayType.infoWindow);
             },
           ),
           Positioned(
@@ -169,8 +169,9 @@ class _MapPageState extends State<MapPage> {
         locationController.locationData?.longitude ?? 0);
 
     final position = NCameraUpdate.withParams(target: myLatLng, zoom: 13);
+
     const iconImage = NOverlayImage.fromAssetImage(
-        "assets/icons/icon_current_location(50).png");
+        "assets/icons/map/icon_current_location(50).png");
 
     final myLocationMarker =
         NMarker(id: "myLocation", position: myLatLng, icon: iconImage);

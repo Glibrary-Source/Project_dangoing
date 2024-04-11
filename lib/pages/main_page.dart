@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +6,7 @@ import 'package:project_dangoing/pages/home_page.dart';
 import 'package:project_dangoing/pages/map_page.dart';
 import 'package:project_dangoing/pages/my_page.dart';
 import 'package:project_dangoing/theme/colors.dart';
+import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -17,10 +17,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
-
   // 바텀 네비게이션 바 인덱스
   int _selectedIndex = 0;
   StoreController storeController = Get.find();
+  FontStyleManager fontStyleManager = FontStyleManager();
 
   final List<Widget> _navIndex = [HomePage(), MapPage(), MyPage()];
 
@@ -34,51 +34,55 @@ class _MainPageState extends State<MainPage>
   Widget build(BuildContext context) {
     return GetBuilder<StoreController>(builder: (controller) {
       return Scaffold(
-          body: _navIndex.elementAt(_selectedIndex),
+          body: Stack(children: [
+            _navIndex.elementAt(_selectedIndex),
+            controller.storeLoadState
+                ? Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                      color: CupertinoColors.systemGrey.withOpacity(0.5),
+                    ),
+                    child: Center(
+                        child: Container(
+                            width: 50,
+                            height: 50,
+                            child: CircularProgressIndicator())),
+                  )
+                : SizedBox(),
+          ]),
           bottomNavigationBar: Stack(
             children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  BottomNavigationBar(
-                    fixedColor: Colors.blue,
-                    unselectedItemColor: dangoingBlackColor,
-                    showUnselectedLabels: true,
-                    type: BottomNavigationBarType.fixed,
-                    items: const [
-                      BottomNavigationBarItem(
-                          icon: Icon(Icons.home_outlined), label: '홈'),
-                      BottomNavigationBarItem(
-                          icon: Icon(Icons.map_outlined), label: '지도'),
-                      BottomNavigationBarItem(
-                          icon: Icon(Icons.person_outline), label: '내정보'),
-                    ],
-                    currentIndex: _selectedIndex,
-                    onTap: _onNavTapped,
-                  )
-                  // admob 추가하기
+              BottomNavigationBar(
+                fixedColor: Colors.blue,
+                unselectedItemColor: dangoingBlackColor,
+                showUnselectedLabels: true,
+                type: BottomNavigationBarType.fixed,
+                items: const [
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.home_outlined), label: '홈'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.map_outlined), label: '지도'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.person_outline), label: '내정보'),
                 ],
+                currentIndex: _selectedIndex,
+                selectedLabelStyle: TextStyle(fontFamily: fontStyleManager.suit, fontWeight: FontWeight.w900),
+                onTap: _onNavTapped,
               ),
               controller.storeLoadState
-                  ? Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        BottomNavigationBar(
-                          type: BottomNavigationBarType.fixed,
-                          backgroundColor: CupertinoColors.systemGrey.withOpacity(0.3),
-                          items: const [
-                            BottomNavigationBarItem(
-                                icon: Icon(Icons.home_outlined), label: '홈'),
-                            BottomNavigationBarItem(
-                                icon: Icon(Icons.map_outlined), label: '지도'),
-                            BottomNavigationBarItem(
-                                icon: Icon(Icons.person_outline), label: '내정보'),
-                          ]
-                        )
-                      ],
-                    )
+                  ? BottomNavigationBar(
+                      type: BottomNavigationBarType.fixed,
+                      backgroundColor:
+                          CupertinoColors.systemGrey.withOpacity(0.3),
+                      items: const [
+                          BottomNavigationBarItem(
+                              icon: Icon(Icons.home_outlined), label: '홈'),
+                          BottomNavigationBarItem(
+                              icon: Icon(Icons.map_outlined), label: '지도'),
+                          BottomNavigationBarItem(
+                              icon: Icon(Icons.person_outline), label: '내정보'),
+                        ])
                   : SizedBox(),
             ],
           ));

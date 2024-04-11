@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:project_dangoing/controller/user_controller.dart';
 import 'package:project_dangoing/pages/home_page.dart';
 import 'package:project_dangoing/pages/main_page.dart';
+import 'package:project_dangoing/pages/main_page_tabbar.dart';
 
 import '../controller/store_controller.dart';
 import '../global/share_preference.dart';
@@ -30,7 +31,7 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> _fetchData() async {
     await storeController.getStoreAndRandomListSplash(local, context);
-    Get.off(()=> MainPage());
+    Get.off(()=> MainPageTabbar());
     storeController.setStoreLoadState(false);
   }
 

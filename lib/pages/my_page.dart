@@ -67,7 +67,7 @@ class _MyPageState extends State<MyPage> {
           body: SingleChildScrollView(
             child: userController.myModel != null
                 ? Container(
-                    height: MediaQuery.sizeOf(context).height*0.92,
+                    height: MediaQuery.sizeOf(context).height * 0.92,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16, right: 16),
                       child: Column(
@@ -75,29 +75,12 @@ class _MyPageState extends State<MyPage> {
                         children: [
                           SizedBox(
                             height: MediaQuery.sizeOf(context).height * 0.35,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  "assets/images/dangoing_logo.png",
-                                  height: 80,
-                                  width: 80,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "댕고잉",
-                                      style: TextStyle(
-                                        fontSize: 36,
-                                        fontFamily:
-                                            fontStyleManager.primaryFont,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    )
-                                  ],
-                                ),
-                              ],
+                            child: Center(
+                              child: Image.asset(
+                                "assets/logo/main_logo.png",
+                                height: 100,
+                                width: 150,
+                              ),
                             ),
                           ),
                           Container(
@@ -106,9 +89,7 @@ class _MyPageState extends State<MyPage> {
                               "Email: ${userController.myModel?.email}",
                               style: TextStyle(
                                   fontSize: 18,
-                                  fontFamily:
-                                      fontStyleManager.primarySecondFont,
-                                  fontWeight: FontWeight.bold),
+                                  ),
                             ),
                           ),
                           Row(
@@ -120,9 +101,7 @@ class _MyPageState extends State<MyPage> {
                                   "닉네임: ${userController.myModel?.nickname}",
                                   style: TextStyle(
                                       fontSize: 18,
-                                      fontFamily: fontStyleManager
-                                          .primarySecondFont,
-                                      fontWeight: FontWeight.bold),
+                                      ),
                                 ),
                               ),
                               SizedBox(
@@ -176,11 +155,12 @@ class _MyPageState extends State<MyPage> {
                                                     content: Text(
                                                         '닉네임을 바르게 작성해주세요')));
                                           } else {
-                                            if (userController.myModel!.change_counter!) {
+                                            if (userController
+                                                .myModel!.change_counter!) {
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(SnackBar(
-                                                  content: Text(
-                                                      '닉네임을 이미 변경하신 회원입니다.')));
+                                                      content: Text(
+                                                          '닉네임을 이미 변경하신 회원입니다.')));
                                             } else {
                                               userController
                                                   .userNickNameChange(nickName);
@@ -222,8 +202,9 @@ class _MyPageState extends State<MyPage> {
                     ),
                   )
                 : Container(
-              height: MediaQuery.sizeOf(context).height*0.91,
-                  child: Column(
+                    height: MediaQuery.sizeOf(context).height * 0.80,
+                    width: MediaQuery.sizeOf(context).width,
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -231,61 +212,35 @@ class _MyPageState extends State<MyPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(
-                              "assets/images/dangoing_logo.png",
-                              height: 80,
-                              width: 80,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    "댕고잉",
-                                    style: TextStyle(
-                                      fontSize: 36,
-                                      fontFamily:
-                                          fontStyleManager.primaryFont,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                )
-                              ],
+                              "assets/logo/main_logo.png",
+                              height: 220,
+                              width: 220,
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 50,
+                          height: 60,
                         ),
-                        Column(
-                          children: [
-                            ElevatedButton.icon(
+                        Container(
+                          margin: EdgeInsets.only(left: 8, right: 8),
+                          child: IconButton(
+                              padding: EdgeInsets.zero,
                               onPressed: () async {
                                 await userController.googleLogin(context);
                               },
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStatePropertyAll(Colors.white)),
-                              icon: Image.asset("assets/icons/google.png",
-                                  height: 40, width: 40),
-                              label: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 16, right: 16, top: 16, bottom: 16),
-                                child: Text(
-                                  "구글 로그인",
-                                  style: TextStyle(
-                                      fontFamily:
-                                          fontStyleManager.primarySecondFont,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
-                                ),
+                              splashRadius: 1,
+                              highlightColor: dangoingMainColor,
+                              style: IconButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0)
+                                )
                               ),
-                            ),
-                          ],
-                        ),
+                              icon: Image.asset(
+                                  "assets/button/google_login_button.png",width: 350,)),
+                        )
                       ],
                     ),
-                ),
+                  ),
           ),
         );
       }),

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:project_dangoing/theme/colors.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
 import 'package:project_dangoing/utils/map_category_check_manager.dart';
 import 'package:project_dangoing/utils/map_status_manager.dart';

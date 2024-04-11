@@ -75,8 +75,12 @@ flutter:
   assets:
     - assets/lottie/
     - assets/fonts/
-    - assets/images/
     - assets/icons/
+    - assets/icons/category/
+    - assets/icons/map/
+    - assets/images/
+    - assets/logo/
+    - assets/button/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -90,18 +94,6 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: jose_san_font
-      fonts:
-        - asset: assets/fonts/jose_san_font.ttf
-
-    - family: JosefinSans-Bold
-      fonts:
-        - asset: assets/fonts/JosefinSans-Bold.ttf
-
-    - family: mitmefont
-      fonts:
-        - asset: assets/fonts/mitmefont.ttf
-
     - family: gamtan_tantan
       fonts:
         - asset: assets/fonts/gamtan_tantan.ttf
@@ -109,6 +101,18 @@ flutter:
     - family: gamtan_dotum_regular
       fonts:
         - asset: assets/fonts/gamtan_dotum_regular.ttf
+
+    - family: Suit
+      fonts:
+        - asset: assets/fonts/SUIT-Bold.ttf
+        - asset: assets/fonts/SUIT-ExtraBold.ttf
+        - asset: assets/fonts/SUIT-ExtraLight.ttf
+        - asset: assets/fonts/SUIT-Heavy.ttf
+        - asset: assets/fonts/SUIT-Light.ttf
+        - asset: assets/fonts/SUIT-Medium.ttf
+        - asset: assets/fonts/SUIT-Regular.ttf
+        - asset: assets/fonts/SUIT-SemiBold.ttf
+        - asset: assets/fonts/SUIT-Thin.ttf
 
 # 스플래쉬 화면 구성
 flutter_native_splash:
