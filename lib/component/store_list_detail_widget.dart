@@ -4,6 +4,7 @@ import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/pages/store_detail_page.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
+import '../theme/colors.dart';
 import '../utils/text_manager.dart';
 
 class StoreListDetailWidget extends StatefulWidget {
@@ -24,95 +25,132 @@ class _StoreListDetailWidgetState extends State<StoreListDetailWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Get.to(() => StoreDetailPage(),
-            arguments: widget.controller.categoryFilterList[widget.index].DOC_ID);
-      },
-      child: Container(
-        margin: EdgeInsets.only(left: 8, right: 8),
-        child: Column(
-          children: [
-            Card(
-              child: Container(
-                padding: EdgeInsets.only(top: 18,bottom: 18,left: 8,right: 8),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
+        onTap: () {
+          Get.to(() => StoreDetailPage(),
+              arguments:
+                  widget.controller.categoryFilterList[widget.index].DOC_ID);
+        },
+        child: Container(
+          padding: EdgeInsets.only(top: 36, bottom: 36, left: 16, right: 16),
+          margin: EdgeInsets.only(bottom: 20, left: 2, right: 2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                blurRadius: 3.0,
+                spreadRadius: 1.0,
+                offset: const Offset(0,2),
+              )
+            ],
+            color: Colors.white,
+          ),
+          width: MediaQuery.of(context).size.width,
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    "${widget.controller.categoryFilterList[widget.index].FCLTY_NM ?? ""}",
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(height: 1.4, fontSize: 24, fontWeight: fontStyleManager.weightTitle),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.only(bottom: 4),
+                  child: Text(
+                    "${textManager.checkAddress(widget.controller.categoryFilterList[widget.index].RDNMADR_NM ?? "")}",
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(height: 1.4, fontSize: 18,fontWeight: fontStyleManager.weightSubTitle),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.only(bottom: 4),
+                  child: Text(
+                    "${textManager.checkOpenTime(widget.controller.categoryFilterList[widget.index].OPER_TIME ?? "")}",
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(height: 1.4, fontSize: 18, fontWeight: fontStyleManager.weightSubTitle),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                Row(
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(bottom: 4),
-                      child: Text(
-                        widget.controller.categoryFilterList[widget.index]
-                                .FCLTY_NM ??
-                            "",
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontFamily: fontStyleManager.primaryFont,height: 1.4, fontSize: 24),
-                        textAlign: TextAlign.center,
+                    Chip(
+                      backgroundColor: dangoingChipBackgroundColor,
+                      visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
+                      label: Text(
+                        "${textManager.checkParking(widget.controller.categoryFilterList[widget.index].PARKNG_POSBL_AT ?? "")}",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: fontStyleManager.suit,
+                            color: dangoingChipTextColor
+                        ),
+                      ),
+                      labelPadding: EdgeInsets.all(0),
+                      padding: EdgeInsets.only(right: 4, left: 4),
+                      side: BorderSide(
+                          color: Colors.transparent
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4)
                       ),
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(bottom: 4),
-                      child: Text(
-                        "주소: ${widget.controller.categoryFilterList[widget.index].RDNMADR_NM ?? ""}",
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontFamily: fontStyleManager.primarySecondFont ,height: 1.4, fontSize: 18),
-                        textAlign: TextAlign.left,
+                    SizedBox(width: 8,),
+                    Chip(
+                      backgroundColor: dangoingChipBackgroundColor,
+                      visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
+                      label: Text(
+                        "${textManager.checkInPlace(widget.controller.categoryFilterList[widget.index].IN_PLACE_ACP_POSBL_AT ?? "")}",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: fontStyleManager.suit,
+                            color: dangoingChipTextColor
+                        ),
                       ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(bottom: 4),
-                      child: Text(
-                        "휴일: ${textManager.checkRestDay(widget.controller.categoryFilterList[widget.index].RSTDE_GUID_CN ?? "")}",
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontFamily: fontStyleManager.primarySecondFont ,height: 1.4, fontSize: 18),
-                        textAlign: TextAlign.left,
+                      labelPadding: EdgeInsets.all(0),
+                      padding: EdgeInsets.only(right: 4, left: 4),
+                      side: BorderSide(
+                          color: Colors.transparent
                       ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(bottom: 4),
-                      child: Text(
-                        "영업시간: ${textManager.checkOpenTime(widget.controller.categoryFilterList[widget.index].OPER_TIME ?? "")}",
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontFamily: fontStyleManager.primarySecondFont ,height: 1.4, fontSize: 18),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(bottom: 4),
-                      child: Text(
-                        "제한사항: ${widget.controller.categoryFilterList[widget.index].PET_LMTT_MTR_CN ?? ""}",
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontFamily: fontStyleManager.primarySecondFont ,height: 1.4, fontSize: 18),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(bottom: 4),
-                      child: Text(
-                        "주차: ${textManager.checkParking(widget.controller.categoryFilterList[widget.index].PARKNG_POSBL_AT ?? "")}",
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontFamily: fontStyleManager.primarySecondFont ,height: 1.4, fontSize: 18),
-                        textAlign: TextAlign.left,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4)
                       ),
                     ),
                   ],
                 ),
-              ),
-            )
-          ],
+                SizedBox(height: 2,),
+                Chip(
+                  backgroundColor: dangoingChipBackgroundColor,
+                  visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
+                  label: Text(
+                    "${widget.controller.categoryFilterList[widget.index].RSTDE_GUID_CN ?? ""}",
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: fontStyleManager.suit,
+                        color: dangoingChipTextColor
+                    ),
+                  ),
+                  labelPadding: EdgeInsets.all(0),
+                  padding: EdgeInsets.only(right: 4, left: 4),
+                  side: BorderSide(
+                      color: Colors.transparent
+                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4)
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
-      ),
-    );
+      );
   }
 }

@@ -16,17 +16,8 @@ class MainPageTabbar extends StatefulWidget {
 
 class _MainPageTabbarState extends State<MainPageTabbar>
     with SingleTickerProviderStateMixin {
-  // 바텀 네비게이션 바 인덱스
-  int _selectedIndex = 0;
+
   StoreController storeController = Get.find();
-
-  final List<Widget> _navIndex = [HomePage(), MapPage(), MyPage()];
-
-  void _onNavTapped(int index) async {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

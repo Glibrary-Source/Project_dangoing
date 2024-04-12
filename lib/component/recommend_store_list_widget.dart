@@ -187,6 +187,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                                 ),
                               ],
                             ),
+                            SizedBox(height: 2,),
                             Row(
                               children: [
                                 Chip(

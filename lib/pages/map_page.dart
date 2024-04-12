@@ -81,7 +81,8 @@ class _MapPageState extends State<MapPage> {
                 ),
                 logoAlign: NLogoAlign.rightBottom,
                 logoMargin: EdgeInsets.all(10),
-                liteModeEnable: false),
+                liteModeEnable: true
+            ),
             onMapReady: (controller) async {
               naverMapController = controller;
 
@@ -95,9 +96,8 @@ class _MapPageState extends State<MapPage> {
               MapStatusManager().visibleManager();
             },
             onCameraIdle: () async {
-              // 사용자가 보던 위치 저장
-              // var position = await naverMapController?.getCameraPosition();
-              // mapStatusManager.currentCameraPosition(position);
+              var position = await naverMapController?.getCameraPosition();
+              mapStatusManager.currentCameraPosition(position);
             },
             onMapTapped: (NPoint point, NLatLng latLng) {
               categoryTileController.collapse();

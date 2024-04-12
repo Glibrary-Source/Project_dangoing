@@ -27,11 +27,17 @@ class _HomePageState extends State<HomePage> {
   FontStyleManager fontStyleManager = FontStyleManager();
   CategoryListData categoryListMap = CategoryListData();
   LocalListData localListData = LocalListData();
-  String local = prefs.getString("local") ?? "서울특별시";
+  String? local;
   var lastPopTime;
 
+  @override
+  void initState() {
+    local = storeController.localName;
+    super.initState();
+  }
+
   Future<void> _fetchData() async {
-    await storeController.getStoreAndRandomList(local, context);
+    await storeController.getStoreAndRandomList(local!, context);
     setState(() {
       storeController.setStoreLoadState(false);
     });
@@ -107,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                                             width: double.infinity,
                                             height: MediaQuery.sizeOf(context)
                                                     .height *
-                                                0.33,
+                                                0.35,
                                             child: Column(
                                               children: [
                                                 SizedBox(height: 10,),
@@ -118,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                                                 Text(
                                                   "관심 지역 설정",
                                                   style: TextStyle(
-                                                      fontSize: 28,
+                                                      fontSize: 24,
                                                     fontWeight: fontStyleManager.weightCategoryTitle
                                                   ),
                                                 ),
@@ -162,19 +168,20 @@ class _HomePageState extends State<HomePage> {
                                                       );
                                                     }).toList(),
                                                     onChanged: (String? value) {
+
                                                       local = value ?? "서울특별시";
                                                       prefs.setString(
-                                                          "local", local);
-                                                      setState(() {
-                                                        controller
-                                                            .setStoreLoadState(
-                                                                true);
-                                                      });
+                                                          "local", local!);
+                                                      controller.setLocationName(
+                                                        local!
+                                                      );
+
+                                                      controller.setStoreLoadState(true);
 
                                                       Navigator.pop(context);
                                                       _fetchData();
                                                     },
-                                                    value: local,
+                                                    value: controller.localName,
                                                   ),
                                                 )
                                               ],
@@ -183,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                                         });
                                   },
                                   icon: Image.asset(
-                                    "assets/icons/icon_mylocation_map.png",
+                                    "assets/icons/map/icon_mylocation_map.png",
                                     width: 32,
                                     height: 32,
                                   ),
@@ -230,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                           )
                         : Container(
                             padding: EdgeInsets.only(left: 16),
-                            height: MediaQuery.sizeOf(context).height * 0.37,
+                            height: MediaQuery.sizeOf(context).height * 0.36,
                             child: ListView.builder(
                                 itemCount:
                                     controller.storeHomeRandomList.length,

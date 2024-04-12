@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:project_dangoing/model/store_list_model.dart';
 import 'package:project_dangoing/service/dango_firebase_service.dart';
 
+import '../global/share_preference.dart';
 import '../pages/main_page.dart';
 import '../vo/store_vo.dart';
 
@@ -16,6 +17,7 @@ class StoreController extends GetxController {
   List<StoreVo> storeHomeRandomList = [];
   List<StoreVo> storeHomeRandomCafeList = [];
   List<StoreVo> categoryFilterList = [];
+  String localName = prefs.getString("local") ?? "서울특별시";
   StoreVo detailData = StoreVo();
   bool storeLoadState = false;
 
@@ -123,4 +125,14 @@ class StoreController extends GetxController {
       throw Exception(error);
     }
   }
+
+  Future<void> setLocationName(String location) async {
+    try {
+      localName = location;
+      update();
+    } catch(error) {
+      throw Exception(error);
+    }
+  }
+
 }

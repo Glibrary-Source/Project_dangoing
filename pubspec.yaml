@@ -38,16 +38,16 @@ dependencies:
   get: ^4.6.6
   lottie: ^3.1.0
   flutter_native_splash: ^2.0.5
-  firebase_core: ^2.15.1
+  firebase_core: ^2.29.0
   google_sign_in: ^6.2.1
-  cloud_firestore: ^4.15.8
-  firebase_auth: ^4.17.8
+  cloud_firestore: ^4.16.0
+  firebase_auth: ^4.19.1
   shared_preferences: ^2.2.0
   url_launcher: ^6.2.5
   flutter_rating_bar: ^4.0.1
-  flutter_naver_map: ^1.1.1
+  flutter_naver_map: ^1.1.2
   permission_handler: ^11.3.1
-  location: ^6.0.1
+  location: ^6.0.0
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +78,7 @@ flutter:
     - assets/icons/
     - assets/icons/category/
     - assets/icons/map/
+    - assets/icons/detail/
     - assets/images/
     - assets/logo/
     - assets/button/

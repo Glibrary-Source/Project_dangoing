@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/component/detail_page_info_widget.dart';
@@ -18,8 +19,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class StoreDetailPage extends StatefulWidget {
-
-  const StoreDetailPage( {super.key});
+  const StoreDetailPage({super.key});
 
   @override
   State<StoreDetailPage> createState() => _StoreDetailPageState();
@@ -76,135 +76,261 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(16),
+                  padding: EdgeInsets.only(left: 16, right: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.sizeOf(context).height * 0.05),
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
                       SizedBox(
-                        height: 30,
+                        height: 40,
+                      ),
+                      Chip(
+                        backgroundColor: dangoingPrimaryColor,
+                        visualDensity:
+                            VisualDensity(horizontal: 0.0, vertical: -4),
+                        label: Text(
+                          "#${data.CTGRY_THREE_NM}",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: fontStyleManager.weightHashTagChip,
+                              color: dangoingMainColor,
+                          ),
+                        ),
+                        labelPadding: EdgeInsets.all(0),
+                        padding: EdgeInsets.only(
+                            top: 0, bottom: 0, left: 8, right: 8),
+                        side: BorderSide(color: Colors.transparent),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4)),
+                      ),
+                      SizedBox(
+                        height: 16,
                       ),
                       Text(data.FCLTY_NM ?? "없음",
                           style: TextStyle(
                               fontSize: 28,
-                              fontFamily: fontStyleManager.primaryFont)),
+                              fontWeight: fontStyleManager.weightTitle)),
                       SizedBox(
                         height: 10,
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.location_on_outlined,
-                            color: CupertinoColors.systemGrey,
-                          ),
-                          Expanded(
-                              child: Text(
-                                  textManager.checkAddress(
-                                      data.RDNMADR_NM ?? ""),
-                                  style: TextStyle(
-                                      height: 1.2,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 22,
-                                      fontFamily: fontStyleManager
-                                          .primarySecondFont,
-                                      color: CupertinoColors.systemGrey))),
-                        ],
-                      ),
+                      Text(textManager.checkAddress(data.RDNMADR_NM ?? ""),
+                          style: TextStyle(
+                            height: 1.2,
+                            fontWeight: fontStyleManager.weightSubTitle,
+                            fontSize: 18,
+                          )),
                       SizedBox(
                         height: 60,
                       ),
-                      Row(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Date",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        height: 1.2,
-                                        fontFamily: fontStyleManager
-                                            .primarySecondFont,
-                                        fontWeight: FontWeight.bold,
-                                        color: CupertinoColors.systemGrey)),
-                                SizedBox(height: 5),
-                                Text("Today, ${dt.year}-${dt.month}-${dt.day}",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        height: 1.2,
-                                        fontFamily: fontStyleManager
-                                            .primarySecondFont))
-                              ],
-                            ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                "assets/icons/detail/icon_date.png",
+                                height: 32,
+                                width: 32,
+                              ),
+                              Text(" 영업일",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight:
+                                        fontStyleManager.weightTitle,
+                                  )),
+                            ],
                           ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Time",
-                                    textAlign: TextAlign.start,
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                    " ${textManager.checkOpenTime(data.OPER_TIME.toString())}",
                                     style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: fontStyleManager
-                                            .primarySecondFont,
-                                        fontWeight: FontWeight.bold,
-                                        height: 1.0,
-                                        color: CupertinoColors.systemGrey)),
-                                SizedBox(height: 5),
-                                Text(
-                                    textManager.checkOpenTime(
-                                        data.OPER_TIME.toString()),
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        height: 1.4,
-                                        fontFamily: fontStyleManager
-                                            .primarySecondFont))
-                              ],
-                            ),
+                                      fontSize: 18,
+                                    )),
+                              ),
+                            ],
                           )
                         ],
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 30,
                       ),
-                      Row(
-                        key: _reviewKey,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: data.HMPG_URL == ""
-                                  ? null
-                                  : () {
-                                      launchHomeLink(data.HMPG_URL ?? "");
-                                    },
-                              style: ButtonStyle(
-                                backgroundColor: data.HMPG_URL == ""
-                                    ? MaterialStateProperty.all(Colors.grey)
-                                    : MaterialStateProperty.all(Colors.white),
+                          Row(
+                            children: [
+                              Image.asset(
+                                "assets/icons/detail/icon_clock.png",
+                                height: 32,
+                                width: 32,
                               ),
-                              child: data.HMPG_URL == ""
-                                  ? Text(
-                                      "홈페이지 없음",
-                                      style: TextStyle(
-                                          fontFamily: fontStyleManager
-                                              .primarySecondFont,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
-                                    )
-                                  : Text(
-                                      "공식 홈페이지로 이동",
-                                      style: TextStyle(
-                                          fontFamily: fontStyleManager
-                                              .primarySecondFont,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                          color: Colors.lightBlue),
-                                    ),
-                            ),
+                              Text(" 휴일",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight:
+                                        fontStyleManager.weightTitle,
+                                  )),
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                    " ${textManager.checkOpenTime(data.RSTDE_GUID_CN.toString())}",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                    )),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                "assets/icons/detail/icon_store.png",
+                                height: 32,
+                                width: 32,
+                              ),
+                              Text(" 매장 상세정보",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight:
+                                        fontStyleManager.weightTitle,
+                                  )),
+                            ],
+                          ),
+                          SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Flexible(
+                                child: Chip(
+                                  backgroundColor:
+                                      dangoingChipBackgroundColor,
+                                  visualDensity: VisualDensity(
+                                      horizontal: 0.0, vertical: -4),
+                                  label: Text(
+                                    " ${textManager.checkParking(data.PARKNG_POSBL_AT.toString())}",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: dangoingChipTextColor),
+                                  ),
+                                  labelPadding: EdgeInsets.all(0),
+                                  padding: EdgeInsets.only(right: 4, left: 4),
+                                  side: BorderSide(color: Colors.transparent),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(4)),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Flexible(
+                                child: Chip(
+                                  backgroundColor:
+                                      dangoingChipBackgroundColor,
+                                  visualDensity: VisualDensity(
+                                      horizontal: 0.0, vertical: -4),
+                                  label: Text(
+                                    "${textManager.checkInPlace(data.IN_PLACE_ACP_POSBL_AT.toString())}",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: dangoingChipTextColor),
+                                  ),
+                                  labelPadding: EdgeInsets.all(0),
+                                  padding: EdgeInsets.only(right: 4, left: 4),
+                                  side: BorderSide(color: Colors.transparent),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(4)),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Flexible(
+                                child: Chip(
+                                  backgroundColor:
+                                  dangoingChipBackgroundColor,
+                                  visualDensity: VisualDensity(
+                                      horizontal: 0.0, vertical: -4),
+                                  label: Text(
+                                    "${textManager.checkPetLimit(data.PET_LMTT_MTR_CN.toString())}",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: dangoingChipTextColor),
+                                  ),
+                                  labelPadding: EdgeInsets.all(0),
+                                  padding: EdgeInsets.only(right: 4, left: 4),
+                                  side: BorderSide(color: Colors.transparent),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(4)),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      data.HMPG_URL == ""
+                          ? SizedBox(
+                              width: double.infinity,
+                              child: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  onPressed: null,
+                                  splashRadius: 1,
+                                  highlightColor: dangoingMainColor,
+                                  style: IconButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(0))),
+                                  icon: Image.asset(
+                                    "assets/button/store_web_not_button.png",
+                                    fit: BoxFit.cover,
+                                  )),
+                            )
+                          : SizedBox(
+                              width: double.infinity,
+                              child: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  onPressed: () async {
+                                    launchHomeLink(data.HMPG_URL ?? "");
+                                  },
+                                  splashRadius: 1,
+                                  highlightColor: dangoingMainColor,
+                                  style: IconButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(0))),
+                                  icon: Image.asset(
+                                    "assets/button/store_web_go_button.png",
+                                    fit: BoxFit.cover,
+                                  )),
+                            ),
                       SizedBox(
                         height: 10,
                       ),
@@ -221,9 +347,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                 Icon(Icons.info_outline),
                                 Text(
                                   " 가게 상세정보",
-                                  style: TextStyle(
-                                      fontFamily:
-                                          fontStyleManager.primaryFont),
                                 ),
                               ],
                             ),
@@ -264,8 +387,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                             "리뷰 작성",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              fontFamily: fontStyleManager
-                                                  .primaryFont,
                                               fontSize: 24,
                                               color: dangoingMainColor,
                                             ),
@@ -297,20 +418,10 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                                           return AlertDialog(
                                                             title: Text(
                                                               "리뷰 작성",
-                                                              style: TextStyle(
-                                                                  fontFamily:
-                                                                      fontStyleManager
-                                                                          .primarySecondFont,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
                                                             ),
                                                             content: Text(
                                                                 "후기를 남기시겠습니까?",
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        fontStyleManager
-                                                                            .primarySecondFont)),
+                                                            ),
                                                             actions: <Widget>[
                                                               Container(
                                                                 child:
@@ -340,7 +451,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                                                         },
                                                                         child:
                                                                             Text(
-                                                                         "아니오",
+                                                                          "아니오",
                                                                           style: TextStyle(
                                                                               fontFamily: fontStyleManager.primarySecondFont,
                                                                               fontWeight: FontWeight.bold),
@@ -432,68 +543,67 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        key: _widgetKey,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: CupertinoColors.systemGrey2, width: 1),
-                            borderRadius: BorderRadius.all(Radius.circular(8))),
-                        child: ExpansionTile(
-                            shape: Border(),
-                            onExpansionChanged: (value) async {
-                              Future.delayed(Duration(milliseconds: 300), () {
-                                if (value) {
-                                  Scrollable.ensureVisible(
-                                      _widgetKey.currentContext!,
-                                      duration: Duration(milliseconds: 300),
-                                      curve: Curves.easeInOut,
-                                      alignment: 0);
-                                }
-                              });
-                            },
-                            title: Row(
-                              children: [
-                                Icon(Icons.reviews_outlined),
-                                Text(
-                                  " 리뷰 보기",
-                                  style: TextStyle(
-                                      fontFamily:
-                                          fontStyleManager.primaryFont,
-                                      height: 1),
-                                ),
-                              ],
-                            ),
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: 12, right: 12, bottom: 8),
-                                child: reviewController.storeReviewList.isEmpty
-                                    ? Container(
-                                        height: 200,
-                                        child: Center(
-                                            child: Text(
-                                          "첫 리뷰를 남겨주세요!",
-                                          style: TextStyle(
-                                              fontFamily: fontStyleManager
-                                                  .primaryFont,
-                                              fontSize: 22),
-                                        )))
-                                    : SizedBox(
-                                        height:
-                                            MediaQuery.sizeOf(context).height *
-                                                0.8,
-                                        child: ListView.builder(
-                                            itemCount: reviewController
-                                                .storeReviewList.length,
-                                            itemBuilder: (context, index) {
-                                              return ReviewListWidget(
-                                                  review: reviewController
-                                                      .storeReviewList[index]);
-                                            }),
-                                      ),
-                              )
-                            ]),
-                      ),
+                      // Container(
+                      //   key: _widgetKey,
+                      //   decoration: BoxDecoration(
+                      //       border: Border.all(
+                      //           color: CupertinoColors.systemGrey2, width: 1),
+                      //       borderRadius: BorderRadius.all(Radius.circular(8))),
+                      //   child: ExpansionTile(
+                      //       shape: Border(),
+                      //       onExpansionChanged: (value) async {
+                      //         Future.delayed(Duration(milliseconds: 300), () {
+                      //           if (value) {
+                      //             Scrollable.ensureVisible(
+                      //                 _widgetKey.currentContext!,
+                      //                 duration: Duration(milliseconds: 300),
+                      //                 curve: Curves.easeInOut,
+                      //                 alignment: 0);
+                      //           }
+                      //         });
+                      //       },
+                      //       title: Row(
+                      //         children: [
+                      //           Icon(Icons.reviews_outlined),
+                      //           Text(
+                      //             " 리뷰 보기",
+                      //             style: TextStyle(
+                      //                 fontFamily: fontStyleManager.primaryFont,
+                      //                 height: 1),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //       children: [
+                      //         Container(
+                      //           padding: EdgeInsets.only(
+                      //               left: 12, right: 12, bottom: 8),
+                      //           child: reviewController.storeReviewList.isEmpty
+                      //               ? Container(
+                      //                   height: 200,
+                      //                   child: Center(
+                      //                       child: Text(
+                      //                     "첫 리뷰를 남겨주세요!",
+                      //                     style: TextStyle(
+                      //                         fontFamily:
+                      //                             fontStyleManager.primaryFont,
+                      //                         fontSize: 22),
+                      //                   )))
+                      //               : SizedBox(
+                      //                   height:
+                      //                       MediaQuery.sizeOf(context).height *
+                      //                           0.8,
+                      //                   child: ListView.builder(
+                      //                       itemCount: reviewController
+                      //                           .storeReviewList.length,
+                      //                       itemBuilder: (context, index) {
+                      //                         return ReviewListWidget(
+                      //                             review: reviewController
+                      //                                 .storeReviewList[index]);
+                      //                       }),
+                      //                 ),
+                      //         )
+                      //       ]),
+                      // ),
                     ],
                   ),
                 )
@@ -544,10 +654,20 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
   }
 
   editReview(UserController userController) {
-    reviewController.setReviewData(docId, userController.myModel!.uid!,
-        userController.myModel!.nickname!, reviewScore, reviewMain, data.FCLTY_NM??"");
-    reviewController.setReviewDataMyPage(docId, userController.myModel!.uid!,
-        userController.myModel!.nickname!, reviewScore, reviewMain, data.FCLTY_NM??"");
+    reviewController.setReviewData(
+        docId,
+        userController.myModel!.uid!,
+        userController.myModel!.nickname!,
+        reviewScore,
+        reviewMain,
+        data.FCLTY_NM ?? "");
+    reviewController.setReviewDataMyPage(
+        docId,
+        userController.myModel!.uid!,
+        userController.myModel!.nickname!,
+        reviewScore,
+        reviewMain,
+        data.FCLTY_NM ?? "");
     reviewMainInputController.clear();
     setState(() {
       reviewEditVisible = false;
