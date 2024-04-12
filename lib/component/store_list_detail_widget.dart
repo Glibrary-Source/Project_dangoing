@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/pages/store_detail_page.dart';
@@ -81,70 +83,76 @@ class _StoreListDetailWidgetState extends State<StoreListDetailWidget> {
                   ),
                 ),
                 SizedBox(height: 16,),
-                Row(
-                  children: [
-                    Chip(
-                      backgroundColor: dangoingChipBackgroundColor,
-                      visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
-                      label: Text(
-                        "${textManager.checkParking(widget.controller.categoryFilterList[widget.index].PARKNG_POSBL_AT ?? "")}",
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: fontStyleManager.suit,
-                            color: dangoingChipTextColor
+                Padding(
+                  padding: EdgeInsets.only(left: 4),
+                  child: Row(
+                    children: [
+                      Chip(
+                        backgroundColor: dangoingChipBackgroundColor,
+                        visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
+                        label: Text(
+                          "${textManager.checkParking(widget.controller.categoryFilterList[widget.index].PARKNG_POSBL_AT ?? "")}",
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: fontStyleManager.suit,
+                              color: dangoingChipTextColor
+                          ),
+                        ),
+                        labelPadding: EdgeInsets.all(0),
+                        padding: EdgeInsets.only(right: 4, left: 4),
+                        side: BorderSide(
+                            color: Colors.transparent
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4)
                         ),
                       ),
-                      labelPadding: EdgeInsets.all(0),
-                      padding: EdgeInsets.only(right: 4, left: 4),
-                      side: BorderSide(
-                          color: Colors.transparent
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4)
-                      ),
-                    ),
-                    SizedBox(width: 8,),
-                    Chip(
-                      backgroundColor: dangoingChipBackgroundColor,
-                      visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
-                      label: Text(
-                        "${textManager.checkInPlace(widget.controller.categoryFilterList[widget.index].IN_PLACE_ACP_POSBL_AT ?? "")}",
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: fontStyleManager.suit,
-                            color: dangoingChipTextColor
+                      SizedBox(width: 8,),
+                      Chip(
+                        backgroundColor: dangoingChipBackgroundColor,
+                        visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
+                        label: Text(
+                          "${textManager.checkInPlace(widget.controller.categoryFilterList[widget.index].IN_PLACE_ACP_POSBL_AT ?? "")}",
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: fontStyleManager.suit,
+                              color: dangoingChipTextColor
+                          ),
+                        ),
+                        labelPadding: EdgeInsets.all(0),
+                        padding: EdgeInsets.only(right: 4, left: 4),
+                        side: BorderSide(
+                            color: Colors.transparent
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4)
                         ),
                       ),
-                      labelPadding: EdgeInsets.all(0),
-                      padding: EdgeInsets.only(right: 4, left: 4),
-                      side: BorderSide(
-                          color: Colors.transparent
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4)
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 SizedBox(height: 2,),
-                Chip(
-                  backgroundColor: dangoingChipBackgroundColor,
-                  visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
-                  label: Text(
-                    "${widget.controller.categoryFilterList[widget.index].RSTDE_GUID_CN ?? ""}",
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: fontStyleManager.suit,
-                        color: dangoingChipTextColor
+                Padding(
+                  padding: EdgeInsets.only(left: 4),
+                  child: Chip(
+                    backgroundColor: dangoingChipBackgroundColor,
+                    visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
+                    label: Text(
+                      "${textManager.checkRestDay(widget.controller.categoryFilterList[widget.index].RSTDE_GUID_CN ?? "")}",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: fontStyleManager.suit,
+                          color: dangoingChipTextColor
+                      ),
                     ),
-                  ),
-                  labelPadding: EdgeInsets.all(0),
-                  padding: EdgeInsets.only(right: 4, left: 4),
-                  side: BorderSide(
-                      color: Colors.transparent
-                  ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4)
+                    labelPadding: EdgeInsets.all(0),
+                    padding: EdgeInsets.only(right: 4, left: 4),
+                    side: BorderSide(
+                        color: Colors.transparent
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4)
+                    ),
                   ),
                 ),
               ],

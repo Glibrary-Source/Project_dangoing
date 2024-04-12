@@ -237,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                           )
                         : Container(
                             padding: EdgeInsets.only(left: 16),
-                            height: MediaQuery.sizeOf(context).height * 0.36,
+                            height: MediaQuery.sizeOf(context).height * 0.35,
                             child: ListView.builder(
                                 itemCount:
                                     controller.storeHomeRandomList.length,
@@ -290,7 +290,7 @@ class _HomePageState extends State<HomePage> {
                           )
                         : Container(
                             padding: EdgeInsets.only(left: 16),
-                            height: MediaQuery.sizeOf(context).height * 0.38,
+                            height: MediaQuery.sizeOf(context).height * 0.35,
                             child: ListView.builder(
                                 itemCount:
                                     controller.storeHomeRandomCafeList.length,

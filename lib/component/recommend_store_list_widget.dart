@@ -85,140 +85,143 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                       Get.to(() => StoreDetailPage(),
                           arguments: widget.StoreVoList[widget.index].DOC_ID);
                     },
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 250,
-                          margin: EdgeInsets.only(bottom: 4),
-                          child: Text(
-                            textManager.checkAddress(widget
-                                .StoreVoList[widget.index].FCLTY_NM ??
-                                ""),
-                            softWrap: false,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                height: 1.2,
-                                fontSize: 22,
-                                fontFamily: fontStyleManager.suit,
-                                fontWeight: fontStyleManager.weightTitle
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 250,
+                            margin: EdgeInsets.only(bottom: 4),
+                            child: Text(
+                              textManager.checkAddress(widget
+                                  .StoreVoList[widget.index].FCLTY_NM ??
+                                  ""),
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  height: 1.2,
+                                  fontSize: 22,
+                                  fontFamily: fontStyleManager.suit,
+                                  fontWeight: fontStyleManager.weightTitle
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          width: 250,
-                          margin: EdgeInsets.only(bottom: 4),
-                          child: Text(
-                            textManager.checkAddress(widget.StoreVoList[widget.index].RDNMADR_NM ?? ""),
-                            softWrap: false,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontFamily: fontStyleManager.suit,
-                                fontWeight: fontStyleManager.weightSubTitle,
-                                height: 1.2,
-                                fontSize: 15),
-                            textAlign: TextAlign.left,
+                          SizedBox(
+                            height: 5,
                           ),
-                        ),
-                        Container(
-                          width: 250,
-                          margin: EdgeInsets.only(bottom: 4),
-                          child: Text(
-                            textManager.checkOpenTime(widget.StoreVoList[widget.index].OPER_TIME ?? ""),
-                            softWrap: false,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontFamily: fontStyleManager.suit,
-                                fontWeight: fontStyleManager.weightSubTitle,
-                                height: 1.2,
-                                fontSize: 15),
-                            textAlign: TextAlign.left,
+                          Container(
+                            width: 250,
+                            margin: EdgeInsets.only(bottom: 4),
+                            child: Text(
+                              textManager.checkAddress(widget.StoreVoList[widget.index].RDNMADR_NM ?? ""),
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontFamily: fontStyleManager.suit,
+                                  fontWeight: fontStyleManager.weightSubTitle,
+                                  height: 1.2,
+                                  fontSize: 15),
+                              textAlign: TextAlign.left,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 25,),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Chip(
-                                  backgroundColor: dangoingChipBackgroundColor,
-                                  visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
-                                  label: Text(
-                                    textManager.checkParking(widget.StoreVoList[widget.index].PARKNG_POSBL_AT??"N"),
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: fontStyleManager.suit,
-                                        color: dangoingChipTextColor
-                                    ),
-                                  ),
-                                  labelPadding: EdgeInsets.all(0),
-                                  padding: EdgeInsets.only(right: 4, left: 4),
-                                  side: BorderSide(
-                                      color: Colors.transparent
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4)
-                                  ),
-                                ),
-                                SizedBox(width: 8,),
-                                Chip(
-                                  backgroundColor: dangoingChipBackgroundColor,
-                                  visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
-                                  label: Text(
-                                    textManager.checkInPlace(widget.StoreVoList[widget.index].IN_PLACE_ACP_POSBL_AT??"N"),
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: fontStyleManager.suit,
-                                        color: dangoingChipTextColor
-                                    ),
-                                  ),
-                                  labelPadding: EdgeInsets.all(0),
-                                  padding: EdgeInsets.only(right: 4, left: 4),
-                                  side: BorderSide(
-                                      color: Colors.transparent
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4)
-                                  ),
-                                ),
-                              ],
+                          Container(
+                            width: 250,
+                            margin: EdgeInsets.only(bottom: 4),
+                            child: Text(
+                              textManager.checkOpenTime(widget.StoreVoList[widget.index].OPER_TIME ?? ""),
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontFamily: fontStyleManager.suit,
+                                  fontWeight: fontStyleManager.weightSubTitle,
+                                  height: 1.2,
+                                  fontSize: 15),
+                              textAlign: TextAlign.left,
                             ),
-                            SizedBox(height: 2,),
-                            Row(
-                              children: [
-                                Chip(
-                                  backgroundColor: dangoingChipBackgroundColor,
-                                  visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
-                                  label: Text(
-                                    "휴무: ${
-                                        textManager.checkRestDay(widget
-                                            .StoreVoList[widget.index]
-                                            .RSTDE_GUID_CN ?? "N")
-                                    }",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: fontStyleManager.suit,
-                                        color: dangoingChipTextColor
+                          ),
+                          SizedBox(height: 25,),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Chip(
+                                    backgroundColor: dangoingChipBackgroundColor,
+                                    visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
+                                    label: Text(
+                                      textManager.checkParking(widget.StoreVoList[widget.index].PARKNG_POSBL_AT??"N"),
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: fontStyleManager.suit,
+                                          color: dangoingChipTextColor
+                                      ),
+                                    ),
+                                    labelPadding: EdgeInsets.all(0),
+                                    padding: EdgeInsets.only(right: 4, left: 4),
+                                    side: BorderSide(
+                                        color: Colors.transparent
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(4)
                                     ),
                                   ),
-                                  labelPadding: EdgeInsets.all(0),
-                                  padding: EdgeInsets.only(right: 4, left: 4),
-                                  side: BorderSide(
-                                      color: Colors.transparent
+                                  SizedBox(width: 8,),
+                                  Chip(
+                                    backgroundColor: dangoingChipBackgroundColor,
+                                    visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
+                                    label: Text(
+                                      textManager.checkInPlace(widget.StoreVoList[widget.index].IN_PLACE_ACP_POSBL_AT??"N"),
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: fontStyleManager.suit,
+                                          color: dangoingChipTextColor
+                                      ),
+                                    ),
+                                    labelPadding: EdgeInsets.all(0),
+                                    padding: EdgeInsets.only(right: 4, left: 4),
+                                    side: BorderSide(
+                                        color: Colors.transparent
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(4)
+                                    ),
                                   ),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4)
+                                ],
+                              ),
+                              SizedBox(height: 2,),
+                              Row(
+                                children: [
+                                  Chip(
+                                    backgroundColor: dangoingChipBackgroundColor,
+                                    visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
+                                    label: Text(
+                                      "휴무: ${
+                                          textManager.checkRestDay(widget
+                                              .StoreVoList[widget.index]
+                                              .RSTDE_GUID_CN ?? "N")
+                                      }",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: fontStyleManager.suit,
+                                          color: dangoingChipTextColor
+                                      ),
+                                    ),
+                                    labelPadding: EdgeInsets.all(0),
+                                    padding: EdgeInsets.only(right: 4, left: 4),
+                                    side: BorderSide(
+                                        color: Colors.transparent
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(4)
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
