@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_dangoing/theme/colors.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
-import '../vo/reviewVo.dart';
+import '../vo/review_vo.dart';
 
 class ReviewListWidget extends StatefulWidget {
   Map<String, ReviewVo> review;

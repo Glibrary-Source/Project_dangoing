@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:project_dangoing/component/map_category_widget.dart';
 import 'package:project_dangoing/controller/location_controller.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
@@ -81,8 +82,7 @@ class _MapPageState extends State<MapPage> {
                 ),
                 logoAlign: NLogoAlign.rightBottom,
                 logoMargin: EdgeInsets.all(10),
-                liteModeEnable: true
-            ),
+                liteModeEnable: true),
             onMapReady: (controller) async {
               naverMapController = controller;
 
@@ -105,20 +105,39 @@ class _MapPageState extends State<MapPage> {
             },
           ),
           Positioned(
-            child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(100)),
-                child: IconButton(
-                    onPressed: () async {
-                      myLocationAddMarker(permissionManager);
-                    },
-                    icon: Icon(
-                      Icons.location_on,
-                      color: dangoingMainColor,
-                    ))),
             bottom: 20,
             left: 10,
+            child: Stack(
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(100)),
+                    child: IconButton(
+                        onPressed: () async {
+                          myLocationAddMarker(permissionManager);
+                        },
+                        icon: Icon(
+                          Icons.location_on,
+                          color: dangoingMainColor,
+                        ))),
+                GetBuilder<LocationController>(builder: (locationController) {
+                  return locationController.locationState
+                      ? Container(
+                          width: 48,
+                          height: 48,
+                          decoration: BoxDecoration(
+                              color:
+                                  CupertinoColors.systemGrey.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(100)),
+                          child: const CircularProgressIndicator(
+                            strokeWidth: 2.0,
+                            color: dangoingMainColor,
+                          ))
+                      : SizedBox();
+                }),
+              ],
+            ),
           ),
           Positioned(
             top: MediaQuery.sizeOf(context).height * 0.04,
@@ -163,20 +182,42 @@ class _MapPageState extends State<MapPage> {
   }
 
   void myLocationAddMarker(PermissionManager permissionManager) async {
-    await locationController.getCurrentLocation();
+    locationController.setLocationState(true);
 
-    final myLatLng = NLatLng(locationController.locationData?.latitude ?? 0,
-        locationController.locationData?.longitude ?? 0);
+    if(await permissionCheck()) {
+      await locationController.getCurrentLocation();
 
-    final position = NCameraUpdate.withParams(target: myLatLng, zoom: 13);
+      final myLatLng = NLatLng(locationController.locationData?.latitude ?? 0,
+          locationController.locationData?.longitude ?? 0);
 
-    const iconImage = NOverlayImage.fromAssetImage(
-        "assets/icons/map/icon_current_location(50).png");
+      final position = NCameraUpdate.withParams(target: myLatLng, zoom: 13);
 
-    final myLocationMarker =
-        NMarker(id: "myLocation", position: myLatLng, icon: iconImage);
+      const iconImage = NOverlayImage.fromAssetImage(
+          "assets/icons/map/icon_current_location(50).png");
 
-    naverMapController?.updateCamera(position);
-    naverMapController?.addOverlay(myLocationMarker);
+      final myLocationMarker =
+      NMarker(id: "myLocation", position: myLatLng, icon: iconImage);
+
+      naverMapController?.updateCamera(position);
+      naverMapController?.addOverlay(myLocationMarker);
+
+      locationController.setLocationState(false);
+    } else {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('위치 권한을 확인해주세요'),
+        ),
+      );
+      locationController.setLocationState(false);
+    }
+  }
+
+  Future<bool> permissionCheck() async {
+    if("${await Permission.location.status}" == "PermissionStatus.permanentlyDenied") {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

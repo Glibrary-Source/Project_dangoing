@@ -6,7 +6,7 @@ import 'package:project_dangoing/service/firebase_auth_service.dart';
 
 import '../theme/colors.dart';
 import '../utils/fontstyle_manager.dart';
-import '../vo/reviewVo.dart';
+import '../vo/review_vo.dart';
 
 class MyReviewListWidget extends StatefulWidget {
   Map<String, ReviewVo> review;

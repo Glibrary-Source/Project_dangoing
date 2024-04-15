@@ -1,6 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:project_dangoing/vo/reviewVo.dart';
+import 'package:project_dangoing/vo/review_vo.dart';
 
 class UserReviewModel {
   List<Map<String, ReviewVo>>? reviewList;

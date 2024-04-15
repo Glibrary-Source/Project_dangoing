@@ -37,6 +37,7 @@ class FirebaseAuthService {
 
     // 로그인 시도
     try {
+      userController.changeSignInState(true);
       UserCredential userCredential = await auth.signInWithCredential(credential);
       addFirebaseUser(userCredential);
     } on FirebaseAuthException catch(e) {
@@ -61,12 +62,15 @@ class FirebaseAuthService {
     DocumentSnapshot querySnapshot = await userCollection.doc(userUid).get();
     if(querySnapshot.exists) {
       await userController.getGoogleUserModel();
+      userController.changeSignInState(false);
       return;
     }
 
     await userCollection.doc(userUid).set(userVo.toMap()).then((value) {
       userController.getGoogleUserModel();
     });
+
+    userController.changeSignInState(false);
   }
 
   void showSnackBar(BuildContext context) {

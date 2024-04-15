@@ -12,6 +12,7 @@ class UserController extends GetxController {
   final DangoFirebaseService dangoingFirebaseService = DangoFirebaseService();
 
   UserModel? myModel;
+  bool signInIndicator = false;
 
   Future<void> googleLogin(BuildContext context) async {
     try{
@@ -63,6 +64,11 @@ class UserController extends GetxController {
     } catch(error) {
       throw error;
     }
+  }
+
+  Future<void> changeSignInState(bool state) async{
+    signInIndicator = state;
+    update();
   }
 
 }

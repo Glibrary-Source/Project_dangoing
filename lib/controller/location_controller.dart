@@ -8,11 +8,17 @@ import 'package:project_dangoing/utils/permission_manager.dart';
 class LocationController extends GetxController {
 
   LocationData? locationData;
+  bool locationState = false;
 
   Future<void> getCurrentLocation() async {
     Location location = Location();
 
     locationData = await location.getLocation();
+  }
+
+  Future<void> setLocationState(bool state) async{
+    locationState = state;
+    update();
   }
 
   // 퍼미션 체크가 되어있는

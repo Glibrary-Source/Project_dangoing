@@ -27,14 +27,11 @@ class _MyPageState extends State<MyPage> {
 
   FontStyleManager fontStyleManager = FontStyleManager();
   bool nickNameChange = false;
+  bool loginState = true;
 
   final authService = FirebaseAuthService();
 
   var lastPopTime;
-
-  void handleGoogleLogin() async {
-    await authService.signInWithGoogle(context);
-  }
 
   @override
   void dispose() {
@@ -66,7 +63,7 @@ class _MyPageState extends State<MyPage> {
         return Scaffold(
           body: SingleChildScrollView(
             child: userController.myModel != null
-                ? Container(
+                ? SizedBox(
                     height: MediaQuery.sizeOf(context).height * 0.92,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16, right: 16),
@@ -78,18 +75,18 @@ class _MyPageState extends State<MyPage> {
                             child: Center(
                               child: Image.asset(
                                 "assets/logo/main_logo.png",
-                                height: 100,
-                                width: 150,
+                                height: 150,
+                                width: 200,
                               ),
                             ),
                           ),
                           Container(
                             margin: EdgeInsets.only(bottom: 8),
                             child: Text(
-                              "Email: ${userController.myModel?.email}",
+                              "이메일: ${userController.myModel?.email}",
                               style: TextStyle(
-                                  fontSize: 18,
-                                  ),
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                           Row(
@@ -100,13 +97,11 @@ class _MyPageState extends State<MyPage> {
                                 child: Text(
                                   "닉네임: ${userController.myModel?.nickname}",
                                   style: TextStyle(
-                                      fontSize: 18,
-                                      ),
+                                    fontSize: 18,
+                                  ),
                                 ),
                               ),
-                              SizedBox(
-                                width: 8,
-                              ),
+                              SizedBox(width: 8),
                               IconButton(
                                   onPressed: () {
                                     setState(() {
@@ -201,45 +196,65 @@ class _MyPageState extends State<MyPage> {
                       ),
                     ),
                   )
-                : Container(
-                    height: MediaQuery.sizeOf(context).height * 0.80,
-                    width: MediaQuery.sizeOf(context).width,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Column(
+                : Stack(
+                    children: [
+                      Container(
+                        height: MediaQuery.sizeOf(context).height * 0.80,
+                        width: MediaQuery.sizeOf(context).width,
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              "assets/logo/main_logo.png",
-                              height: 220,
-                              width: 220,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "assets/logo/main_logo.png",
+                                  height: 220,
+                                  width: 220,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 60,
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 8, right: 8),
+                              child: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  onPressed: () async {
+                                    await userController.googleLogin(context);
+                                  },
+                                  splashRadius: 1,
+                                  highlightColor: dangoingMainColor,
+                                  style: IconButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(0))),
+                                  icon: Image.asset(
+                                    "assets/button/google_login_button.png",
+                                    width: 350,
+                                  )),
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 60,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 8, right: 8),
-                          child: IconButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: () async {
-                                await userController.googleLogin(context);
-                              },
-                              splashRadius: 1,
-                              highlightColor: dangoingMainColor,
-                              style: IconButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0)
-                                )
+                      ),
+                      userController.signInIndicator
+                          ? Container(
+                              width: MediaQuery.sizeOf(context).width,
+                              height: MediaQuery.sizeOf(context).height,
+                              decoration: BoxDecoration(
+                                color:
+                                    CupertinoColors.systemGrey.withOpacity(0.5),
                               ),
-                              icon: Image.asset(
-                                  "assets/button/google_login_button.png",width: 350,)),
-                        )
-                      ],
-                    ),
+                              child: Center(
+                                  child: Container(
+                                      width: 50,
+                                      height: 50,
+                                      child: CircularProgressIndicator())),
+                            )
+                          : SizedBox()
+                    ],
                   ),
           ),
         );

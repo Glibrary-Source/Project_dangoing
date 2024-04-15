@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:project_dangoing/model/user_review_model.dart';
 import 'package:project_dangoing/service/dango_firebase_service.dart';
 
-import '../vo/reviewVo.dart';
+import '../vo/review_vo.dart';
 
 class ReviewController extends GetxController {
   final DangoFirebaseService dangoingFirebaseUserService =

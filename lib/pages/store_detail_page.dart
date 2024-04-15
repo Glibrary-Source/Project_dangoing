@@ -17,7 +17,7 @@ import 'package:project_dangoing/utils/text_manager.dart';
 import 'package:project_dangoing/vo/store_vo.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../vo/reviewVo.dart';
+import '../vo/review_vo.dart';
 
 class StoreDetailPage extends StatefulWidget {
   const StoreDetailPage({super.key});
@@ -31,6 +31,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
   StoreController storeController = Get.find();
   ReviewController reviewController = Get.find();
   FontStyleManager fontStyleManager = FontStyleManager();
+  ExpansionTileController reviewExpansionTileController =
+      ExpansionTileController();
 
   StoreVo data = StoreVo();
   DateTime dt = DateTime.now();
@@ -42,7 +44,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
   num reviewScore = 3.0;
   bool reviewEditVisible = false;
 
-  final GlobalKey _widgetKey = GlobalKey();
+  final GlobalKey _widgetReviewKey = GlobalKey();
+  final GlobalKey _widgetEditReviewKey = GlobalKey();
 
   late DetailInfoList detailInfoList;
   late List<String> infoList;
@@ -69,16 +72,16 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
   }
 
   double ratingAverage(List<Map<String, ReviewVo>> reviewList) {
-    if(reviewList.isEmpty) {
+    if (reviewList.isEmpty) {
       return 0.0;
     } else {
       num average = 0.0;
-      for(var map in reviewList) {
-        for(var review in map.values) {
+      for (var map in reviewList) {
+        for (var review in map.values) {
           average = average + review.review_score!;
         }
       }
-      return average/reviewList.length;
+      return average / reviewList.length;
     }
   }
 
@@ -150,7 +153,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         children: [
                           RatingBar.builder(
                             ignoreGestures: true,
-                            initialRating: ratingAverage(reviewController.storeReviewList),
+                            initialRating:
+                                ratingAverage(reviewController.storeReviewList),
                             minRating: 0,
                             direction: Axis.horizontal,
                             itemCount: 5,
@@ -176,7 +180,9 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                           ),
                           GestureDetector(
                               onTap: () {
-                                Scrollable.ensureVisible(_widgetKey.currentContext!,
+                                reviewExpansionTileController.expand();
+                                Scrollable.ensureVisible(
+                                    _widgetReviewKey.currentContext!,
                                     duration: Duration(milliseconds: 300),
                                     curve: Curves.easeInOut,
                                     alignment: 0);
@@ -349,7 +355,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         ],
                       ),
                       SizedBox(
-                        height: MediaQuery.sizeOf(context).height*0.06,
+                        key: _widgetEditReviewKey,
+                        height: MediaQuery.sizeOf(context).height * 0.04,
                       ),
                       data.HMPG_URL == ""
                           ? SizedBox(
@@ -387,10 +394,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   )),
                             ),
                       SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 5,
+                        height: 15,
                       ),
                       SizedBox(
                         height: reviewEditVisible ? null : 0,
@@ -564,19 +568,19 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                 ))),
                       ),
                       Container(
-                        key: _widgetKey,
+                        key: _widgetReviewKey,
                         decoration: BoxDecoration(
                             border: Border.all(
                                 color: CupertinoColors.systemGrey2, width: 1),
                             borderRadius: BorderRadius.all(Radius.circular(8))),
                         child: ExpansionTile(
                             shape: Border(),
-                            initiallyExpanded: true,
+                            controller: reviewExpansionTileController,
                             onExpansionChanged: (value) async {
                               Future.delayed(Duration(milliseconds: 300), () {
                                 if (value) {
                                   Scrollable.ensureVisible(
-                                      _widgetKey.currentContext!,
+                                      _widgetReviewKey.currentContext!,
                                       duration: Duration(milliseconds: 300),
                                       curve: Curves.easeInOut,
                                       alignment: 0);
@@ -625,24 +629,27 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                               )
                             ]),
                       ),
-                      SizedBox(height: 10,)
+                      SizedBox(
+                        height: 10,
+                      )
                     ],
                   ),
                 )
               ],
             ),
           ),
+
           floatingActionButton:
               GetBuilder<UserController>(builder: (userController) {
             return FloatingActionButton(
                 onPressed: () async {
-                  // if (userController.myInfo != null) {
                   if (userController.myModel != null) {
                     setState(() {
                       reviewEditVisible = !reviewEditVisible;
                     });
                     Future.delayed(Duration(milliseconds: 300), () {
-                      Scrollable.ensureVisible(_widgetKey.currentContext!,
+                      Scrollable.ensureVisible(
+                          _widgetEditReviewKey.currentContext!,
                           duration: Duration(milliseconds: 300),
                           curve: Curves.easeInOut,
                           alignment: 0);
@@ -676,26 +683,42 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
   }
 
   editReview(UserController userController) {
-    reviewController.setReviewData(
-        docId,
-        userController.myModel!.uid!,
-        userController.myModel!.nickname!,
-        reviewScore,
-        reviewMain,
-        data.FCLTY_NM ?? "");
-    reviewController.setReviewDataMyPage(
-        docId,
-        userController.myModel!.uid!,
-        userController.myModel!.nickname!,
-        reviewScore,
-        reviewMain,
-        data.FCLTY_NM ?? "");
-    reviewMainInputController.clear();
-    setState(() {
-      reviewEditVisible = false;
-    });
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text("리뷰가 작성되었습니다.")));
+    if (checkExistReview(userController)) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("이미 리뷰를 작성하셨습니다")));
+    } else {
+      reviewController.setReviewData(
+          docId,
+          userController.myModel!.uid!,
+          userController.myModel!.nickname!,
+          reviewScore,
+          reviewMain,
+          data.FCLTY_NM ?? "");
+      reviewController.setReviewDataMyPage(
+          docId,
+          userController.myModel!.uid!,
+          userController.myModel!.nickname!,
+          reviewScore,
+          reviewMain,
+          data.FCLTY_NM ?? "");
+
+      reviewMainInputController.clear();
+      setState(() {
+        reviewEditVisible = false;
+      });
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("리뷰가 작성되었습니다.")));
+    }
+  }
+
+  bool checkExistReview(UserController userController) {
+    for (var doc in reviewController.storeReviewList) {
+      if (doc.keys.contains(userController.myModel!.uid!)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

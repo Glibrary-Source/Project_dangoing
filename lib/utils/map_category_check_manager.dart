@@ -15,7 +15,7 @@ class MapCategoryCheckManager {
   bool hotel = prefs.getBool("check_hotel") ?? false;
   bool korea_gate = prefs.getBool("check_korea_gate") ?? false;
   bool management = prefs.getBool("check_management") ?? false;
-  bool museum = prefs.getBool("check_museum") ?? false;
+  bool museum = prefs.getBool("check_museum") ?? true;
   bool restaurant = prefs.getBool("check_restaurant") ?? false;
   bool salon = prefs.getBool("check_salon") ?? false;
   bool tools = prefs.getBool("check_tools") ?? false;
