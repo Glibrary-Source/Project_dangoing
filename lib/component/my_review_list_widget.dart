@@ -42,18 +42,15 @@ class _MyReviewListWidgetState extends State<MyReviewListWidget> {
                             return AlertDialog(
                               title: Text(
                                 "리뷰 삭제",
-                                style: TextStyle(
-                                    fontFamily:
-                                        widget.fontStyleManager.primarySecondFont,
-                                    fontWeight: FontWeight.bold),
                               ),
-                              content: Text("정말 리뷰를 삭제하시겠습니까?",
-                                  style: TextStyle(
-                                      fontFamily: widget.fontStyleManager
-                                          .primarySecondFont)),
+                              surfaceTintColor: Colors.white,
+                              backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(8)),
+
+                              content: Text("정말 리뷰를 삭제하시겠습니까?",),
                               actions: <Widget>[
                                 Container(
-                                  child: ElevatedButton(
+                                  child: TextButton(
                                       onPressed: () async {
                                         userController.deleteReview(widget.review.keys.first, widget.myModel.uid ?? "");
 
@@ -61,23 +58,15 @@ class _MyReviewListWidgetState extends State<MyReviewListWidget> {
                                       },
                                       child: Text(
                                         "네",
-                                        style: TextStyle(
-                                            fontFamily: widget.fontStyleManager
-                                                .primarySecondFont,
-                                            fontWeight: FontWeight.bold),
                                       )),
                                 ),
                                 Container(
-                                  child: ElevatedButton(
+                                  child: TextButton(
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
                                       child: Text(
                                         "아니오",
-                                        style: TextStyle(
-                                            fontFamily: widget.fontStyleManager
-                                                .primarySecondFont,
-                                            fontWeight: FontWeight.bold),
                                       )),
                                 )
                               ],
@@ -97,8 +86,6 @@ class _MyReviewListWidgetState extends State<MyReviewListWidget> {
                     children: [
                       Text("${widget.review.values.first.store_name!}",
                           style: TextStyle(
-                              fontFamily:
-                                  widget.fontStyleManager.primaryFont,
                               fontSize: 18,
                               color: dangoingMainColor)),
                     ],
@@ -112,16 +99,12 @@ class _MyReviewListWidgetState extends State<MyReviewListWidget> {
                           child: Text(
                               "${widget.review.values.first.review_nickname!} 님",
                               style: TextStyle(
-                                  fontFamily:
-                                      widget.fontStyleManager.primaryFont,
                                   fontSize: 18))),
                       Expanded(
                           child: Text(
                         "평가: ${widget.review.values.first.review_score!} 점",
                         style: TextStyle(
-                            fontFamily:
-                                widget.fontStyleManager.primarySecondFont,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: widget.fontStyleManager.weightSubTitle),
                         textAlign: TextAlign.end,
                       )),
                     ],

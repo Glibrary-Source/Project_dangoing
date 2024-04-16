@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_dangoing/model/user_review_model.dart';
 
 import '../model/store_list_model.dart';
-import '../model/user_model.dart';
 import '../vo/store_vo.dart';
 
 FirebaseFirestore fireStore = FirebaseFirestore.instance;
@@ -113,6 +112,14 @@ class DangoFirebaseService {
       };
       user.doc(uid).set(data, SetOptions(merge: true));
     } catch (error) {
+      throw error;
+    }
+  }
+
+  Future<void> deleteUser(String docId) async {
+    try {
+      user.doc(docId).delete();
+    } catch(error){
       throw error;
     }
   }

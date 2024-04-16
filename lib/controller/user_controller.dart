@@ -71,4 +71,12 @@ class UserController extends GetxController {
     update();
   }
 
+  Future<void> userDataDelete(String uid) async {
+    try{
+      dangoingFirebaseService.deleteUser(uid);
+    } catch(error) {
+      throw error;
+    }
+  }
+
 }

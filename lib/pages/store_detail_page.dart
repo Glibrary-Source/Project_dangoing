@@ -445,14 +445,24 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                                           return AlertDialog(
                                                             title: Text(
                                                               "리뷰 작성",
+                                                              style: TextStyle(
+                                                                fontSize: 20,
+                                                                  fontWeight: fontStyleManager.weightSubTitle
+                                                              ),
                                                             ),
                                                             content: Text(
-                                                              "후기를 남기시겠습니까?",
+                                                              "리뷰를 남기시겠습니까?",
+                                                              style: TextStyle(
+                                                                  fontWeight: fontStyleManager.weightSubTitle
+                                                              ),
                                                             ),
+                                                            surfaceTintColor: Colors.white,
+                                                            backgroundColor: Colors.white,
+                                                            shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(8)),
                                                             actions: <Widget>[
                                                               Container(
                                                                 child:
-                                                                    ElevatedButton(
+                                                                    TextButton(
                                                                         onPressed:
                                                                             () {
                                                                           editReview(
@@ -464,13 +474,13 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                                                             Text(
                                                                           "네",
                                                                           style: TextStyle(
-                                                                              fontFamily: fontStyleManager.primarySecondFont,
+                                                                              color: dangoingMainColor,
                                                                               fontWeight: FontWeight.bold),
                                                                         )),
                                                               ),
                                                               Container(
                                                                 child:
-                                                                    ElevatedButton(
+                                                                    TextButton(
                                                                         onPressed:
                                                                             () {
                                                                           Navigator.of(context)
@@ -480,7 +490,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                                                             Text(
                                                                           "아니오",
                                                                           style: TextStyle(
-                                                                              fontFamily: fontStyleManager.primarySecondFont,
+                                                                              color: dangoingMainColor,
                                                                               fontWeight: FontWeight.bold),
                                                                         )),
                                                               )

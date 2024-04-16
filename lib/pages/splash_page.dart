@@ -44,14 +44,7 @@ class _SplashPageState extends State<SplashPage> {
         children: [
           Lottie.asset('assets/lottie/walk_dog.json'),
           SizedBox(height: 60),
-          Text(
-            textAlign: TextAlign.center,
-            "Explore",
-            style: TextStyle(
-                fontSize: 34,
-                color: Colors.black,
-                fontFamily: 'JosefinSans-Bold'),
-          )
+          Image.asset("assets/logo/main_logo.png", width: 150, height: 100,)
         ],
       ),
     );

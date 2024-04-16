@@ -96,7 +96,7 @@ class _MapPageState extends State<MapPage> {
               MapStatusManager().visibleManager();
             },
             onCameraIdle: () async {
-              var position = await naverMapController?.getCameraPosition();
+              var position = naverMapController?.nowCameraPosition;
               mapStatusManager.currentCameraPosition(position);
             },
             onMapTapped: (NPoint point, NLatLng latLng) {
@@ -184,11 +184,16 @@ class _MapPageState extends State<MapPage> {
   void myLocationAddMarker(PermissionManager permissionManager) async {
     locationController.setLocationState(true);
 
-    if(await permissionCheck()) {
-      await locationController.getCurrentLocation();
+    if (await permissionCheck()) {
+      try {
+        await locationController.getCurrentLocation();
+      } catch (e) {
+        locationController.setLocationState(false);
+      }
 
-      final myLatLng = NLatLng(locationController.locationData?.latitude ?? 0,
-          locationController.locationData?.longitude ?? 0);
+      final myLatLng = NLatLng(
+          locationController.locationData?.latitude ?? 37.57037778,
+          locationController.locationData?.longitude ?? 126.9816417);
 
       final position = NCameraUpdate.withParams(target: myLatLng, zoom: 13);
 
@@ -196,7 +201,7 @@ class _MapPageState extends State<MapPage> {
           "assets/icons/map/icon_current_location(50).png");
 
       final myLocationMarker =
-      NMarker(id: "myLocation", position: myLatLng, icon: iconImage);
+          NMarker(id: "myLocation", position: myLatLng, icon: iconImage);
 
       naverMapController?.updateCamera(position);
       naverMapController?.addOverlay(myLocationMarker);
@@ -214,7 +219,9 @@ class _MapPageState extends State<MapPage> {
   }
 
   Future<bool> permissionCheck() async {
-    if("${await Permission.location.status}" == "PermissionStatus.permanentlyDenied") {
+    if ("${await Permission.location.status}" ==
+            "PermissionStatus.permanentlyDenied" ||
+        "${await Permission.location.status}" == "PermissionStatus.denied") {
       return false;
     } else {
       return true;
