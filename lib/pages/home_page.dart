@@ -3,12 +3,15 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:project_dangoing/component/category_store_list_widget.dart';
+import 'package:project_dangoing/component/full_width_banner_ad_widget.dart';
 import 'package:project_dangoing/component/recommend_store_list_widget.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/data/category_list_data.dart';
 import 'package:project_dangoing/data/local_list_data.dart';
 import 'package:project_dangoing/theme/colors.dart';
+import 'package:project_dangoing/utils/ad_manager.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
 import '../global/share_preference.dart';
@@ -56,10 +59,8 @@ class _HomePageState extends State<HomePage> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                  '뒤로 버튼을 한번더 누르면 앱이 종료됩니다.',
-                style: TextStyle(
-                  fontFamily: fontStyleManager.suit
-                ),
+                '뒤로 버튼을 한번더 누르면 앱이 종료됩니다.',
+                style: TextStyle(fontFamily: fontStyleManager.suit),
               ),
             ),
           );
@@ -116,8 +117,14 @@ class _HomePageState extends State<HomePage> {
                                                 0.35,
                                             child: Column(
                                               children: [
-                                                SizedBox(height: 10,),
-                                                Image.asset("assets/images/location_indicator.png", width: 60, height: 15,),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Image.asset(
+                                                  "assets/images/location_indicator.png",
+                                                  width: 60,
+                                                  height: 15,
+                                                ),
                                                 SizedBox(
                                                   height: 30,
                                                 ),
@@ -125,13 +132,13 @@ class _HomePageState extends State<HomePage> {
                                                   "관심 지역 설정",
                                                   style: TextStyle(
                                                       fontSize: 24,
-                                                    fontWeight: fontStyleManager.weightCategoryTitle
-                                                  ),
+                                                      fontWeight: fontStyleManager
+                                                          .weightCategoryTitle),
                                                 ),
                                                 SizedBox(
                                                   height: 40,
                                                 ),
-                                                 Container(
+                                                Container(
                                                   padding: EdgeInsets.only(
                                                       left: 15,
                                                       right: 15,
@@ -150,14 +157,23 @@ class _HomePageState extends State<HomePage> {
                                                               .width *
                                                           0.9,
                                                   child: DropdownButton(
-                                                    underline: SizedBox.shrink(),
+                                                    underline:
+                                                        SizedBox.shrink(),
                                                     itemHeight: 50,
-                                                    icon: Image.asset("assets/images/location_dropbox_arrow.png", width: 44,height: 44,),
+                                                    icon: Image.asset(
+                                                      "assets/images/location_dropbox_arrow.png",
+                                                      width: 44,
+                                                      height: 44,
+                                                    ),
                                                     isExpanded: true,
                                                     items: localListData
                                                         .dropDownList
-                                                        .map<DropdownMenuItem<String>>((String value) {
-                                                      return DropdownMenuItem<String>(
+                                                        .map<
+                                                            DropdownMenuItem<
+                                                                String>>((String
+                                                            value) {
+                                                      return DropdownMenuItem<
+                                                          String>(
                                                         value: value,
                                                         child: Text(
                                                           value,
@@ -168,18 +184,20 @@ class _HomePageState extends State<HomePage> {
                                                       );
                                                     }).toList(),
                                                     onChanged: (String? value) {
-
                                                       local = value ?? "서울특별시";
                                                       prefs.setString(
                                                           "local", local!);
-                                                      controller.setLocationName(
-                                                        local!
-                                                      );
+                                                      controller
+                                                          .setLocationName(
+                                                              local!);
 
-                                                      controller.setStoreLoadState(true);
+                                                      controller
+                                                          .setStoreLoadState(
+                                                              true);
+
+                                                      _fetchData();
 
                                                       Navigator.pop(context);
-                                                      _fetchData();
                                                     },
                                                     value: controller.localName,
                                                   ),
@@ -221,7 +239,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     controller.storeHomeRandomList.isEmpty
                         ? Card(
-                            margin: EdgeInsets.only(right: 16),
+                            margin: EdgeInsets.only(right: 16, left: 16),
                             child: SizedBox(
                               height: MediaQuery.sizeOf(context).height * 0.3,
                               child: Center(
@@ -263,10 +281,8 @@ class _HomePageState extends State<HomePage> {
                               Text(" 요즘 뜨는 카페",
                                   style: TextStyle(
                                       fontSize: 22,
-                                      fontFamily: fontStyleManager.suit,
                                       fontWeight: fontStyleManager.weightTitle,
-                                      color: Colors.black)
-                              ),
+                                      color: Colors.black)),
                             ],
                           ),
                         ],
@@ -274,7 +290,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     controller.storeHomeRandomCafeList.isEmpty
                         ? Card(
-                            margin: EdgeInsets.only(right: 16),
+                            margin: EdgeInsets.only(right: 16, left: 16),
                             child: SizedBox(
                               height: MediaQuery.sizeOf(context).height * 0.3,
                               child: Center(
@@ -282,7 +298,6 @@ class _HomePageState extends State<HomePage> {
                                   "인터넷을 확인해주세요",
                                   style: TextStyle(
                                     fontSize: 24,
-                                    fontFamily: fontStyleManager.suit,
                                   ),
                                 ),
                               ),
@@ -333,6 +348,11 @@ class _HomePageState extends State<HomePage> {
                                 index: index,
                                 categoryListData: categoryListMap.categoryMap);
                           }),
+                    ),
+                    SizedBox(height: 5,),
+                    FullWidthBannerAdWidget(bannerAd: AdManager.instance.homeBannerAd),
+                    SizedBox(
+                      height: 10,
                     ),
                   ],
                 ),

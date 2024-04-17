@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_dangoing/controller/user_controller.dart';
-import 'package:project_dangoing/pages/home_page.dart';
-import 'package:project_dangoing/pages/main_page.dart';
 import 'package:project_dangoing/pages/main_page_tabbar.dart';
 
 import '../controller/store_controller.dart';

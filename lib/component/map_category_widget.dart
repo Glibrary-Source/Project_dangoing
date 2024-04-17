@@ -1,4 +1,4 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_dangoing/theme/colors.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
@@ -6,7 +6,6 @@ import 'package:project_dangoing/utils/map_category_check_manager.dart';
 import 'package:project_dangoing/utils/map_status_manager.dart';
 
 class MapCategoryWidget extends StatefulWidget {
-
   String categoryName;
 
   MapCategoryWidget({super.key, required this.categoryName});
@@ -20,21 +19,34 @@ class _MapCategoryWidgetState extends State<MapCategoryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Checkbox(
+    return InkWell(
+      onTap: () {
+        setState(() {
+          bool? newValue = !MapCategoryCheckManager().getCheckValue(widget.categoryName)!;
+          MapCategoryCheckManager()
+              .setCheckValue(widget.categoryName, newValue);
+          for (var marker in MapStatusManager()
+              .storeMarkerMap[widget.categoryName]!) {
+            marker.setIsVisible(newValue);
+          }
+        });
+      },
+      child: Row(
+        children: [
+          Checkbox(
             value: MapCategoryCheckManager().getCheckValue(widget.categoryName),
-            onChanged: (value) {
-              setState(() {
-                MapCategoryCheckManager().setCheckValue(widget.categoryName, value!);
-                for(var marker in MapStatusManager().storeMarkerMap[widget.categoryName]!) {
-                  marker.setIsVisible(value);
-                }
-              });
-            },
-        ),
-        Text(widget.categoryName)
-      ],
+            checkColor: dangoingMainColor,
+            splashRadius: 24,
+            fillColor: MaterialStatePropertyAll(CupertinoColors.systemGrey6),
+            overlayColor: MaterialStatePropertyAll(Colors.green.withOpacity(0.2)),
+            side:  MaterialStateBorderSide.resolveWith(
+                  (states) => BorderSide(width: 1.0, color: Colors.black45),
+            ),
+            onChanged: null,
+          ),
+          Text(widget.categoryName)
+        ],
+      ),
     );
   }
 }

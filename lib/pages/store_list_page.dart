@@ -68,149 +68,134 @@ class _StoreListPageState extends State<StoreListPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Flexible(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Image.asset(
-                                  "assets/logo/main_logo.png",
-                                  height: 57,
-                                  width: 148,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Flexible(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    showModalBottomSheet(
-                                        context: context,
-                                        shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(25),
-                                          ),
-                                        ),
-                                        builder: (context) {
-                                          return SizedBox(
-                                            width: double.infinity,
-                                            height: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                0.35,
-                                            child: Column(
-                                              children: [
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Image.asset(
-                                                  "assets/images/location_indicator.png",
-                                                  width: 60,
-                                                  height: 15,
-                                                ),
-                                                SizedBox(
-                                                  height: 30,
-                                                ),
-                                                Text(
-                                                  "관심 지역 설정",
-                                                  style: TextStyle(
-                                                      fontSize: 24,
-                                                      fontWeight: fontStyleManager
-                                                          .weightSubTitle),
-                                                ),
-                                                SizedBox(
-                                                  height: 40,
-                                                ),
-                                                Container(
-                                                  padding: EdgeInsets.only(
-                                                      left: 15,
-                                                      right: 15,
-                                                      top: 10,
-                                                      bottom: 10),
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          width: 1,
-                                                          color: Color(
-                                                              0xffFFD2B0)),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8)),
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.9,
-                                                  child: DropdownButton(
-                                                    underline:
-                                                        SizedBox.shrink(),
-                                                    itemHeight: 50,
-                                                    icon: Image.asset(
-                                                      "assets/images/location_dropbox_arrow.png",
-                                                      width: 44,
-                                                      height: 44,
-                                                    ),
-                                                    isExpanded: true,
-                                                    items: localListData
-                                                        .dropDownList
-                                                        .map<
-                                                            DropdownMenuItem<
-                                                                String>>((String
-                                                            value) {
-                                                      return DropdownMenuItem<
-                                                          String>(
-                                                        value: value,
-                                                        child: Text(
-                                                          value,
-                                                          style: TextStyle(
-                                                            fontSize: 22,
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }).toList(),
-                                                    onChanged: (String? value) {
-
-                                                      local = value ?? "서울특별시";
-                                                      prefs.setString(
-                                                          "local", local!);
-                                                      storeController.setLocationName(
-                                                        local!
-                                                      );
-
-                                                      storeController
-                                                          .setStoreLoadState(
-                                                          true);
-                                                      storeController
-                                                          .getCategoryFilterList(
-                                                          categoryName);
-
-                                                      Navigator.pop(context);
-                                                      _fetchData();
-                                                    },
-                                                    value: local,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          );
-                                        });
-                                  },
-                                  icon: Image.asset(
-                                    "assets/icons/map/icon_mylocation_map.png",
-                                    width: 32,
-                                    height: 32,
+                          IconButton(onPressed: (){
+                            Navigator.pop(context);
+                          }, icon: Icon(Icons.arrow_back)),
+                          IconButton(
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(25),
+                                    ),
                                   ),
-                                  highlightColor: dangoingMainColor,
-                                ),
-                              ],
+                                  builder: (context) {
+                                    return SizedBox(
+                                      width: double.infinity,
+                                      height: MediaQuery.sizeOf(context)
+                                              .height *
+                                          0.35,
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Image.asset(
+                                            "assets/images/location_indicator.png",
+                                            width: 60,
+                                            height: 15,
+                                          ),
+                                          SizedBox(
+                                            height: 30,
+                                          ),
+                                          Text(
+                                            "관심 지역 설정",
+                                            style: TextStyle(
+                                                fontSize: 24,
+                                                fontWeight: fontStyleManager
+                                                    .weightSubTitle),
+                                          ),
+                                          SizedBox(
+                                            height: 40,
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.only(
+                                                left: 15,
+                                                right: 15,
+                                                top: 10,
+                                                bottom: 10),
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color: Color(
+                                                        0xffFFD2B0)),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        8)),
+                                            width:
+                                                MediaQuery.sizeOf(context)
+                                                        .width *
+                                                    0.9,
+                                            child: DropdownButton(
+                                              underline:
+                                                  SizedBox.shrink(),
+                                              itemHeight: 50,
+                                              icon: Image.asset(
+                                                "assets/images/location_dropbox_arrow.png",
+                                                width: 44,
+                                                height: 44,
+                                              ),
+                                              isExpanded: true,
+                                              items: localListData
+                                                  .dropDownList
+                                                  .map<
+                                                      DropdownMenuItem<
+                                                          String>>((String
+                                                      value) {
+                                                return DropdownMenuItem<
+                                                    String>(
+                                                  value: value,
+                                                  child: Text(
+                                                    value,
+                                                    style: TextStyle(
+                                                      fontSize: 22,
+                                                    ),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                              onChanged: (String? value) {
+
+                                                local = value ?? "서울특별시";
+                                                prefs.setString(
+                                                    "local", local!);
+                                                storeController.setLocationName(
+                                                  local!
+                                                );
+
+                                                storeController
+                                                    .setStoreLoadState(
+                                                    true);
+                                                storeController
+                                                    .getCategoryFilterList(
+                                                    categoryName);
+
+                                                Navigator.pop(context);
+                                                _fetchData();
+                                              },
+                                              value: local,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  });
+                            },
+                            icon: Image.asset(
+                              "assets/icons/map/icon_mylocation_map.png",
+                              width: 32,
+                              height: 32,
                             ),
+                            highlightColor: dangoingMainColor,
                           )
                         ],
                       ),
                       SizedBox(height: 40,),
                       Text.rich(TextSpan(children: [
                         TextSpan(
-                          text: "내 주변 ",
+                          text: "  내 주변 ",
                           style: TextStyle(fontSize: 20, fontWeight: fontStyleManager.weightTitle)
                         ),
                         TextSpan(

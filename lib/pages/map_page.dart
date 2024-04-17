@@ -98,6 +98,7 @@ class _MapPageState extends State<MapPage> {
             onCameraIdle: () async {
               var position = naverMapController?.nowCameraPosition;
               mapStatusManager.currentCameraPosition(position);
+              categoryTileController.collapse();
             },
             onMapTapped: (NPoint point, NLatLng latLng) {
               categoryTileController.collapse();

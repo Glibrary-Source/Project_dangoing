@@ -22,6 +22,8 @@ class FirebaseAuthService {
   Future<void> signInWithGoogle(BuildContext context) async {
     GoogleSignIn googleSignIn = GoogleSignIn();
 
+    Future.delayed(Duration(seconds: 10), (){userController.changeSignInState(false);});
+
     // 구글 로그인
     GoogleSignInAccount? account = await googleSignIn.signIn();
     if (account == null) {

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/component/my_review_list_widget.dart';
 import 'package:project_dangoing/controller/user_controller.dart';
@@ -31,28 +33,38 @@ class _MyReviewPageState extends State<MyReviewPage> {
           return Scaffold(
               body: Column(
                 children: [
+                  SizedBox(height: MediaQuery.sizeOf(context).height*0.04,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      IconButton(onPressed: (){
+                        Navigator.pop(context);
+                      }, icon: Icon(Icons.arrow_back)),
+                    ],
+                  ),
                   SizedBox(
                     width: double.infinity,
                     height: MediaQuery
                         .sizeOf(context)
-                        .height * 0.15,
-                    child: Center(child: Text("작성한 리뷰", style: TextStyle(
-                        fontFamily: fontStyleManager.primaryFont,
-                        fontSize: 26),)),
+                        .height * 0.1,
+                    child: Center(
+                      child: Text("작성한 리뷰", style: TextStyle(
+                          fontFamily: fontStyleManager.primaryFont,
+                          fontSize: 26),
+                      ),
+                    ),
                   ),
-                  SizedBox(
-                    height: MediaQuery
-                        .sizeOf(context)
-                        .height * 0.85,
+                  Expanded(
                     child: userController.myModel?.reviewList!.isEmpty??false
-                    ? Center(child: Text("작성한 리뷰 없음", style: TextStyle( fontWeight: fontStyleManager.weightSubTitle, fontSize: 22),))
-                    : ListView.builder(
-                        itemCount: userController.myModel?.reviewList?.length,
-                        padding: EdgeInsets.zero,
-                        itemBuilder: (context, index) {
-                          return MyReviewListWidget(review: userController.myModel!.reviewList![index], myModel: userController.myModel!,);
-                        }),
-                  )
+                      ? Center(child: Text("작성한 리뷰 없음", style: TextStyle( fontWeight: fontStyleManager.weightSubTitle, fontSize: 22),))
+                      : ListView.builder(
+                          itemCount: userController.myModel?.reviewList?.length,
+                          padding: EdgeInsets.zero,
+                          itemBuilder: (context, index) {
+                            return MyReviewListWidget(review: userController.myModel!.reviewList![index], myModel: userController.myModel!,);
+                          }),
+                  ),
+
                 ],
               )
           );

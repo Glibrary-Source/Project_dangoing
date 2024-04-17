@@ -11,6 +11,9 @@ import 'package:project_dangoing/service/firebase_auth_service.dart';
 import 'package:project_dangoing/theme/colors.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
+import '../component/full_width_banner_ad_widget.dart';
+import '../utils/ad_manager.dart';
+
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
 
@@ -487,6 +490,7 @@ class _MyPageState extends State<MyPage> {
                                     width: 350,
                                   )),
                             ),
+
                           ],
                         ),
                       ),
