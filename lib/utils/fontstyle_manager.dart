@@ -6,12 +6,7 @@ class FontStyleManager {
   factory FontStyleManager()=>instance;
   FontStyleManager._internal();
 
-  String primaryFont = "gamtan_tantan";
-  String primarySecondFont = "gamtan_dotum_regular";
   String suit = "Suit";
-
-
-
 
 
   FontWeight weightTitle = FontWeight.w800;

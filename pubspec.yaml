@@ -39,7 +39,7 @@ dependencies:
   firebase_core: ^2.29.0
   google_sign_in: ^6.2.1
   cloud_firestore: ^4.16.0
-  firebase_auth: ^4.19.1
+  firebase_auth: ^4.19.2
   shared_preferences: ^2.2.0
   url_launcher: ^6.2.5
   flutter_rating_bar: ^4.0.1
@@ -96,14 +96,6 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: gamtan_tantan
-      fonts:
-        - asset: assets/fonts/gamtan_tantan.ttf
-
-    - family: gamtan_dotum_regular
-      fonts:
-        - asset: assets/fonts/gamtan_dotum_regular.ttf
-
     - family: Suit
       fonts:
         - asset: assets/fonts/SUIT-Bold.ttf

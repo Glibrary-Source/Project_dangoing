@@ -49,7 +49,6 @@ class _MyReviewPageState extends State<MyReviewPage> {
                         .height * 0.1,
                     child: Center(
                       child: Text("작성한 리뷰", style: TextStyle(
-                          fontFamily: fontStyleManager.primaryFont,
                           fontSize: 26),
                       ),
                     ),

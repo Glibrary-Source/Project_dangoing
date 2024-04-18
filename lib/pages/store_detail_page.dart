@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -511,8 +510,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                     Text(
                                       "$reviewScore점",
                                       style: TextStyle(
-                                          fontFamily: fontStyleManager
-                                              .primarySecondFont,
                                           fontWeight: FontWeight.bold,
                                           color: dangoingMainColor),
                                     ),
@@ -552,8 +549,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                             hintText:
                                                 "리뷰 작성하기\n업주와 다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.유용한 Tip도 남겨주세요!",
                                             hintStyle: TextStyle(
-                                                fontFamily: fontStyleManager
-                                                    .primarySecondFont,
                                                 color:
                                                     CupertinoColors.systemGrey,
                                                 fontWeight: FontWeight.bold)),
@@ -603,7 +598,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                 Text(
                                   " 리뷰 보기",
                                   style: TextStyle(
-                                      fontFamily: fontStyleManager.primaryFont,
                                       height: 1),
                                 ),
                               ],
@@ -619,8 +613,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                             child: Text(
                                           "첫 리뷰를 남겨주세요!",
                                           style: TextStyle(
-                                              fontFamily:
-                                                  fontStyleManager.primaryFont,
                                               fontSize: 22),
                                         )))
                                     : SizedBox(
@@ -705,6 +697,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
           reviewScore,
           reviewMain,
           data.FCLTY_NM ?? "");
+
       reviewController.setReviewDataMyPage(
           docId,
           userController.myModel!.uid!,

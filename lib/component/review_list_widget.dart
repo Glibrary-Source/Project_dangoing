@@ -36,14 +36,12 @@ class _ReviewListWidgetState extends State<ReviewListWidget> {
                         child: Text(
                             "${widget.review.values.first.review_nickname!} 님",
                             style: TextStyle(
-                                fontFamily: widget.fontStyleManager.primaryFont,
                                 fontSize: 18,
                                 color: dangoingMainColor))),
                     Expanded(
                         child: Text(
                       "평가: ${widget.review.values.first.review_score!} 점",
                       style: TextStyle(
-                          fontFamily: widget.fontStyleManager.primarySecondFont,
                           fontWeight: FontWeight.bold),
                       textAlign: TextAlign.end,
                     )),

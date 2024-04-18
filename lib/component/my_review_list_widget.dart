@@ -46,14 +46,13 @@ class _MyReviewListWidgetState extends State<MyReviewListWidget> {
                               surfaceTintColor: Colors.white,
                               backgroundColor: Colors.white,
                               shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(8)),
-
                               content: Text("정말 리뷰를 삭제하시겠습니까?",),
                               actions: <Widget>[
                                 Container(
                                   child: TextButton(
                                       onPressed: () async {
-                                        userController.deleteReview(widget.review.keys.first, widget.myModel.uid ?? "");
-
+                                        // userController.deleteReview(widget.review.keys.first, widget.myModel.uid ?? "");
+                                        userController.deleteReviewTest(widget.review.keys.first, widget.myModel.uid ?? "");
                                         Navigator.of(context).pop();
                                       },
                                       child: Text(

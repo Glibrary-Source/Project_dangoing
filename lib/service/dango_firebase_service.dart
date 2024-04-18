@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_dangoing/model/store_review_model.dart';
 import 'package:project_dangoing/model/user_review_model.dart';
 
 import '../model/store_list_model.dart';
@@ -6,8 +7,8 @@ import '../vo/store_vo.dart';
 
 FirebaseFirestore fireStore = FirebaseFirestore.instance;
 CollectionReference store = fireStore.collection('pet_location_data');
-CollectionReference storeReview = fireStore.collection('dangoing_review_db');
 CollectionReference user = fireStore.collection('dangoing_user_db');
+CollectionReference storeReviewData = fireStore.collection("dangoing_review_data");
 
 class DangoFirebaseService {
 
@@ -30,10 +31,10 @@ class DangoFirebaseService {
     }
   }
 
-  Future<UserReviewModel> getUserReview(String docId) async {
+  Future<StoreReviewModel> getUserReview(String docId) async {
     try {
-      DocumentSnapshot documentSnapshot = await storeReview.doc(docId).get();
-      return UserReviewModel.fromDocumentSnapShot(documentSnapshot);
+      DocumentSnapshot documentSnapshot = await storeReviewData.doc(docId).get();
+      return StoreReviewModel.fromDocumentSnapShot(documentSnapshot);
     } catch (error) {
       throw error;
     }
@@ -41,8 +42,7 @@ class DangoFirebaseService {
 
   Future<void> setUserReview(String docId, String uid, String nickname, num score, String main, String storeName) async {
     try {
-      final Map<String, dynamic> data = {};
-      data['USER_REVIEW'] = {
+      final Map<String, dynamic> data = {
         uid: {
           "review_nickname": nickname,
           "review_score": score,
@@ -51,28 +51,21 @@ class DangoFirebaseService {
           "store_name": storeName,
         }
       };
-      await storeReview.doc(docId).set(data, SetOptions(merge: true));
+
+      await storeReviewData.doc(docId).set(data, SetOptions(merge: true));
+
     } catch (error) {
       throw error;
     }
   }
 
-  Future<void> deleteReview(String docId, String uid,) async {
+  Future<void> deleteReviewTest(String docId, String uid,) async {
     try {
-      DocumentSnapshot documentSnapshot = await storeReview.doc(docId).get();
-
-      Map<String, dynamic> storeOriginData = documentSnapshot.data() as Map<String, dynamic>;
-      Map<String, dynamic> storeOriginMap = storeOriginData["USER_REVIEW"] as Map<String, dynamic>;
-      Map<String ,dynamic> storeNewMap = Map.from(storeOriginMap);
-
-      storeNewMap.remove(uid);
-
-      storeReview.doc(docId).update(
-        {
-          "USER_REVIEW": storeNewMap
-        }
+      storeReviewData.doc(docId).update(
+          {
+            uid: FieldValue.delete()
+          }
       );
-
     } catch(error) {
       throw error;
     }

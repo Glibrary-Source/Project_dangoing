@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:project_dangoing/model/store_review_model.dart';
 import 'package:project_dangoing/model/user_review_model.dart';
 import 'package:project_dangoing/service/dango_firebase_service.dart';
 
@@ -12,10 +13,10 @@ class ReviewController extends GetxController {
 
   Future<void> getReviewData(String docId) async {
     try {
-      UserReviewModel userReviewModel =
-          await dangoingFirebaseUserService.getUserReview(docId);
+      StoreReviewModel storeReviewModel =
+      await dangoingFirebaseUserService.getUserReview(docId);
       storeReviewList.clear();
-      storeReviewList = userReviewModel.reviewList ?? [];
+      storeReviewList = storeReviewModel.reviewList ?? [];
       update();
     } catch (error) {
       throw Exception(error);
