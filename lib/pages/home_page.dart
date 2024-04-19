@@ -184,6 +184,7 @@ class _HomePageState extends State<HomePage> {
                                                       );
                                                     }).toList(),
                                                     onChanged: (String? value) {
+
                                                       local = value ?? "서울특별시";
                                                       prefs.setString(
                                                           "local", local!);
@@ -199,6 +200,7 @@ class _HomePageState extends State<HomePage> {
 
                                                       Navigator.pop(context);
                                                     },
+
                                                     value: controller.localName,
                                                   ),
                                                 )

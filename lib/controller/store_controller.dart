@@ -34,10 +34,11 @@ class StoreController extends GetxController {
   Future<void> getHomeRandomStoreList() async {
     try {
       storeHomeRandomList.clear();
-
       List<String> categoryList = ["미술관", "박물관", "문예회관", "펜션", "여행지"];
 
-      List<int> numList = [];
+      //추천할때 필요
+      // List<int> numList = [];
+
       List<StoreVo> tempList = [];
 
       for (StoreVo store in storeList) {
@@ -46,17 +47,25 @@ class StoreController extends GetxController {
         }
       }
 
-      while (storeHomeRandomList.length <= 9) {
-        var number = Random().nextInt(tempList.length);
-
-        if (numList.contains(number)) {
-        } else {
-          storeHomeRandomList.add(tempList[number]);
-          numList.add(number);
+      if(tempList.length >= 10) {
+        for ( int num = 0; num <= 9; num++){
+          storeHomeRandomList.add(tempList[num]);
         }
+      } else {
+        storeHomeRandomList.addAll(tempList);
       }
 
-      numList.clear();
+      // 램덤 불안정함 리스트가 10개 이하면 무한루프에 빠짐
+      // while (storeHomeRandomList.length <= 9) {
+      //   var number = Random().nextInt(tempList.length);
+      //
+      //   if (!numList.contains(number)) {
+      //     storeHomeRandomList.add(tempList[number]);
+      //     numList.add(number);
+      //   }
+      // }
+      // numList.clear();
+
       update();
     } catch (error) {
       throw Exception(error);
@@ -76,18 +85,28 @@ class StoreController extends GetxController {
         }
       }
 
-      if(tempCategoryList.length <= 10) {
-        storeHomeRandomCafeList.addAll(tempCategoryList);
-      } else {
-        while (storeHomeRandomCafeList.length <= 9) {
-
-          var number = Random().nextInt(tempCategoryList.length);
-
-          if(!numList.contains(number)) {
-            storeHomeRandomCafeList.add(tempCategoryList[number]);
-          }
+      if(tempCategoryList.length >= 10) {
+        for ( int num = 0; num <= 9; num++){
+          storeHomeRandomCafeList.add(tempCategoryList[num]);
         }
+      } else {
+        storeHomeRandomCafeList.addAll(tempCategoryList);
       }
+
+      // 램덤 불안정함 리스트가 10개 이하면 무한루프에 빠짐
+      // int listLength = tempCategoryList.length;
+      //
+      // if(tempCategoryList.length <= 10) {
+      //   storeHomeRandomCafeList.addAll(tempCategoryList);
+      // } else {
+      //   while (storeHomeRandomCafeList.length <= listLength) {
+      //     var number = Random().nextInt(tempCategoryList.length);
+      //
+      //     if(!numList.contains(number)) {
+      //       storeHomeRandomCafeList.add(tempCategoryList[number]);
+      //     }
+      //   }
+      // }
 
       update();
     } catch (error) {
