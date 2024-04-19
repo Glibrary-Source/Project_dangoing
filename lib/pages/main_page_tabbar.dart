@@ -95,7 +95,6 @@ class _MainPageTabbarState extends State<MainPageTabbar>
                               ),
                             )
                           : SizedBox(),
-
                       userController.signInIndicator
                           ? Container(
                               width: double.infinity,

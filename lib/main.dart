@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -10,6 +11,7 @@ import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/controller/user_controller.dart';
 import 'package:project_dangoing/firebase_options.dart';
 import 'package:project_dangoing/pages/splash_page.dart';
+import 'package:project_dangoing/service/firebase_remote_config_service.dart';
 import 'package:project_dangoing/utils/ad_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,6 +28,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
+
+  FirebaseRemoteConfigService().initRemoteConfig();
 
   FlutterNativeSplash.remove();
 

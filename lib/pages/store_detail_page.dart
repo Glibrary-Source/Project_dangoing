@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +12,7 @@ import 'package:project_dangoing/data/detail_info_list.dart';
 import 'package:project_dangoing/theme/colors.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
 import 'package:project_dangoing/utils/text_manager.dart';
+import 'package:project_dangoing/utils/user_share_manager.dart';
 import 'package:project_dangoing/vo/store_vo.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -70,20 +70,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
     super.dispose();
   }
 
-  double ratingAverage(List<Map<String, ReviewVo>> reviewList) {
-    if (reviewList.isEmpty) {
-      return 0.0;
-    } else {
-      num average = 0.0;
-      for (var map in reviewList) {
-        for (var review in map.values) {
-          average = average + review.review_score!;
-        }
-      }
-      return average / reviewList.length;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StoreController>(builder: (storeController) {
@@ -97,15 +83,33 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.sizeOf(context).height * 0.05),
-                        child: IconButton(
-                          icon: Icon(Icons.arrow_back),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.sizeOf(context).height * 0.05),
+                            child: IconButton(
+                              icon: Icon(Icons.arrow_back),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.sizeOf(context).height * 0.05),
+                            child: IconButton(
+                              icon: Icon(Icons.share),
+                              onPressed: () async {
+                                share(
+                                    data.FCLTY_NM!,
+                                    detailInfoList.getSharedText(),
+                                    getUrlString(data.HMPG_URL!));
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: 40,
@@ -445,19 +449,27 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                                             title: Text(
                                                               "리뷰 작성",
                                                               style: TextStyle(
-                                                                fontSize: 20,
-                                                                  fontWeight: fontStyleManager.weightSubTitle
-                                                              ),
+                                                                  fontSize: 20,
+                                                                  fontWeight:
+                                                                      fontStyleManager
+                                                                          .weightSubTitle),
                                                             ),
                                                             content: Text(
                                                               "리뷰를 남기시겠습니까?",
                                                               style: TextStyle(
-                                                                  fontWeight: fontStyleManager.weightSubTitle
-                                                              ),
+                                                                  fontWeight:
+                                                                      fontStyleManager
+                                                                          .weightSubTitle),
                                                             ),
-                                                            surfaceTintColor: Colors.white,
-                                                            backgroundColor: Colors.white,
-                                                            shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(8)),
+                                                            surfaceTintColor:
+                                                                Colors.white,
+                                                            backgroundColor:
+                                                                Colors.white,
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8)),
                                                             actions: <Widget>[
                                                               Container(
                                                                 child:
@@ -597,8 +609,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                 Icon(Icons.reviews_outlined),
                                 Text(
                                   " 리뷰 보기",
-                                  style: TextStyle(
-                                      height: 1),
+                                  style: TextStyle(height: 1),
                                 ),
                               ],
                             ),
@@ -612,8 +623,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                         child: Center(
                                             child: Text(
                                           "첫 리뷰를 남겨주세요!",
-                                          style: TextStyle(
-                                              fontSize: 22),
+                                          style: TextStyle(fontSize: 22),
                                         )))
                                     : SizedBox(
                                         height:
@@ -640,7 +650,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
               ],
             ),
           ),
-
           floatingActionButton:
               GetBuilder<UserController>(builder: (userController) {
             return FloatingActionButton(
@@ -673,6 +682,20 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
     });
   }
 
+  double ratingAverage(List<Map<String, ReviewVo>> reviewList) {
+    if (reviewList.isEmpty) {
+      return 0.0;
+    } else {
+      num average = 0.0;
+      for (var map in reviewList) {
+        for (var review in map.values) {
+          average = average + review.review_score!;
+        }
+      }
+      return average / reviewList.length;
+    }
+  }
+
   launchHomeLink(String url) async {
     if (url == "") {
       return;
@@ -681,6 +704,17 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
       await launchUrlString(url);
     } else {
       await launchUrlString("https://$url");
+    }
+  }
+
+  String getUrlString(String url) {
+    if (url == "") {
+      return "";
+    }
+    if (url.substring(0, 8) == "https://" || url.substring(0, 7) == "http://") {
+      return url;
+    } else {
+      return "https://$url";
     }
   }
 

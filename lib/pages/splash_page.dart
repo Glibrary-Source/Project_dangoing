@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_dangoing/controller/user_controller.dart';
 import 'package:project_dangoing/pages/main_page_tabbar.dart';
+import 'package:project_dangoing/service/firebase_remote_config_service.dart';
 
 import '../controller/store_controller.dart';
 import '../global/share_preference.dart';
@@ -29,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> _fetchData() async {
     await storeController.getStoreAndRandomListSplash(local, context);
-    Get.off(()=> MainPageTabbar());
+    checkVersionAndEmergency();
     storeController.setStoreLoadState(false);
   }
 
@@ -47,4 +50,37 @@ class _SplashPageState extends State<SplashPage> {
       ),
     );
   }
+
+  Future<void> checkVersionAndEmergency() async {
+    if(FirebaseRemoteConfigService().emergency??false) {
+      showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: ((context) {
+            return AlertDialog(
+              title: Text(
+                "긴급 업데이트",
+              ),
+              surfaceTintColor: Colors.white,
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(8)),
+              content: Text("어플리케이션 업데이트를 진행해주세요!",),
+              actions: <Widget>[
+                Container(
+                  child: TextButton(
+                      onPressed: () async {
+                        exit(0);
+                      },
+                      child: Text(
+                        "확인",
+                      )),
+                ),
+              ],
+            );
+          }));
+    } else {
+      Get.off(()=> MainPageTabbar());
+    }
+  }
+
 }

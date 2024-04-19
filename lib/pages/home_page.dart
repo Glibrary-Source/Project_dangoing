@@ -10,6 +10,7 @@ import 'package:project_dangoing/component/recommend_store_list_widget.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/data/category_list_data.dart';
 import 'package:project_dangoing/data/local_list_data.dart';
+import 'package:project_dangoing/service/firebase_remote_config_service.dart';
 import 'package:project_dangoing/theme/colors.dart';
 import 'package:project_dangoing/utils/ad_manager.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
@@ -52,8 +53,7 @@ class _HomePageState extends State<HomePage> {
       canPop: false,
       onPopInvoked: (bool didPop) {
         final now = DateTime.now();
-        if (lastPopTime == null ||
-            now.difference(lastPopTime) > Duration(seconds: 2)) {
+        if (lastPopTime == null || now.difference(lastPopTime) > Duration(seconds: 2)) {
           lastPopTime = now;
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(

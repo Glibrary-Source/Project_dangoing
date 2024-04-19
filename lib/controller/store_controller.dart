@@ -2,10 +2,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/model/store_list_model.dart';
+import 'package:project_dangoing/pages/main_page_tabbar.dart';
 import 'package:project_dangoing/service/dango_firebase_service.dart';
 
 import '../global/share_preference.dart';
-import '../pages/main_page.dart';
 import '../vo/store_vo.dart';
 
 class StoreController extends GetxController {
@@ -124,7 +124,7 @@ class StoreController extends GetxController {
             .showSnackBar(SnackBar(content: Text('인터넷 연결을 확인해주세요')));
       }
       storeLoadState = false;
-      Get.off(() => MainPage());
+      Get.off(() => MainPageTabbar());
       throw Exception(error);
     }
   }
