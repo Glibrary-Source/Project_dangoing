@@ -26,7 +26,7 @@ class _ReviewListWidgetState extends State<ReviewListWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -35,13 +35,13 @@ class _ReviewListWidgetState extends State<ReviewListWidget> {
                     Expanded(
                         child: Text(
                             "${widget.review.values.first.review_nickname!} 님",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 18,
                                 color: dangoingMainColor))),
                     Expanded(
                         child: Text(
                       "평가: ${widget.review.values.first.review_score!} 점",
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold),
                       textAlign: TextAlign.end,
                     )),
@@ -54,11 +54,11 @@ class _ReviewListWidgetState extends State<ReviewListWidget> {
                         widget.review.values.first.review_time!)),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(widget.review.values.first.review_main!),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 )
               ],

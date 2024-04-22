@@ -30,7 +30,7 @@ class _MainPageTabbarState extends State<MainPageTabbar>
             return GetBuilder<StoreController>(builder: (storeController) {
               return Scaffold(
                   body: Stack(children: [
-                    TabBarView(
+                    const TabBarView(
                         physics: NeverScrollableScrollPhysics(),
                         children: [HomePage(), MapPage(), MyPage()]),
                     storeController.storeLoadState
@@ -41,13 +41,13 @@ class _MainPageTabbarState extends State<MainPageTabbar>
                               color:
                                   CupertinoColors.systemGrey.withOpacity(0.5),
                             ),
-                            child: Center(
-                                child: Container(
+                            child: const Center(
+                                child: SizedBox(
                                     width: 50,
                                     height: 50,
                                     child: CircularProgressIndicator())),
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                   ]),
                   bottomNavigationBar: Stack(
                     children: [
@@ -94,7 +94,7 @@ class _MainPageTabbarState extends State<MainPageTabbar>
                                     CupertinoColors.systemGrey.withOpacity(0.5),
                               ),
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                       userController.signInIndicator
                           ? Container(
                               width: double.infinity,
@@ -104,7 +104,7 @@ class _MainPageTabbarState extends State<MainPageTabbar>
                                     CupertinoColors.systemGrey.withOpacity(0.5),
                               ),
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                     ],
                   ));
             });

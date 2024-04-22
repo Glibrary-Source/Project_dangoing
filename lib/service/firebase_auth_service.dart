@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -22,7 +21,7 @@ class FirebaseAuthService {
   Future<void> signInWithGoogle(BuildContext context) async {
     GoogleSignIn googleSignIn = GoogleSignIn();
 
-    Future.delayed(Duration(seconds: 10), (){userController.changeSignInState(false);});
+    Future.delayed(const Duration(seconds: 10), (){userController.changeSignInState(false);});
 
     // 구글 로그인
     GoogleSignInAccount? account = await googleSignIn.signIn();
@@ -42,7 +41,7 @@ class FirebaseAuthService {
       userController.changeSignInState(true);
       UserCredential userCredential = await auth.signInWithCredential(credential);
       addFirebaseUser(userCredential);
-    } on FirebaseAuthException catch(e) {
+    } on FirebaseAuthException {
       if(context.mounted) {
         showSnackBar(context);
       }
@@ -92,7 +91,7 @@ class FirebaseAuthService {
         return null;
       }
     } catch(error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -102,7 +101,7 @@ class FirebaseAuthService {
       auth.signOut();
       return null;
     } catch(error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -115,7 +114,7 @@ class FirebaseAuthService {
         data
       );
     } catch(error) {
-      throw error;
+      rethrow;
     }
   }
 }

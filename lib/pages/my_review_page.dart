@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/component/my_review_list_widget.dart';
 import 'package:project_dangoing/controller/user_controller.dart';
@@ -39,7 +37,7 @@ class _MyReviewPageState extends State<MyReviewPage> {
                     children: [
                       IconButton(onPressed: (){
                         Navigator.pop(context);
-                      }, icon: Icon(Icons.arrow_back)),
+                      }, icon: const Icon(Icons.arrow_back)),
                     ],
                   ),
                   SizedBox(
@@ -47,7 +45,7 @@ class _MyReviewPageState extends State<MyReviewPage> {
                     height: MediaQuery
                         .sizeOf(context)
                         .height * 0.1,
-                    child: Center(
+                    child: const Center(
                       child: Text("작성한 리뷰", style: TextStyle(
                           fontSize: 26),
                       ),

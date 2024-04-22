@@ -52,11 +52,11 @@ class _MapPageState extends State<MapPage> {
       onPopInvoked: (bool didPop) {
         final now = DateTime.now();
         if (lastPopTime == null ||
-            now.difference(lastPopTime) > Duration(seconds: 2)) {
+            now.difference(lastPopTime) > const Duration(seconds: 2)) {
           lastPopTime = now;
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('뒤로 버튼을 한번 더 누르면 앱이 종료됩니다.'),
             ),
           );
@@ -72,16 +72,16 @@ class _MapPageState extends State<MapPage> {
           NaverMap(
             options: NaverMapViewOptions(
                 initialCameraPosition: mapStatusManager.nCameraPosition ??
-                    NCameraPosition(
+                    const NCameraPosition(
                       target: NLatLng(37.57037778, 126.9816417),
                       zoom: 13,
                     ),
-                extent: NLatLngBounds(
+                extent: const NLatLngBounds(
                   southWest: NLatLng(31.43, 122.37),
                   northEast: NLatLng(44.35, 132.0),
                 ),
                 logoAlign: NLogoAlign.rightBottom,
-                logoMargin: EdgeInsets.all(10),
+                logoMargin: const EdgeInsets.all(10),
                 liteModeEnable: true),
             onMapReady: (controller) async {
               naverMapController = controller;
@@ -118,7 +118,7 @@ class _MapPageState extends State<MapPage> {
                         onPressed: () async {
                           myLocationAddMarker(permissionManager);
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.location_on,
                           color: dangoingMainColor,
                         ))),
@@ -135,7 +135,7 @@ class _MapPageState extends State<MapPage> {
                             strokeWidth: 2.0,
                             color: dangoingMainColor,
                           ))
-                      : SizedBox();
+                      : const SizedBox();
                 }),
               ],
             ),
@@ -148,24 +148,24 @@ class _MapPageState extends State<MapPage> {
               decoration: BoxDecoration(
                   border:
                       Border.all(color: CupertinoColors.systemGrey2, width: 1),
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
+                  borderRadius: const BorderRadius.all(Radius.circular(8))),
               child: ExpansionTile(
                 controller: categoryTileController,
                 shape: const ContinuousRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20))),
-                collapsedShape: ContinuousRectangleBorder(
+                collapsedShape: const ContinuousRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20))),
-                title: Text(" 카테고리별로 보기"),
+                title: const Text(" 카테고리별로 보기"),
                 backgroundColor: Colors.white,
                 collapsedBackgroundColor: Colors.white,
                 children: [
                   GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2, childAspectRatio: 4.0),
                     padding: EdgeInsets.zero,
                     itemCount: categoryListData.categoryMap.length,
                     shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
+                    physics: const ClampingScrollPhysics(),
                     itemBuilder: (context, index) {
                       return MapCategoryWidget(
                         categoryName:
@@ -211,7 +211,7 @@ class _MapPageState extends State<MapPage> {
     } else {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('위치 권한을 확인해주세요'),
         ),
       );

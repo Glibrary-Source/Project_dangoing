@@ -85,25 +85,25 @@ class MapCategoryCheckManager {
   NOverlayImage? getIconImage(String category) {
     switch (category) {
       case '미술관':
-        return NOverlayImage.fromAssetImage("assets/icons/map/icon_map_art_gallery(100).png");
+        return const NOverlayImage.fromAssetImage("assets/icons/map/icon_map_art_gallery(100).png");
       case '카페':
-        return NOverlayImage.fromAssetImage("assets/icons/map/icon_map_cafe(100).png");
+        return const NOverlayImage.fromAssetImage("assets/icons/map/icon_map_cafe(100).png");
       case '펜션':
-        return NOverlayImage.fromAssetImage("assets/icons/map/icon_map_hotel(100).png");
+        return const NOverlayImage.fromAssetImage("assets/icons/map/icon_map_hotel(100).png");
       case '문예회관':
-        return NOverlayImage.fromAssetImage("assets/icons/map/icon_map_korea_gate(100).png");
+        return const NOverlayImage.fromAssetImage("assets/icons/map/icon_map_korea_gate(100).png");
       case '위탁관리':
-        return NOverlayImage.fromAssetImage("assets/icons/map/icon_map_management(100).png");
+        return const NOverlayImage.fromAssetImage("assets/icons/map/icon_map_management(100).png");
       case '박물관':
-        return NOverlayImage.fromAssetImage("assets/icons/map/icon_map_museum(100).png");
+        return const NOverlayImage.fromAssetImage("assets/icons/map/icon_map_museum(100).png");
       case '식당':
-        return NOverlayImage.fromAssetImage("assets/icons/map/icon_map_restaurant(100).png");
+        return const NOverlayImage.fromAssetImage("assets/icons/map/icon_map_restaurant(100).png");
       case '미용':
-        return NOverlayImage.fromAssetImage("assets/icons/map/icon_map_salon(100).png");
+        return const NOverlayImage.fromAssetImage("assets/icons/map/icon_map_salon(100).png");
       case '반려동물용품':
-        return NOverlayImage.fromAssetImage("assets/icons/map/icon_map_tools(100).png");
+        return const NOverlayImage.fromAssetImage("assets/icons/map/icon_map_tools(100).png");
       case '여행지':
-        return NOverlayImage.fromAssetImage("assets/icons/map/icon_map_trip(100).png");
+        return const NOverlayImage.fromAssetImage("assets/icons/map/icon_map_trip(100).png");
     }
     return null;
   }

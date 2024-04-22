@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/component/store_list_detail_widget.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
-import 'package:project_dangoing/service/dango_firebase_service.dart';
 
 import '../data/local_list_data.dart';
 import '../global/share_preference.dart';
@@ -46,7 +45,7 @@ class _StoreListPageState extends State<StoreListPage> {
       return Scaffold(
         body: Stack(children: [
           storeController.categoryFilterList.isEmpty
-              ? Column(
+              ? const Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
@@ -72,7 +71,7 @@ class _StoreListPageState extends State<StoreListPage> {
                         children: [
                           IconButton(onPressed: (){
                             Navigator.pop(context);
-                          }, icon: Icon(Icons.arrow_back)),
+                          }, icon: const Icon(Icons.arrow_back)),
                           IconButton(
                             onPressed: () {
                               showModalBottomSheet(
@@ -90,7 +89,7 @@ class _StoreListPageState extends State<StoreListPage> {
                                           0.35,
                                       child: Column(
                                         children: [
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           Image.asset(
@@ -98,7 +97,7 @@ class _StoreListPageState extends State<StoreListPage> {
                                             width: 60,
                                             height: 15,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 30,
                                           ),
                                           Text(
@@ -108,11 +107,11 @@ class _StoreListPageState extends State<StoreListPage> {
                                                 fontWeight: fontStyleManager
                                                     .weightSubTitle),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 40,
                                           ),
                                           Container(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 15,
                                                 right: 15,
                                                 top: 10,
@@ -120,7 +119,7 @@ class _StoreListPageState extends State<StoreListPage> {
                                             decoration: BoxDecoration(
                                                 border: Border.all(
                                                     width: 1,
-                                                    color: Color(
+                                                    color: const Color(
                                                         0xffFFD2B0)),
                                                 borderRadius:
                                                     BorderRadius.circular(
@@ -131,7 +130,7 @@ class _StoreListPageState extends State<StoreListPage> {
                                                     0.9,
                                             child: DropdownButton(
                                               underline:
-                                                  SizedBox.shrink(),
+                                                  const SizedBox.shrink(),
                                               itemHeight: 50,
                                               icon: Image.asset(
                                                 "assets/images/location_dropbox_arrow.png",
@@ -150,7 +149,7 @@ class _StoreListPageState extends State<StoreListPage> {
                                                   value: value,
                                                   child: Text(
                                                     value,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       fontSize: 22,
                                                     ),
                                                   ),
@@ -192,7 +191,7 @@ class _StoreListPageState extends State<StoreListPage> {
                           )
                         ],
                       ),
-                      SizedBox(height: 40,),
+                      const SizedBox(height: 40,),
                       Text.rich(TextSpan(children: [
                         TextSpan(
                           text: "  내 주변 ",
@@ -207,11 +206,11 @@ class _StoreListPageState extends State<StoreListPage> {
                             style: TextStyle(fontSize: 20, fontWeight: fontStyleManager.weightTitle)
                         ),
                       ])),
-                      SizedBox(height: 20,),
+                      const SizedBox(height: 20,),
                       Expanded(
                         child: ListView.builder(
                             itemCount: storeController.categoryFilterList.length,
-                            padding: EdgeInsets.only(top: 4),
+                            padding: const EdgeInsets.only(top: 4),
                             itemBuilder: (context, index) {
                               return StoreListDetailWidget(
                                   controller: storeController, index: index);
@@ -227,13 +226,13 @@ class _StoreListPageState extends State<StoreListPage> {
                   decoration: BoxDecoration(
                     color: CupertinoColors.systemGrey.withOpacity(0.5),
                   ),
-                  child: Center(
-                      child: Container(
+                  child: const Center(
+                      child: SizedBox(
                           width: 50,
                           height: 50,
                           child: CircularProgressIndicator())),
                 )
-              : SizedBox(),
+              : const SizedBox(),
         ]),
       );
     });

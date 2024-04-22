@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:project_dangoing/vo/user_vo.dart';
 
 import '../vo/review_vo.dart';
 

@@ -37,10 +37,10 @@ class _MapCategoryWidgetState extends State<MapCategoryWidget> {
             value: MapCategoryCheckManager().getCheckValue(widget.categoryName),
             checkColor: dangoingMainColor,
             splashRadius: 24,
-            fillColor: MaterialStatePropertyAll(CupertinoColors.systemGrey6),
+            fillColor: const MaterialStatePropertyAll(CupertinoColors.systemGrey6),
             overlayColor: MaterialStatePropertyAll(Colors.green.withOpacity(0.2)),
             side:  MaterialStateBorderSide.resolveWith(
-                  (states) => BorderSide(width: 1.0, color: Colors.black45),
+                  (states) => const BorderSide(width: 1.0, color: Colors.black45),
             ),
             onChanged: null,
           ),

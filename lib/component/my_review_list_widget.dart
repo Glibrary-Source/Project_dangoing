@@ -26,7 +26,7 @@ class _MyReviewListWidgetState extends State<MyReviewListWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Card(
         child: Column(
           children: [
@@ -40,56 +40,55 @@ class _MyReviewListWidgetState extends State<MyReviewListWidget> {
                           barrierDismissible: true,
                           builder: ((context) {
                             return AlertDialog(
-                              title: Text(
+                              title: const Text(
                                 "리뷰 삭제",
                               ),
                               surfaceTintColor: Colors.white,
                               backgroundColor: Colors.white,
                               shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(8)),
-                              content: Text("정말 리뷰를 삭제하시겠습니까?",),
+                              content: const Text("정말 리뷰를 삭제하시겠습니까?",),
                               actions: <Widget>[
                                 Container(
                                   child: TextButton(
                                       onPressed: () async {
-                                        // userController.deleteReview(widget.review.keys.first, widget.myModel.uid ?? "");
-                                        userController.deleteReviewTest(widget.review.keys.first, widget.myModel.uid ?? "");
                                         Navigator.of(context).pop();
                                       },
-                                      child: Text(
-                                        "네",
+                                      child: const Text(
+                                        "취소",
                                       )),
                                 ),
                                 Container(
                                   child: TextButton(
                                       onPressed: () {
+                                        userController.deleteReview(widget.review.keys.first, widget.myModel.uid ?? "");
                                         Navigator.of(context).pop();
                                       },
-                                      child: Text(
-                                        "아니오",
+                                      child: const Text(
+                                        "삭제",
                                       )),
                                 )
                               ],
                             );
                           }));
                     },
-                    icon: Icon(Icons.delete))
+                    icon: const Icon(Icons.delete))
               ],
             ),
             Container(
-              padding: EdgeInsets.only(left: 16, right: 16),
+              padding: const EdgeInsets.only(left: 16, right: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("${widget.review.values.first.store_name!}",
-                          style: TextStyle(
+                      Text(widget.review.values.first.store_name!,
+                          style: const TextStyle(
                               fontSize: 18,
                               color: dangoingMainColor)),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -97,7 +96,7 @@ class _MyReviewListWidgetState extends State<MyReviewListWidget> {
                       Expanded(
                           child: Text(
                               "${widget.review.values.first.review_nickname!} 님",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 18))),
                       Expanded(
                           child: Text(
@@ -115,11 +114,11 @@ class _MyReviewListWidgetState extends State<MyReviewListWidget> {
                           widget.review.values.first.review_time!)),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(widget.review.values.first.review_main!),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   )
                 ],
