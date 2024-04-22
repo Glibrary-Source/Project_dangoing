@@ -28,5 +28,4 @@ class PermissionManager {
     //   // 권한 요청 거절
     // }
   }
-
 }
