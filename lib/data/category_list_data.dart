@@ -15,7 +15,7 @@ class CategoryListData {
     "식당": "assets/icons/category/img_category_item_korea_restaurant.png",
     "여행지": "assets/icons/category/img_category_item_korea_trip.png",
     "위탁관리": "assets/icons/category/img_category_item_korea_management.png",
-    "펜션": "assets/icons/category/img_category_item_korea_swimming_pool.png"
+    "펜션": "assets/icons/category/img_category_item_korea_rental_cottage.png"
   };
 
 }
