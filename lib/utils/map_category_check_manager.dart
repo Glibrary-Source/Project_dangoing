@@ -88,7 +88,7 @@ class MapCategoryCheckManager {
         return const NOverlayImage.fromAssetImage("assets/icons/map/icon_map_art_gallery(100).png");
       case '카페':
         return const NOverlayImage.fromAssetImage("assets/icons/map/icon_map_cafe(100).png");
-      case '펜션':
+      case '호텔':
         return const NOverlayImage.fromAssetImage("assets/icons/map/icon_map_hotel(100).png");
       case '문예회관':
         return const NOverlayImage.fromAssetImage("assets/icons/map/icon_map_korea_gate(100).png");
