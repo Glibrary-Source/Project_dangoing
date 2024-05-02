@@ -107,5 +107,4 @@ class MapCategoryCheckManager {
     }
     return null;
   }
-  
 }
