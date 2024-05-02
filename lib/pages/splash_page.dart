@@ -44,7 +44,7 @@ class _SplashPageState extends State<SplashPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Lottie.asset('assets/lottie/walk_dog.json'),
-          SizedBox(height: 60),
+          const SizedBox(height: 60),
           Image.asset("assets/logo/main_logo.png", width: 150, height: 100,)
         ],
       ),
@@ -58,20 +58,20 @@ class _SplashPageState extends State<SplashPage> {
           barrierDismissible: true,
           builder: ((context) {
             return AlertDialog(
-              title: Text(
+              title: const Text(
                 "긴급 업데이트",
               ),
               surfaceTintColor: Colors.white,
               backgroundColor: Colors.white,
               shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(8)),
-              content: Text("어플리케이션 업데이트를 진행해주세요!",),
+              content: const Text("어플리케이션 업데이트를 진행해주세요!",),
               actions: <Widget>[
                 Container(
                   child: TextButton(
                       onPressed: () async {
                         exit(0);
                       },
-                      child: Text(
+                      child: const Text(
                         "확인",
                       )),
                 ),
@@ -79,7 +79,7 @@ class _SplashPageState extends State<SplashPage> {
             );
           }));
     } else {
-      Get.off(()=> MainPageTabbar());
+      Get.off(()=> const MainPageTabbar());
     }
   }
 

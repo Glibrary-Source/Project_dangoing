@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/model/store_list_model.dart';
@@ -123,7 +122,7 @@ class StoreController extends GetxController {
       if (context.mounted) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('인터넷 연결을 확인해주세요')));
+            .showSnackBar(const SnackBar(content: Text('인터넷 연결을 확인해주세요')));
       }
       storeLoadState = false;
       throw Exception(error);
@@ -140,10 +139,10 @@ class StoreController extends GetxController {
       if (context.mounted) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('인터넷 연결을 확인해주세요')));
+            .showSnackBar(const SnackBar(content: Text('인터넷 연결을 확인해주세요')));
       }
       storeLoadState = false;
-      Get.off(() => MainPageTabbar());
+      Get.off(() => const MainPageTabbar());
       throw Exception(error);
     }
   }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/pages/store_list_page.dart';
@@ -28,7 +27,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 4, top: 4, bottom: 8, right: 16),
+      margin: const EdgeInsets.only(left: 4, top: 4, bottom: 8, right: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         boxShadow: <BoxShadow>[
@@ -46,17 +45,17 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
         children: [
           Padding(
             padding:
-                EdgeInsets.only(left: 12, right: 12),
+                const EdgeInsets.only(left: 12, right: 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.to(()=> StoreListPage(), arguments: widget.StoreVoList[widget.index].CTGRY_THREE_NM);
+                    Get.to(()=> const StoreListPage(), arguments: widget.StoreVoList[widget.index].CTGRY_THREE_NM);
                   },
                   child: Chip(
                     backgroundColor: dangoingPrimaryColor,
-                    visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
+                    visualDensity: const VisualDensity(horizontal: 0.0, vertical: -4),
                     label: Text(
                       "#${widget.StoreVoList[widget.index].CTGRY_THREE_NM}",
                       style: TextStyle(
@@ -67,9 +66,9 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                           height: 1.2
                       ),
                     ),
-                    labelPadding: EdgeInsets.all(0),
-                    padding: EdgeInsets.only(top: 0, bottom: 0, left: 8, right: 8),
-                    side: BorderSide(
+                    labelPadding: const EdgeInsets.all(0),
+                    padding: const EdgeInsets.only(top: 0, bottom: 0, left: 8, right: 8),
+                    side: const BorderSide(
                       color: Colors.transparent
                     ),
                     shape: RoundedRectangleBorder(
@@ -77,12 +76,12 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15,),
+                const SizedBox(height: 15,),
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: GestureDetector(
                     onTap: () {
-                      Get.to(() => StoreDetailPage(),
+                      Get.to(() => const StoreDetailPage(),
                           arguments: widget.StoreVoList[widget.index].DOC_ID);
                     },
                     child: Container(
@@ -92,7 +91,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                         children: [
                           Container(
                             width: 250,
-                            margin: EdgeInsets.only(bottom: 4),
+                            margin: const EdgeInsets.only(bottom: 4),
                             child: Text(
                               textManager.checkAddress(widget
                                   .StoreVoList[widget.index].FCLTY_NM ??
@@ -107,12 +106,12 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Container(
                             width: 250,
-                            margin: EdgeInsets.only(bottom: 4),
+                            margin: const EdgeInsets.only(bottom: 4),
                             child: Text(
                               textManager.checkAddress(widget.StoreVoList[widget.index].RDNMADR_NM ?? ""),
                               softWrap: false,
@@ -127,7 +126,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                           ),
                           Container(
                             width: 250,
-                            margin: EdgeInsets.only(bottom: 4),
+                            margin: const EdgeInsets.only(bottom: 4),
                             child: Text(
                               textManager.checkOpenTime(widget.StoreVoList[widget.index].OPER_TIME ?? ""),
                               softWrap: false,
@@ -140,7 +139,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                               textAlign: TextAlign.left,
                             ),
                           ),
-                          SizedBox(height: 25,),
+                          const SizedBox(height: 25,),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -148,7 +147,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                                 children: [
                                   Chip(
                                     backgroundColor: dangoingChipBackgroundColor,
-                                    visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
+                                    visualDensity: const VisualDensity(horizontal: 0.0, vertical: -4),
                                     label: Text(
                                       textManager.checkParking(widget.StoreVoList[widget.index].PARKNG_POSBL_AT??"N"),
                                       style: TextStyle(
@@ -157,19 +156,19 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                                           color: dangoingChipTextColor
                                       ),
                                     ),
-                                    labelPadding: EdgeInsets.all(0),
-                                    padding: EdgeInsets.only(right: 4, left: 4),
-                                    side: BorderSide(
+                                    labelPadding: const EdgeInsets.all(0),
+                                    padding: const EdgeInsets.only(right: 4, left: 4),
+                                    side: const BorderSide(
                                         color: Colors.transparent
                                     ),
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(4)
                                     ),
                                   ),
-                                  SizedBox(width: 8,),
+                                  const SizedBox(width: 8,),
                                   Chip(
                                     backgroundColor: dangoingChipBackgroundColor,
-                                    visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
+                                    visualDensity: const VisualDensity(horizontal: 0.0, vertical: -4),
                                     label: Text(
                                       textManager.checkInPlace(widget.StoreVoList[widget.index].IN_PLACE_ACP_POSBL_AT??"N"),
                                       style: TextStyle(
@@ -178,9 +177,9 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                                           color: dangoingChipTextColor
                                       ),
                                     ),
-                                    labelPadding: EdgeInsets.all(0),
-                                    padding: EdgeInsets.only(right: 4, left: 4),
-                                    side: BorderSide(
+                                    labelPadding: const EdgeInsets.all(0),
+                                    padding: const EdgeInsets.only(right: 4, left: 4),
+                                    side: const BorderSide(
                                         color: Colors.transparent
                                     ),
                                     shape: RoundedRectangleBorder(
@@ -189,12 +188,12 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 2,),
+                              const SizedBox(height: 2,),
                               Row(
                                 children: [
                                   Chip(
                                     backgroundColor: dangoingChipBackgroundColor,
-                                    visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
+                                    visualDensity: const VisualDensity(horizontal: 0.0, vertical: -4),
                                     label: Text(
                                       "휴무: ${
                                           textManager.checkRestDay(widget
@@ -207,9 +206,9 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                                           color: dangoingChipTextColor
                                       ),
                                     ),
-                                    labelPadding: EdgeInsets.all(0),
-                                    padding: EdgeInsets.only(right: 4, left: 4),
-                                    side: BorderSide(
+                                    labelPadding: const EdgeInsets.all(0),
+                                    padding: const EdgeInsets.only(right: 4, left: 4),
+                                    side: const BorderSide(
                                         color: Colors.transparent
                                     ),
                                     shape: RoundedRectangleBorder(

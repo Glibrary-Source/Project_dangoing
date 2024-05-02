@@ -23,9 +23,9 @@ class UserController extends GetxController {
           throw '계정 정보를 찾을 수 없습니다';
         }
       } else {
-        throw error;
+        rethrow;
       }
-      throw error;
+      rethrow;
     }
   }
 
@@ -34,17 +34,17 @@ class UserController extends GetxController {
       myModel = await dangoingFirebaseUserService.getGoogleUserModel();
       update();
     } catch(error) {
-      throw error;
+      rethrow;
     }
   }
 
-  Future<void> deleteReviewTest(String docId, String uid) async {
+  Future<void> deleteReview(String docId, String uid) async {
     try {
       dangoingFirebaseService.deleteReviewTest(docId, uid);
       await dangoingFirebaseService.deleteUserReview(docId, uid);
       getGoogleUserModel();
     } catch(error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -53,7 +53,7 @@ class UserController extends GetxController {
       myModel = await dangoingFirebaseUserService.googleLogout();
       update();
     } catch(error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -62,7 +62,7 @@ class UserController extends GetxController {
       await dangoingFirebaseUserService.changeNickName(nickName);
       getGoogleUserModel();
     } catch(error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -73,9 +73,10 @@ class UserController extends GetxController {
 
   Future<void> userDataDelete(String uid) async {
     try{
-      dangoingFirebaseService.deleteUser(uid);
+      await dangoingFirebaseService.deleteUser(uid);
+      googleLogout();
     } catch(error) {
-      throw error;
+      rethrow;
     }
   }
 

@@ -1,22 +1,18 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:project_dangoing/component/category_store_list_widget.dart';
 import 'package:project_dangoing/component/full_width_banner_ad_widget.dart';
 import 'package:project_dangoing/component/recommend_store_list_widget.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/data/category_list_data.dart';
 import 'package:project_dangoing/data/local_list_data.dart';
-import 'package:project_dangoing/service/firebase_remote_config_service.dart';
 import 'package:project_dangoing/theme/colors.dart';
 import 'package:project_dangoing/utils/ad_manager.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
 import '../global/share_preference.dart';
-import '../utils/map_status_manager.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -53,7 +49,7 @@ class _HomePageState extends State<HomePage> {
       canPop: false,
       onPopInvoked: (bool didPop) {
         final now = DateTime.now();
-        if (lastPopTime == null || now.difference(lastPopTime) > Duration(seconds: 2)) {
+        if (lastPopTime == null || now.difference(lastPopTime) > const Duration(seconds: 2)) {
           lastPopTime = now;
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
@@ -117,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                                                 0.35,
                                             child: Column(
                                               children: [
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 10,
                                                 ),
                                                 Image.asset(
@@ -125,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                                                   width: 60,
                                                   height: 15,
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 30,
                                                 ),
                                                 Text(
@@ -135,11 +131,11 @@ class _HomePageState extends State<HomePage> {
                                                       fontWeight: fontStyleManager
                                                           .weightCategoryTitle),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 40,
                                                 ),
                                                 Container(
-                                                  padding: EdgeInsets.only(
+                                                  padding: const EdgeInsets.only(
                                                       left: 15,
                                                       right: 15,
                                                       top: 10,
@@ -147,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                                                   decoration: BoxDecoration(
                                                       border: Border.all(
                                                           width: 1,
-                                                          color: Color(
+                                                          color: const Color(
                                                               0xffFFD2B0)),
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -158,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                                                           0.9,
                                                   child: DropdownButton(
                                                     underline:
-                                                        SizedBox.shrink(),
+                                                        const SizedBox.shrink(),
                                                     itemHeight: 50,
                                                     icon: Image.asset(
                                                       "assets/images/location_dropbox_arrow.png",
@@ -177,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                                                         value: value,
                                                         child: Text(
                                                           value,
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                             fontSize: 22,
                                                           ),
                                                         ),
@@ -223,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 16, top: 32, bottom: 22),
+                      padding: const EdgeInsets.only(left: 16, top: 32, bottom: 22),
                       child: Column(
                         children: [
                           Row(
@@ -241,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     controller.storeHomeRandomList.isEmpty
                         ? Card(
-                            margin: EdgeInsets.only(right: 16, left: 16),
+                            margin: const EdgeInsets.only(right: 16, left: 16),
                             child: SizedBox(
                               height: MediaQuery.sizeOf(context).height * 0.3,
                               child: Center(
@@ -256,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           )
                         : Container(
-                            padding: EdgeInsets.only(left: 16),
+                            padding: const EdgeInsets.only(left: 16),
                             height: MediaQuery.sizeOf(context).height * 0.35,
                             child: ListView.builder(
                                 itemCount:
@@ -270,11 +266,11 @@ class _HomePageState extends State<HomePage> {
                                       index: index);
                                 }),
                           ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 16, top: 16, bottom: 22),
+                      padding: const EdgeInsets.only(left: 16, top: 16, bottom: 22),
                       child: Column(
                         children: [
                           Row(
@@ -292,10 +288,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                     controller.storeHomeRandomCafeList.isEmpty
                         ? Card(
-                            margin: EdgeInsets.only(right: 16, left: 16),
+                            margin: const EdgeInsets.only(right: 16, left: 16),
                             child: SizedBox(
                               height: MediaQuery.sizeOf(context).height * 0.3,
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   "인터넷을 확인해주세요",
                                   style: TextStyle(
@@ -306,7 +302,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           )
                         : Container(
-                            padding: EdgeInsets.only(left: 16),
+                            padding: const EdgeInsets.only(left: 16),
                             height: MediaQuery.sizeOf(context).height * 0.35,
                             child: ListView.builder(
                                 itemCount:
@@ -319,11 +315,11 @@ class _HomePageState extends State<HomePage> {
                                       index: index);
                                 }),
                           ),
-                    SizedBox(
+                    const SizedBox(
                       height: 32,
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 16, bottom: 18),
+                      padding: const EdgeInsets.only(left: 16, bottom: 18),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -333,14 +329,14 @@ class _HomePageState extends State<HomePage> {
                                   fontFamily: fontStyleManager.suit,
                                   fontWeight: fontStyleManager.weightTitle,
                                   color: Colors.black)),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                         ],
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 16),
+                      padding: const EdgeInsets.only(left: 16),
                       height: MediaQuery.sizeOf(context).height * 0.14,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
@@ -351,9 +347,9 @@ class _HomePageState extends State<HomePage> {
                                 categoryListData: categoryListMap.categoryMap);
                           }),
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     FullWidthBannerAdWidget(bannerAd: AdManager.instance.homeBannerAd),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                   ],

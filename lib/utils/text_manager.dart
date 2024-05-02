@@ -6,7 +6,7 @@ class TextManager {
     if(item == "") {
       return "주소정보 없음";
     } else {
-      return "$item";
+      return item;
     }
   }
 
@@ -14,7 +14,7 @@ class TextManager {
     if(item == "") {
       return "카테고리 없음";
     } else {
-      return "$item";
+      return item;
     }
   }
 
@@ -22,7 +22,7 @@ class TextManager {
     if(item == "") {
       return "정보 없음";
     } else {
-      return "$item";
+      return item;
     }
   }
 
@@ -54,16 +54,16 @@ class TextManager {
     if( item == "해당없음") {
       return "모두 가능";
     } else {
-      return "$item";
+      return item;
     }
   }
 
   String checkPetLimit(String item) {
-    return "$item";
+    return item;
   }
 
   String checkAddCharge(String item) {
-    return "$item";
+    return item;
   }
 
 }

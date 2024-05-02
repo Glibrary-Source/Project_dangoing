@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_dangoing/model/store_review_model.dart';
-import 'package:project_dangoing/model/user_review_model.dart';
 
 import '../model/store_list_model.dart';
 import '../vo/store_vo.dart';
@@ -36,7 +35,7 @@ class DangoFirebaseService {
       DocumentSnapshot documentSnapshot = await storeReviewData.doc(docId).get();
       return StoreReviewModel.fromDocumentSnapShot(documentSnapshot);
     } catch (error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -55,7 +54,7 @@ class DangoFirebaseService {
       await storeReviewData.doc(docId).set(data, SetOptions(merge: true));
 
     } catch (error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -67,7 +66,7 @@ class DangoFirebaseService {
           }
       );
     } catch(error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -86,7 +85,7 @@ class DangoFirebaseService {
       });
 
     } catch(error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -105,7 +104,7 @@ class DangoFirebaseService {
       };
       user.doc(uid).set(data, SetOptions(merge: true));
     } catch (error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -113,7 +112,7 @@ class DangoFirebaseService {
     try {
       user.doc(docId).delete();
     } catch(error){
-      throw error;
+      rethrow;
     }
   }
 }

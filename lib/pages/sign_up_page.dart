@@ -30,7 +30,7 @@ class _SignUpPageState extends State<SignUpPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: MediaQuery.sizeOf(context).height * 0.25,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -40,7 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: 50,
                       width: 50,
                     ),
-                    Row(
+                    const Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -60,13 +60,13 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               Container(
                 height: MediaQuery.sizeOf(context).height * 0.35,
-                padding: EdgeInsets.only(left: 36, right: 36),
+                padding: const EdgeInsets.only(left: 36, right: 36),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     TextField(
                       controller: emailInputController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           focusedBorder: OutlineInputBorder(
                               borderRadius:
                               BorderRadius.all(Radius.circular(12)),
@@ -82,13 +82,13 @@ class _SignUpPageState extends State<SignUpPage> {
                         email = value;
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     TextField(
                       controller: passwordInputController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(12)),
                             borderSide: BorderSide(color: Colors.blueAccent)),
@@ -105,13 +105,13 @@ class _SignUpPageState extends State<SignUpPage> {
                         password = value;
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     TextField(
                       controller: passwordInputController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(12)),
                             borderSide: BorderSide(color: Colors.blueAccent)),
@@ -133,7 +133,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               Container(
                 height: MediaQuery.sizeOf(context).height * 0.30,
-                padding: EdgeInsets.only(left: 36, right: 36),
+                padding: const EdgeInsets.only(left: 36, right: 36),
                 child: Column(
                   children: [
                     SizedBox(
@@ -141,11 +141,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: ElevatedButton(
                           onPressed: () {
                             if(
-                            email==null||
                             email==""||
-                            password==null||
                             password==""||
-                            passwordConfirm==null||
                             passwordConfirm==""
                             ){
                               ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -157,11 +154,11 @@ class _SignUpPageState extends State<SignUpPage> {
                               }
                             }
                           },
-                          style: ButtonStyle(
+                          style: const ButtonStyle(
                               backgroundColor:
                               MaterialStatePropertyAll(Colors.blueAccent)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(14),
+                          child: const Padding(
+                            padding: EdgeInsets.all(14),
                             child: Text(
                               "회원 가입",
                               style: TextStyle(
@@ -175,11 +172,11 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               Container(
                 height: MediaQuery.sizeOf(context).height * 0.10,
-                padding: EdgeInsets.only(left: 36, right: 36),
+                padding: const EdgeInsets.only(left: 36, right: 36),
                 child: Column(
                   children: [
                     RichText(
-                        text: TextSpan(
+                        text: const TextSpan(
                             text: "계속 진행하면 댕고잉의 ",
                             style: TextStyle(
                                 color: CupertinoColors.systemGrey),

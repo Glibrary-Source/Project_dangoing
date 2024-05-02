@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
@@ -20,6 +20,10 @@ import 'global/share_preference.dart';
 void main() async {
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown
+  ]);
 
   await dotenv.load(fileName: ".env");
   AdManager.init();
@@ -41,10 +45,7 @@ void main() async {
   Get.put(ReviewController());
   Get.put(LocationController());
 
-  // naver map
-  await NaverMapSdk.instance.initialize(clientId: dotenv.env['naverMapClientId'],onAuthFailed: (ex){
-    print("***********네이버맵 인증오류 : $ex ***********");
-  });
+  await NaverMapSdk.instance.initialize(clientId: dotenv.env['naverMapClientId']);
 
   runApp(const MyApp());
 }
