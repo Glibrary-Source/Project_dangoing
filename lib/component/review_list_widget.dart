@@ -37,7 +37,7 @@ class _ReviewListWidgetState extends State<ReviewListWidget> {
                             "${widget.review.values.first.review_nickname!} 님",
                             style: const TextStyle(
                                 fontSize: 18,
-                                color: dangoingMainColor))),
+                                color: dangoingColorOrange500))),
                     Expanded(
                         child: Text(
                       "평가: ${widget.review.values.first.review_score!} 점",

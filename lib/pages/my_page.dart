@@ -110,7 +110,7 @@ class _MyPageState extends State<MyPage> {
                                     Get.to(() => const MyReviewPage());
                                   },
                                   splashRadius: 1,
-                                  highlightColor: dangoingMainColor,
+                                  highlightColor: dangoingColorOrange500,
                                   style: IconButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(0),
@@ -232,7 +232,7 @@ class _MyPageState extends State<MyPage> {
                                                               fontStyleManager
                                                                   .weightSubTitle,
                                                           color:
-                                                              dangoingMainColor),
+                                                              dangoingColorOrange500),
                                                     )),
                                                 Container(
                                                   child: TextButton(
@@ -247,7 +247,7 @@ class _MyPageState extends State<MyPage> {
                                                                 fontStyleManager
                                                                     .weightSubTitle,
                                                             color:
-                                                                dangoingMainColor),
+                                                                dangoingColorOrange500),
                                                       )),
                                                 ),
                                               ],
@@ -256,7 +256,7 @@ class _MyPageState extends State<MyPage> {
                                     }
                                   },
                                   splashRadius: 1,
-                                  highlightColor: dangoingMainColor,
+                                  highlightColor: dangoingColorOrange500,
                                   style: IconButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(0),
@@ -303,7 +303,7 @@ class _MyPageState extends State<MyPage> {
                                     userController.googleLogout();
                                   },
                                   splashRadius: 1,
-                                  highlightColor: dangoingMainColor,
+                                  highlightColor: dangoingColorOrange500,
                                   style: IconButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(0),
@@ -378,7 +378,7 @@ class _MyPageState extends State<MyPage> {
                                                         fontStyleManager
                                                             .weightSubTitle,
                                                         color:
-                                                        dangoingMainColor),
+                                                        dangoingColorOrange500),
                                                   )),
                                               Container(
                                                 child: TextButton(
@@ -393,7 +393,7 @@ class _MyPageState extends State<MyPage> {
                                                           fontStyleManager
                                                               .weightSubTitle,
                                                           color:
-                                                          dangoingMainColor),
+                                                          dangoingColorOrange500),
                                                     )),
                                               ),
                                             ],
@@ -401,7 +401,7 @@ class _MyPageState extends State<MyPage> {
                                         }));
                                   },
                                   splashRadius: 1,
-                                  highlightColor: dangoingMainColor,
+                                  highlightColor: dangoingColorOrange500,
                                   style: IconButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(0),
@@ -476,7 +476,7 @@ class _MyPageState extends State<MyPage> {
                                     await userController.googleLogin(context);
                                   },
                                   splashRadius: 1,
-                                  highlightColor: dangoingMainColor,
+                                  highlightColor: dangoingColorOrange500,
                                   style: IconButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                           borderRadius:

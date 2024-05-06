@@ -121,7 +121,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: fontStyleManager.weightHashTagChip,
-                            color: dangoingMainColor,
+                            color: dangoingColorOrange500,
                           ),
                         ),
                         labelPadding: const EdgeInsets.all(0),
@@ -162,7 +162,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             itemSize: 18,
                             itemBuilder: (context, _) => const Icon(
                               Icons.favorite,
-                              color: dangoingMainColor,
+                              color: dangoingColorOrange500,
                             ),
                             onRatingUpdate: (rating) {
                               return;
@@ -366,7 +366,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   padding: EdgeInsets.zero,
                                   onPressed: null,
                                   splashRadius: 1,
-                                  highlightColor: dangoingMainColor,
+                                  highlightColor: dangoingColorOrange500,
                                   style: IconButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -384,7 +384,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                     launchHomeLink(data.HMPG_URL ?? "");
                                   },
                                   splashRadius: 1,
-                                  highlightColor: dangoingMainColor,
+                                  highlightColor: dangoingColorOrange500,
                                   style: IconButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -416,7 +416,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 24,
-                                              color: dangoingMainColor,
+                                              color: dangoingColorOrange500,
                                             ),
                                           ),
                                         ),
@@ -481,7 +481,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                                                             const Text(
                                                                           "취소",
                                                                           style: TextStyle(
-                                                                              color: dangoingMainColor,
+                                                                              color: dangoingColorOrange500,
                                                                               fontWeight: FontWeight.bold),
                                                                         )),
                                                               ),
@@ -499,7 +499,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                                                             const Text(
                                                                           "작성",
                                                                           style: TextStyle(
-                                                                              color: dangoingMainColor,
+                                                                              color: dangoingColorOrange500,
                                                                               fontWeight: FontWeight.bold),
                                                                         )),
                                                               )
@@ -510,7 +510,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                                 },
                                                 icon: const Icon(Icons.edit),
                                                 iconSize: 30,
-                                                color: dangoingMainColor,
+                                                color: dangoingColorOrange500,
                                               );
                                             }),
                                           ],
@@ -521,7 +521,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       "$reviewScore점",
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: dangoingMainColor),
+                                          color: dangoingColorOrange500),
                                     ),
                                     RatingBar.builder(
                                       initialRating: 3,
@@ -532,7 +532,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                           const EdgeInsets.symmetric(horizontal: 4.0),
                                       itemBuilder: (context, _) => const Icon(
                                         Icons.pets,
-                                        color: dangoingMainColor,
+                                        color: dangoingColorOrange500,
                                       ),
                                       onRatingUpdate: (rating) {
                                         setState(() {
@@ -672,7 +672,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                 backgroundColor: dangoingPrimaryColor,
                 child: const Icon(
                   Icons.edit_outlined,
-                  color: dangoingMainColor,
+                  color: dangoingColorOrange500,
                 ));
           }),
         );

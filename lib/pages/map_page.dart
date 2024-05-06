@@ -120,7 +120,7 @@ class _MapPageState extends State<MapPage> {
                         },
                         icon: const Icon(
                           Icons.location_on,
-                          color: dangoingMainColor,
+                          color: dangoingColorOrange500,
                         ))),
                 GetBuilder<LocationController>(builder: (locationController) {
                   return locationController.locationState
@@ -133,7 +133,7 @@ class _MapPageState extends State<MapPage> {
                               borderRadius: BorderRadius.circular(100)),
                           child: const CircularProgressIndicator(
                             strokeWidth: 2.0,
-                            color: dangoingMainColor,
+                            color: dangoingColorOrange500,
                           ))
                       : const SizedBox();
                 }),

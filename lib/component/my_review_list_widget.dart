@@ -85,7 +85,7 @@ class _MyReviewListWidgetState extends State<MyReviewListWidget> {
                       Text(widget.review.values.first.store_name!,
                           style: const TextStyle(
                               fontSize: 18,
-                              color: dangoingMainColor)),
+                              color: dangoingColorOrange500)),
                     ],
                   ),
                   const SizedBox(

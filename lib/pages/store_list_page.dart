@@ -187,7 +187,7 @@ class _StoreListPageState extends State<StoreListPage> {
                               width: 32,
                               height: 32,
                             ),
-                            highlightColor: dangoingMainColor,
+                            highlightColor: dangoingColorOrange500,
                           )
                         ],
                       ),
@@ -195,15 +195,15 @@ class _StoreListPageState extends State<StoreListPage> {
                       Text.rich(TextSpan(children: [
                         TextSpan(
                           text: "  내 주변 ",
-                          style: TextStyle(fontSize: 20, fontWeight: fontStyleManager.weightTitle)
+                          style: TextStyle(fontSize: 22, fontWeight: fontStyleManager.weightTitle)
                         ),
                         TextSpan(
                             text: categoryName,
-                            style: TextStyle(fontSize: 20, color: dangoingMainColor, fontWeight: fontStyleManager.weightTitle)
+                            style: TextStyle(fontSize: 22, color: dangoingColorOrange500, fontWeight: fontStyleManager.weightTitle)
                         ),
                         TextSpan(
                             text: " 찾기",
-                            style: TextStyle(fontSize: 20, fontWeight: fontStyleManager.weightTitle)
+                            style: TextStyle(fontSize: 22, fontWeight: fontStyleManager.weightTitle)
                         ),
                       ])),
                       const SizedBox(height: 20,),

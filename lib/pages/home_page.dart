@@ -49,7 +49,8 @@ class _HomePageState extends State<HomePage> {
       canPop: false,
       onPopInvoked: (bool didPop) {
         final now = DateTime.now();
-        if (lastPopTime == null || now.difference(lastPopTime) > const Duration(seconds: 2)) {
+        if (lastPopTime == null ||
+            now.difference(lastPopTime) > const Duration(seconds: 2)) {
           lastPopTime = now;
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
@@ -122,12 +123,14 @@ class _HomePageState extends State<HomePage> {
                                                   height: 15,
                                                 ),
                                                 const SizedBox(
-                                                  height: 30,
+                                                  height: 20,
                                                 ),
                                                 Text(
                                                   "관심 지역 설정",
                                                   style: TextStyle(
-                                                      fontSize: 24,
+                                                      fontSize: 22,
+                                                      color:
+                                                          dangoingColorGray900,
                                                       fontWeight: fontStyleManager
                                                           .weightCategoryTitle),
                                                 ),
@@ -135,16 +138,16 @@ class _HomePageState extends State<HomePage> {
                                                   height: 40,
                                                 ),
                                                 Container(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 15,
-                                                      right: 15,
-                                                      top: 10,
-                                                      bottom: 10),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 15,
+                                                          right: 15,
+                                                          top: 10,
+                                                          bottom: 10),
                                                   decoration: BoxDecoration(
                                                       border: Border.all(
                                                           width: 1,
-                                                          color: const Color(
-                                                              0xffFFD2B0)),
+                                                          color: dangoingColorOrange100),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8)),
@@ -174,13 +177,14 @@ class _HomePageState extends State<HomePage> {
                                                         child: Text(
                                                           value,
                                                           style: const TextStyle(
-                                                            fontSize: 22,
+                                                              fontSize: 22,
+                                                              color:
+                                                                  dangoingColorGray900
                                                           ),
                                                         ),
                                                       );
                                                     }).toList(),
                                                     onChanged: (String? value) {
-
                                                       local = value ?? "서울특별시";
                                                       prefs.setString(
                                                           "local", local!);
@@ -196,7 +200,6 @@ class _HomePageState extends State<HomePage> {
 
                                                       Navigator.pop(context);
                                                     },
-
                                                     value: controller.localName,
                                                   ),
                                                 )
@@ -210,7 +213,7 @@ class _HomePageState extends State<HomePage> {
                                     width: 32,
                                     height: 32,
                                   ),
-                                  highlightColor: dangoingMainColor,
+                                  highlightColor: dangoingColorOrange500,
                                 ),
                               ],
                             ),
@@ -219,7 +222,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(left: 16, top: 32, bottom: 22),
+                      padding:
+                          const EdgeInsets.only(left: 16, top: 32, bottom: 22),
                       child: Column(
                         children: [
                           Row(
@@ -229,7 +233,7 @@ class _HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                       fontSize: 22,
                                       fontWeight: fontStyleManager.weightTitle,
-                                      color: Colors.black)),
+                                      color: dangoingColorGray900)),
                             ],
                           ),
                         ],
@@ -244,9 +248,9 @@ class _HomePageState extends State<HomePage> {
                                 child: Text(
                                   "인터넷을 확인해주세요",
                                   style: TextStyle(
-                                    fontSize: 24,
-                                    fontFamily: fontStyleManager.suit,
-                                  ),
+                                      fontSize: 24,
+                                      fontFamily: fontStyleManager.suit,
+                                      color: dangoingColorGray900),
                                 ),
                               ),
                             ),
@@ -270,7 +274,8 @@ class _HomePageState extends State<HomePage> {
                       height: 16,
                     ),
                     Container(
-                      padding: const EdgeInsets.only(left: 16, top: 16, bottom: 22),
+                      padding:
+                          const EdgeInsets.only(left: 16, top: 16, bottom: 22),
                       child: Column(
                         children: [
                           Row(
@@ -280,7 +285,7 @@ class _HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                       fontSize: 22,
                                       fontWeight: fontStyleManager.weightTitle,
-                                      color: Colors.black)),
+                                      color: dangoingColorGray900)),
                             ],
                           ),
                         ],
@@ -328,7 +333,7 @@ class _HomePageState extends State<HomePage> {
                                   fontSize: 22,
                                   fontFamily: fontStyleManager.suit,
                                   fontWeight: fontStyleManager.weightTitle,
-                                  color: Colors.black)),
+                                  color: dangoingColorGray900)),
                           const SizedBox(
                             height: 8,
                           ),
@@ -347,8 +352,11 @@ class _HomePageState extends State<HomePage> {
                                 categoryListData: categoryListMap.categoryMap);
                           }),
                     ),
-                    const SizedBox(height: 5,),
-                    FullWidthBannerAdWidget(bannerAd: AdManager.instance.homeBannerAd),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    FullWidthBannerAdWidget(
+                        bannerAd: AdManager.instance.homeBannerAd),
                     const SizedBox(
                       height: 10,
                     ),

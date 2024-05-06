@@ -63,7 +63,7 @@ class _MainPageTabbarState extends State<MainPageTabbar>
                           //tab 하단 indicator weight
                           indicatorWeight: 1,
                           //label color
-                          labelColor: dangoingMainColor,
+                          labelColor: dangoingColorOrange500,
                           //unselected label color
                           unselectedLabelColor: Colors.black,
                           labelStyle: TextStyle(
