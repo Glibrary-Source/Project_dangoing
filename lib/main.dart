@@ -12,7 +12,6 @@ import 'package:project_dangoing/controller/user_controller.dart';
 import 'package:project_dangoing/firebase_options.dart';
 import 'package:project_dangoing/pages/splash_page.dart';
 import 'package:project_dangoing/service/firebase_remote_config_service.dart';
-import 'package:project_dangoing/utils/ad_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'global/share_preference.dart';
@@ -26,7 +25,6 @@ void main() async {
   ]);
 
   await dotenv.load(fileName: ".env");
-  AdManager.init();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await Firebase.initializeApp(

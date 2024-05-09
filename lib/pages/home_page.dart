@@ -3,13 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_dangoing/component/category_store_list_widget.dart';
-import 'package:project_dangoing/component/full_width_banner_ad_widget.dart';
 import 'package:project_dangoing/component/recommend_store_list_widget.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/data/category_list_data.dart';
 import 'package:project_dangoing/data/local_list_data.dart';
 import 'package:project_dangoing/theme/colors.dart';
-import 'package:project_dangoing/utils/ad_manager.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
 import '../global/share_preference.dart';
@@ -358,8 +356,6 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 5,
                     ),
-                    FullWidthBannerAdWidget(
-                        bannerAd: AdManager.instance.homeBannerAd),
                     const SizedBox(
                       height: 10,
                     ),
