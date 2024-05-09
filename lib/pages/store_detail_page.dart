@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -7,11 +6,11 @@ import 'package:project_dangoing/controller/review_controller.dart';
 import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/controller/user_controller.dart';
 import 'package:project_dangoing/data/detail_info_list.dart';
+import 'package:project_dangoing/pages/review_edit_page.dart';
 import 'package:project_dangoing/theme/colors.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
 import 'package:project_dangoing/utils/text_manager.dart';
 import 'package:project_dangoing/utils/user_share_manager.dart';
-import 'package:project_dangoing/vo/store_vo.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../vo/review_vo.dart';
@@ -24,40 +23,29 @@ class StoreDetailPage extends StatefulWidget {
 }
 
 class _StoreDetailPageState extends State<StoreDetailPage> {
-  String docId = Get.arguments.toString();
   StoreController storeController = Get.find();
   ReviewController reviewController = Get.find();
+  UserController userController = Get.find();
   FontStyleManager fontStyleManager = FontStyleManager();
-  ExpansionTileController reviewExpansionTileController =
-      ExpansionTileController();
-
-  StoreVo data = StoreVo();
-  DateTime dt = DateTime.now();
 
   TextManager textManager = TextManager();
 
   TextEditingController reviewMainInputController = TextEditingController();
+
   String reviewMain = "";
   num reviewScore = 3.0;
   bool reviewEditVisible = false;
 
   final GlobalKey _widgetReviewKey = GlobalKey();
-  final GlobalKey _widgetEditReviewKey = GlobalKey();
-
+  final GlobalKey _widgetTopKey = GlobalKey();
   late DetailInfoList detailInfoList;
-  late List<String> infoList;
 
   @override
   void initState() {
-    for (StoreVo store in storeController.storeList) {
-      if (store.DOC_ID == docId) {
-        data = store;
-      }
-      detailInfoList = DetailInfoList(textManager: textManager, data: data);
-      infoList = detailInfoList.getInfoList();
-    }
-
-    reviewController.getReviewData(docId);
+    detailInfoList = DetailInfoList(
+        textManager: textManager, data: storeController.detailStoreData);
+    reviewController
+        .getReviewData(storeController.detailStoreData.DOC_ID ?? "");
 
     super.initState();
   }
@@ -79,6 +67,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                 Container(
                   padding: const EdgeInsets.only(left: 16, right: 16),
                   child: Column(
+                    key: _widgetTopKey,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
@@ -101,9 +90,10 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                               icon: const Icon(Icons.share),
                               onPressed: () async {
                                 share(
-                                    data.FCLTY_NM!,
+                                    storeController.detailStoreData.FCLTY_NM!,
                                     detailInfoList.getSharedText(),
-                                    getUrlString(data.HMPG_URL!));
+                                    getUrlString(storeController
+                                        .detailStoreData.HMPG_URL!));
                               },
                             ),
                           ),
@@ -117,7 +107,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         visualDensity:
                             const VisualDensity(horizontal: 0.0, vertical: -4),
                         label: Text(
-                          "#${data.CTGRY_THREE_NM}",
+                          "#${storeController.detailStoreData.CTGRY_THREE_NM}",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: fontStyleManager.weightHashTagChip,
@@ -134,17 +124,19 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       const SizedBox(
                         height: 16,
                       ),
-                      Text(data.FCLTY_NM ?? "없음",
+                      Text(storeController.detailStoreData.FCLTY_NM ?? "없음",
                           style: TextStyle(
                               fontSize: 28,
-                              fontWeight: fontStyleManager.weightTitle)),
+                              fontWeight: fontStyleManager.weightBold)),
                       const SizedBox(
                         height: 10,
                       ),
-                      Text(textManager.checkAddress(data.RDNMADR_NM ?? ""),
+                      Text(
+                          textManager.checkAddress(
+                              storeController.detailStoreData.RDNMADR_NM ?? ""),
                           style: TextStyle(
                             height: 1.2,
-                            fontWeight: fontStyleManager.weightSubTitle,
+                            fontWeight: fontStyleManager.weightRegular,
                             fontSize: 18,
                           )),
                       const SizedBox(
@@ -154,6 +146,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         children: [
                           RatingBar.builder(
                             ignoreGestures: true,
+                            allowHalfRating: true,
                             initialRating:
                                 ratingAverage(reviewController.storeReviewList),
                             minRating: 0,
@@ -172,16 +165,15 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             width: 5,
                           ),
                           Text(
-                            "${ratingAverage(reviewController.storeReviewList)}",
+                            ratingAverage(reviewController.storeReviewList).toStringAsFixed(1),
                             style: TextStyle(
-                                fontWeight: fontStyleManager.weightTitle),
+                                fontWeight: fontStyleManager.weightBold),
                           ),
                           const SizedBox(
                             width: 5,
                           ),
                           GestureDetector(
                               onTap: () {
-                                reviewExpansionTileController.expand();
                                 Scrollable.ensureVisible(
                                     _widgetReviewKey.currentContext!,
                                     duration: const Duration(milliseconds: 300),
@@ -213,7 +205,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontSize: 18,
-                                    fontWeight: fontStyleManager.weightTitle,
+                                    fontWeight: fontStyleManager.weightBold,
                                   )),
                             ],
                           ),
@@ -222,7 +214,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             children: [
                               Expanded(
                                 child: Text(
-                                    " ${textManager.checkOpenTime(data.OPER_TIME.toString())}",
+                                    " ${textManager.checkOpenTime(storeController.detailStoreData.OPER_TIME.toString())}",
                                     style: const TextStyle(
                                       fontSize: 18,
                                     )),
@@ -248,7 +240,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontSize: 18,
-                                    fontWeight: fontStyleManager.weightTitle,
+                                    fontWeight: fontStyleManager.weightBold,
                                   )),
                             ],
                           ),
@@ -257,7 +249,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             children: [
                               Expanded(
                                 child: Text(
-                                    " ${textManager.checkOpenTime(data.RSTDE_GUID_CN.toString())}",
+                                    " ${textManager.checkOpenTime(storeController.detailStoreData.RSTDE_GUID_CN.toString())}",
                                     style: const TextStyle(
                                       fontSize: 18,
                                     )),
@@ -283,7 +275,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontSize: 18,
-                                    fontWeight: fontStyleManager.weightTitle,
+                                    fontWeight: fontStyleManager.weightBold,
                                   )),
                             ],
                           ),
@@ -296,14 +288,16 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   visualDensity: const VisualDensity(
                                       horizontal: 0.0, vertical: -4),
                                   label: Text(
-                                    " ${textManager.checkParking(data.PARKNG_POSBL_AT.toString())}",
+                                    " ${textManager.checkParking(storeController.detailStoreData.PARKNG_POSBL_AT.toString())}",
                                     style: const TextStyle(
                                         fontSize: 14,
                                         color: dangoingChipTextColor),
                                   ),
                                   labelPadding: const EdgeInsets.all(0),
-                                  padding: const EdgeInsets.only(right: 4, left: 4),
-                                  side: const BorderSide(color: Colors.transparent),
+                                  padding:
+                                      const EdgeInsets.only(right: 4, left: 4),
+                                  side: const BorderSide(
+                                      color: Colors.transparent),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(4)),
                                 ),
@@ -317,14 +311,18 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   visualDensity: const VisualDensity(
                                       horizontal: 0.0, vertical: -4),
                                   label: Text(
-                                    textManager.checkInPlace(data.IN_PLACE_ACP_POSBL_AT.toString()),
+                                    textManager.checkInPlace(storeController
+                                        .detailStoreData.IN_PLACE_ACP_POSBL_AT
+                                        .toString()),
                                     style: const TextStyle(
                                         fontSize: 14,
                                         color: dangoingChipTextColor),
                                   ),
                                   labelPadding: const EdgeInsets.all(0),
-                                  padding: const EdgeInsets.only(right: 4, left: 4),
-                                  side: const BorderSide(color: Colors.transparent),
+                                  padding:
+                                      const EdgeInsets.only(right: 4, left: 4),
+                                  side: const BorderSide(
+                                      color: Colors.transparent),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(4)),
                                 ),
@@ -339,14 +337,18 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   visualDensity: const VisualDensity(
                                       horizontal: 0.0, vertical: -4),
                                   label: Text(
-                                    textManager.checkPetLimit(data.PET_LMTT_MTR_CN.toString()),
+                                    textManager.checkPetLimit(storeController
+                                        .detailStoreData.PET_LMTT_MTR_CN
+                                        .toString()),
                                     style: const TextStyle(
                                         fontSize: 14,
                                         color: dangoingChipTextColor),
                                   ),
                                   labelPadding: const EdgeInsets.all(0),
-                                  padding: const EdgeInsets.only(right: 4, left: 4),
-                                  side: const BorderSide(color: Colors.transparent),
+                                  padding:
+                                      const EdgeInsets.only(right: 4, left: 4),
+                                  side: const BorderSide(
+                                      color: Colors.transparent),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(4)),
                                 ),
@@ -356,325 +358,139 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         ],
                       ),
                       SizedBox(
-                        key: _widgetEditReviewKey,
                         height: MediaQuery.sizeOf(context).height * 0.04,
                       ),
-                      data.HMPG_URL == ""
-                          ? SizedBox(
-                              width: double.infinity,
-                              child: IconButton(
-                                  padding: EdgeInsets.zero,
-                                  onPressed: null,
-                                  splashRadius: 1,
-                                  highlightColor: dangoingColorOrange500,
-                                  style: IconButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(0))),
-                                  icon: Image.asset(
-                                    "assets/button/store_web_not_button.png",
-                                    fit: BoxFit.cover,
-                                  )),
-                            )
-                          : SizedBox(
-                              width: double.infinity,
-                              child: IconButton(
-                                  padding: EdgeInsets.zero,
-                                  onPressed: () async {
-                                    launchHomeLink(data.HMPG_URL ?? "");
-                                  },
-                                  splashRadius: 1,
-                                  highlightColor: dangoingColorOrange500,
-                                  style: IconButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(0))),
-                                  icon: Image.asset(
-                                    "assets/button/store_web_go_button.png",
-                                    fit: BoxFit.cover,
-                                  )),
-                            ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: IconButton(
+                            padding: EdgeInsets.zero,
+                            onPressed:
+                                storeController.detailStoreData.HMPG_URL != ""
+                                    ? () async {
+                                        launchHomeLink(storeController
+                                                .detailStoreData.HMPG_URL ??
+                                            "");
+                                      }
+                                    : null,
+                            splashRadius: 1,
+                            highlightColor: dangoingColorOrange500,
+                            style: IconButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0))),
+                            icon: Image.asset(
+                              storeController.detailStoreData.HMPG_URL != ""
+                                  ? "assets/button/store_web_go_button.png"
+                                  : "assets/button/store_web_not_button.png",
+                              fit: BoxFit.cover,
+                            )),
+                      ),
                       const SizedBox(
-                        height: 15,
+                        height: 8,
                       ),
                       SizedBox(
-                        height: reviewEditVisible ? null : 0,
-                        child: AnimatedOpacity(
-                            opacity: reviewEditVisible ? 1.0 : 0.0,
-                            duration: const Duration(milliseconds: 500),
-                            child: SizedBox(
-                                width: double.infinity,
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          padding: const EdgeInsets.only(top: 8),
-                                          child: const Text(
-                                            "리뷰 작성",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: 24,
-                                              color: dangoingColorOrange500,
-                                            ),
-                                          ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            GetBuilder<UserController>(
-                                                builder: (userController) {
-                                              return IconButton(
-                                                onPressed: () {
-                                                  if (reviewMain == "") {
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .hideCurrentSnackBar();
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(const SnackBar(
-                                                            content: Text(
-                                                                "리뷰를 작성해주세요")));
-                                                  } else {
-                                                    showDialog(
-                                                        context: context,
-                                                        barrierDismissible:
-                                                            true,
-                                                        builder: ((context) {
-                                                          return AlertDialog(
-                                                            title: Text(
-                                                              "리뷰 작성",
-                                                              style: TextStyle(
-                                                                  fontSize: 20,
-                                                                  fontWeight:
-                                                                      fontStyleManager
-                                                                          .weightSubTitle),
-                                                            ),
-                                                            content: Text(
-                                                              "리뷰를 남기시겠습니까?",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      fontStyleManager
-                                                                          .weightSubTitle),
-                                                            ),
-                                                            surfaceTintColor:
-                                                                Colors.white,
-                                                            backgroundColor:
-                                                                Colors.white,
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            8)),
-                                                            actions: <Widget>[
-                                                              Container(
-                                                                child:
-                                                                    TextButton(
-                                                                        onPressed:
-                                                                            () {
-                                                                              Navigator.of(context)
-                                                                                  .pop();
-                                                                        },
-                                                                        child:
-                                                                            const Text(
-                                                                          "취소",
-                                                                          style: TextStyle(
-                                                                              color: dangoingColorOrange500,
-                                                                              fontWeight: FontWeight.bold),
-                                                                        )),
-                                                              ),
-                                                              Container(
-                                                                child:
-                                                                    TextButton(
-                                                                        onPressed:
-                                                                            () {
-                                                                              editReview(
-                                                                                  userController);
-                                                                              Navigator.of(context)
-                                                                                  .pop();
-                                                                        },
-                                                                        child:
-                                                                            const Text(
-                                                                          "작성",
-                                                                          style: TextStyle(
-                                                                              color: dangoingColorOrange500,
-                                                                              fontWeight: FontWeight.bold),
-                                                                        )),
-                                                              )
-                                                            ],
-                                                          );
-                                                        }));
-                                                  }
-                                                },
-                                                icon: const Icon(Icons.edit),
-                                                iconSize: 30,
-                                                color: dangoingColorOrange500,
-                                              );
-                                            }),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    Text(
-                                      "$reviewScore점",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: dangoingColorOrange500),
-                                    ),
-                                    RatingBar.builder(
-                                      initialRating: 3,
-                                      minRating: 1,
-                                      direction: Axis.horizontal,
-                                      itemCount: 5,
-                                      itemPadding:
-                                          const EdgeInsets.symmetric(horizontal: 4.0),
-                                      itemBuilder: (context, _) => const Icon(
-                                        Icons.pets,
-                                        color: dangoingColorOrange500,
-                                      ),
-                                      onRatingUpdate: (rating) {
-                                        setState(() {
-                                          reviewScore = rating;
-                                        });
-                                      },
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, right: 10, bottom: 10),
-                                      decoration: BoxDecoration(
-                                          color: CupertinoColors.systemGrey5,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: TextField(
-                                        controller: reviewMainInputController,
-                                        maxLength: 400,
-                                        maxLines: 10,
-                                        decoration: const InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText:
-                                                "리뷰 작성하기\n업주와 다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.유용한 Tip도 남겨주세요!",
-                                            hintStyle: TextStyle(
-                                                color:
-                                                    CupertinoColors.systemGrey,
-                                                fontWeight: FontWeight.bold)),
-                                        onChanged: (value) {
-                                          reviewMain = value;
-                                          if (value.contains('\n')) {
-                                            final lines = value.split("\n");
-                                            if (lines.length > 10) {
-                                              reviewMainInputController.text =
-                                                  lines
-                                                      .sublist(0, 10)
-                                                      .join('\n');
-                                            }
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                  ],
-                                ))),
+                        width: double.infinity,
+                        child: IconButton(
+                            padding: EdgeInsets.zero,
+                            onPressed: () {
+                              if (userController.myModel != null) {
+                                if (checkExistReview(userController)) {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text("이미 리뷰를 작성하셨습니다")));
+                                } else {
+                                  Get.to(() => const ReviewEditPage(),
+                                      transition: Transition.leftToRight);
+                                }
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text('로그인을 해주세요')));
+                              }
+                            },
+                            splashRadius: 1,
+                            highlightColor: dangoingColorOrange500,
+                            style: IconButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0))),
+                            icon: Image.asset(
+                              "assets/button/review_edit_button.png",
+                              fit: BoxFit.cover,
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 48,
                       ),
                       Container(
-                        key: _widgetReviewKey,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: CupertinoColors.systemGrey2, width: 1),
-                            borderRadius: const BorderRadius.all(Radius.circular(8))),
-                        child: ExpansionTile(
-                            shape: const Border(),
-                            controller: reviewExpansionTileController,
-                            onExpansionChanged: (value) async {
-                              Future.delayed(const Duration(milliseconds: 300), () {
-                                if (value) {
+                          key: _widgetReviewKey,
+                          height: 2,
+                          width: double.infinity,
+                          color: dangoingColorGray200),
+                      const SizedBox(
+                        height:  20,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.sizeOf(context).height * 0.95,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        const TextSpan(text: "리뷰", style: TextStyle(
+                                            fontSize: 18,
+                                            color: dangoingColorGray900,
+                                            fontWeight: FontWeight.w600)),
+                                        TextSpan(text: " ${reviewController.storeReviewList.length}", style: const TextStyle(
+                                            fontSize: 18,
+                                            color: dangoingColorGray400,
+                                            fontWeight: FontWeight.w600))
+                                      ]
+                                )),
+                                IconButton(onPressed: (){
                                   Scrollable.ensureVisible(
-                                      _widgetReviewKey.currentContext!,
+                                      _widgetTopKey.currentContext!,
                                       duration: const Duration(milliseconds: 300),
                                       curve: Curves.easeInOut,
                                       alignment: 0);
-                                }
-                              });
-                            },
-                            title: const Row(
-                              children: [
-                                Icon(Icons.reviews_outlined),
-                                Text(
-                                  " 리뷰 보기",
-                                  style: TextStyle(height: 1),
-                                ),
+                                }, icon: const Icon(Icons.keyboard_arrow_up_sharp))
                               ],
                             ),
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.only(
-                                    left: 12, right: 12, bottom: 8),
-                                child: reviewController.storeReviewList.isEmpty
-                                    ? const SizedBox(
-                                        height: 200,
-                                        child: Center(
-                                            child: Text(
-                                          "첫 리뷰를 남겨주세요!",
-                                          style: TextStyle(fontSize: 22),
-                                        )))
-                                    : SizedBox(
-                                        height:
-                                            MediaQuery.sizeOf(context).height *
-                                                0.8,
-                                        child: ListView.builder(
-                                            itemCount: reviewController
-                                                .storeReviewList.length,
-                                            itemBuilder: (context, index) {
-                                              return ReviewListWidget(
-                                                  review: reviewController
-                                                      .storeReviewList[index]);
-                                            }),
-                                      ),
-                              )
-                            ]),
+                            reviewController.storeReviewList.isEmpty
+                                ? const SizedBox(
+                                    height: 200,
+                                    child: Center(
+                                        child: Text(
+                                      "첫 리뷰를 남겨주세요!",
+                                      style: TextStyle(fontSize: 22),
+                                    )))
+                                : SizedBox(
+                                    height:
+                                        MediaQuery.sizeOf(context).height * 0.8,
+                                    child: ListView.builder(
+                                        padding: const EdgeInsets.only(top: 32),
+                                        itemCount: reviewController
+                                            .storeReviewList.length,
+                                        itemBuilder: (context, index) {
+                                          return ReviewListWidget(
+                                              review: reviewController
+                                                  .storeReviewList[index]);
+                                        }),
+                                  ),
+                          ],
+                        ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      )
                     ],
                   ),
                 )
               ],
             ),
           ),
-          floatingActionButton:
-              GetBuilder<UserController>(builder: (userController) {
-            return FloatingActionButton(
-                onPressed: () async {
-                  if (userController.myModel != null) {
-                    setState(() {
-                      reviewEditVisible = !reviewEditVisible;
-                    });
-                    Future.delayed(const Duration(milliseconds: 300), () {
-                      Scrollable.ensureVisible(
-                          _widgetEditReviewKey.currentContext!,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                          alignment: 0);
-                    });
-                  } else {
-                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text('로그인을 해주세요')));
-                  }
-                },
-                backgroundColor: dangoingPrimaryColor,
-                child: const Icon(
-                  Icons.edit_outlined,
-                  color: dangoingColorOrange500,
-                ));
-          }),
         );
       });
     });
@@ -690,11 +506,11 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
           average = average + review.review_score!;
         }
       }
-      return average / reviewList.length;
+      return (average / reviewList.length);
     }
   }
 
-  launchHomeLink(String url) async {
+  void launchHomeLink(String url) async {
     if (url == "") {
       return;
     }
@@ -713,38 +529,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
       return url;
     } else {
       return "https://$url";
-    }
-  }
-
-  editReview(UserController userController) {
-    if (checkExistReview(userController)) {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("이미 리뷰를 작성하셨습니다")));
-    } else {
-      reviewController.setReviewData(
-          docId,
-          userController.myModel!.uid!,
-          userController.myModel!.nickname!,
-          reviewScore,
-          reviewMain,
-          data.FCLTY_NM ?? "");
-
-      reviewController.setReviewDataMyPage(
-          docId,
-          userController.myModel!.uid!,
-          userController.myModel!.nickname!,
-          reviewScore,
-          reviewMain,
-          data.FCLTY_NM ?? "");
-
-      reviewMainInputController.clear();
-      setState(() {
-        reviewEditVisible = false;
-      });
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("리뷰가 작성되었습니다.")));
     }
   }
 

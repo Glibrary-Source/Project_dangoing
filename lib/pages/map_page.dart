@@ -160,8 +160,9 @@ class _MapPageState extends State<MapPage> {
                 collapsedBackgroundColor: Colors.white,
                 children: [
                   GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, childAspectRatio: 4.0),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, childAspectRatio: 4.0),
                     padding: EdgeInsets.zero,
                     itemCount: categoryListData.categoryMap.length,
                     shrinkWrap: true,

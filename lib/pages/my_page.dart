@@ -95,7 +95,7 @@ class _MyPageState extends State<MyPage> {
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight:
-                                          fontStyleManager.weightSubTitle),
+                                          fontStyleManager.weightRegular),
                                 ),
                               ),
                             ],
@@ -138,7 +138,7 @@ class _MyPageState extends State<MyPage> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           fontStyleManager
-                                                              .weightSubTitle,
+                                                              .weightRegular,
                                                       fontSize: 18,
                                                       height: 1),
                                                   textAlign: TextAlign.center,
@@ -175,7 +175,7 @@ class _MyPageState extends State<MyPage> {
                                                 style: TextStyle(
                                                     fontSize: 18,
                                                     fontWeight: fontStyleManager
-                                                        .weightSubTitle),
+                                                        .weightRegular),
                                               ),
                                               surfaceTintColor: Colors.white,
                                               backgroundColor: Colors.white,
@@ -230,7 +230,7 @@ class _MyPageState extends State<MyPage> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               fontStyleManager
-                                                                  .weightSubTitle,
+                                                                  .weightRegular,
                                                           color:
                                                               dangoingColorOrange500),
                                                     )),
@@ -245,7 +245,7 @@ class _MyPageState extends State<MyPage> {
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 fontStyleManager
-                                                                    .weightSubTitle,
+                                                                    .weightRegular,
                                                             color:
                                                                 dangoingColorOrange500),
                                                       )),
@@ -284,7 +284,7 @@ class _MyPageState extends State<MyPage> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           fontStyleManager
-                                                              .weightSubTitle,
+                                                              .weightRegular,
                                                       fontSize: 18,
                                                       height: 1),
                                                   textAlign: TextAlign.center,
@@ -331,7 +331,7 @@ class _MyPageState extends State<MyPage> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           fontStyleManager
-                                                              .weightSubTitle,
+                                                              .weightRegular,
                                                       fontSize: 18,
                                                       height: 1),
                                                   textAlign: TextAlign.center,
@@ -357,7 +357,7 @@ class _MyPageState extends State<MyPage> {
                                               style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: fontStyleManager
-                                                      .weightSubTitle),
+                                                      .weightRegular),
                                             ),
                                             surfaceTintColor: Colors.white,
                                             backgroundColor: Colors.white,
@@ -376,7 +376,7 @@ class _MyPageState extends State<MyPage> {
                                                     style: TextStyle(
                                                         fontWeight:
                                                         fontStyleManager
-                                                            .weightSubTitle,
+                                                            .weightRegular,
                                                         color:
                                                         dangoingColorOrange500),
                                                   )),
@@ -391,7 +391,7 @@ class _MyPageState extends State<MyPage> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                           fontStyleManager
-                                                              .weightSubTitle,
+                                                              .weightRegular,
                                                           color:
                                                           dangoingColorOrange500),
                                                     )),
@@ -429,7 +429,7 @@ class _MyPageState extends State<MyPage> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           fontStyleManager
-                                                              .weightSubTitle,
+                                                              .weightRegular,
                                                       fontSize: 18,
                                                       height: 1),
                                                   textAlign: TextAlign.center,

@@ -6,13 +6,14 @@ import 'package:project_dangoing/utils/fontstyle_manager.dart';
 
 import '../theme/colors.dart';
 import '../utils/text_manager.dart';
+import '../vo/store_vo.dart';
 
 class StoreListDetailWidget extends StatefulWidget {
-  final StoreController controller;
-  final int index;
+  final StoreVo storeData;
+  final StoreController storeController;
 
   const StoreListDetailWidget(
-      {super.key, required this.controller, required this.index});
+      {super.key, required this.storeData, required this.storeController});
 
   @override
   State<StoreListDetailWidget> createState() => _StoreListDetailWidgetState();
@@ -26,9 +27,8 @@ class _StoreListDetailWidgetState extends State<StoreListDetailWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => const StoreDetailPage(),
-            arguments:
-                widget.controller.categoryFilterList[widget.index].DOC_ID);
+        widget.storeController.setStoreDetailData(widget.storeData);
+        Get.to(() => const StoreDetailPage());
       },
       child: Column(
         children: [
@@ -57,8 +57,7 @@ class _StoreListDetailWidgetState extends State<StoreListDetailWidget> {
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.only(bottom: 8),
                     child: Text(
-                      widget.controller.categoryFilterList[widget.index]
-                              .FCLTY_NM ??
+                      widget.storeData.FCLTY_NM ??
                           "",
                       softWrap: false,
                       overflow: TextOverflow.ellipsis,
@@ -66,15 +65,14 @@ class _StoreListDetailWidgetState extends State<StoreListDetailWidget> {
                           height: 1.4,
                           color: dangoingColorGray900,
                           fontSize: 20,
-                          fontWeight: fontStyleManager.weightTitle),
+                          fontWeight: fontStyleManager.weightBold),
                     ),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.only(bottom: 4),
                     child: Text(
-                      textManager.checkAddress(widget.controller
-                              .categoryFilterList[widget.index].RDNMADR_NM ??
+                      textManager.checkAddress(widget.storeData.RDNMADR_NM ??
                           ""),
                       softWrap: false,
                       overflow: TextOverflow.ellipsis,
@@ -82,15 +80,14 @@ class _StoreListDetailWidgetState extends State<StoreListDetailWidget> {
                           height: 1.4,
                           color: dangoingColorGray900,
                           fontSize: 16,
-                          fontWeight: fontStyleManager.weightSubTitle),
+                          fontWeight: fontStyleManager.weightRegular),
                     ),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.only(bottom: 4),
                     child: Text(
-                      textManager.checkOpenTime(widget.controller
-                              .categoryFilterList[widget.index].OPER_TIME ??
+                      textManager.checkOpenTime(widget.storeData.OPER_TIME ??
                           ""),
                       softWrap: false,
                       overflow: TextOverflow.ellipsis,
@@ -98,7 +95,7 @@ class _StoreListDetailWidgetState extends State<StoreListDetailWidget> {
                           height: 1.4,
                           color: dangoingColorGray900,
                           fontSize: 16,
-                          fontWeight: fontStyleManager.weightSubTitle),
+                          fontWeight: fontStyleManager.weightRegular),
                     ),
                   ),
                   const SizedBox(
@@ -114,8 +111,7 @@ class _StoreListDetailWidgetState extends State<StoreListDetailWidget> {
                               horizontal: 0.0, vertical: -4),
                           label: Text(
                             textManager.checkParking(widget
-                                    .controller
-                                    .categoryFilterList[widget.index]
+                                    .storeData
                                     .PARKNG_POSBL_AT ??
                                 ""),
                             style: TextStyle(
@@ -138,8 +134,7 @@ class _StoreListDetailWidgetState extends State<StoreListDetailWidget> {
                               horizontal: 0.0, vertical: -4),
                           label: Text(
                             textManager.checkInPlace(widget
-                                    .controller
-                                    .categoryFilterList[widget.index]
+                                    .storeData
                                     .IN_PLACE_ACP_POSBL_AT ??
                                 ""),
                             style: TextStyle(
@@ -167,8 +162,7 @@ class _StoreListDetailWidgetState extends State<StoreListDetailWidget> {
                           const VisualDensity(horizontal: 0.0, vertical: -4),
                       label: Text(
                         textManager.checkRestDay(widget
-                                .controller
-                                .categoryFilterList[widget.index]
+                                .storeData
                                 .RSTDE_GUID_CN ??
                             ""),
                         style: TextStyle(

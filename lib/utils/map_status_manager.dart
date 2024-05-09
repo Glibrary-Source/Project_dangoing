@@ -6,6 +6,7 @@ import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/data/category_list_data.dart';
 import 'package:project_dangoing/pages/store_detail_page.dart';
 
+import '../vo/store_vo.dart';
 import 'map_category_check_manager.dart';
 
 class MapStatusManager {
@@ -38,7 +39,7 @@ class MapStatusManager {
 
       var iconImage = MapCategoryCheckManager().getIconImage(category);
 
-      for (var doc in storeController.storeList) {
+      for (StoreVo doc in storeController.storeList) {
         if (doc.CTGRY_THREE_NM == category) {
           final myLatLng = NLatLng(doc.LC_LA!, doc.LC_LO!);
 
@@ -52,7 +53,8 @@ class MapStatusManager {
           myLocationMarker.setOnTapListener((nMarker) {
 
             infoWindow.setOnTapListener((overlay) {
-              Get.to(() => const StoreDetailPage(), arguments: doc.DOC_ID);
+              storeController.setStoreDetailData(doc);
+              Get.to(() => const StoreDetailPage());
             });
 
             naverMapController.clearOverlays(type: NOverlayType.infoWindow);

@@ -147,7 +147,8 @@ class _HomePageState extends State<HomePage> {
                                                   decoration: BoxDecoration(
                                                       border: Border.all(
                                                           width: 1,
-                                                          color: dangoingColorOrange100),
+                                                          color:
+                                                              dangoingColorOrange100),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8)),
@@ -179,8 +180,7 @@ class _HomePageState extends State<HomePage> {
                                                           style: const TextStyle(
                                                               fontSize: 22,
                                                               color:
-                                                                  dangoingColorGray900
-                                                          ),
+                                                                  dangoingColorGray900),
                                                         ),
                                                       );
                                                     }).toList(),
@@ -232,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                               Text(" 내 주변 장소 찾기",
                                   style: TextStyle(
                                       fontSize: 22,
-                                      fontWeight: fontStyleManager.weightTitle,
+                                      fontWeight: fontStyleManager.weightBold,
                                       color: dangoingColorGray900)),
                             ],
                           ),
@@ -265,8 +265,9 @@ class _HomePageState extends State<HomePage> {
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
                                   return RecommendStoreListWidget(
-                                      StoreVoList:
-                                          controller.storeHomeRandomList,
+                                      storeController: storeController,
+                                      storeData:
+                                          controller.storeHomeRandomList[index],
                                       index: index);
                                 }),
                           ),
@@ -284,7 +285,7 @@ class _HomePageState extends State<HomePage> {
                               Text(" 요즘 뜨는 카페",
                                   style: TextStyle(
                                       fontSize: 22,
-                                      fontWeight: fontStyleManager.weightTitle,
+                                      fontWeight: fontStyleManager.weightBold,
                                       color: dangoingColorGray900)),
                             ],
                           ),
@@ -315,9 +316,11 @@ class _HomePageState extends State<HomePage> {
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
                                   return RecommendStoreListWidget(
-                                      StoreVoList:
-                                          controller.storeHomeRandomCafeList,
-                                      index: index);
+                                      storeController: storeController,
+                                      storeData:
+                                          controller.storeHomeRandomCafeList[index],
+                                      index: index
+                                  );
                                 }),
                           ),
                     const SizedBox(
@@ -332,7 +335,7 @@ class _HomePageState extends State<HomePage> {
                               style: TextStyle(
                                   fontSize: 22,
                                   fontFamily: fontStyleManager.suit,
-                                  fontWeight: fontStyleManager.weightTitle,
+                                  fontWeight: fontStyleManager.weightBold,
                                   color: dangoingColorGray900)),
                           const SizedBox(
                             height: 8,

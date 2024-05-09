@@ -31,29 +31,25 @@ class _MyReviewPageState extends State<MyReviewPage> {
           return Scaffold(
               body: Column(
                 children: [
-                  SizedBox(height: MediaQuery.sizeOf(context).height*0.04,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      IconButton(onPressed: (){
-                        Navigator.pop(context);
-                      }, icon: const Icon(Icons.arrow_back)),
+                      Padding(
+                        padding:EdgeInsets.only(top:MediaQuery.of(context).padding.top + 12, left: 8,),
+                        child: IconButton(onPressed: (){
+                          Navigator.pop(context);
+                        }, icon: const Icon(Icons.arrow_back)),
+                      ),
                     ],
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: MediaQuery
-                        .sizeOf(context)
-                        .height * 0.1,
-                    child: const Center(
-                      child: Text("작성한 리뷰", style: TextStyle(
-                          fontSize: 26),
-                      ),
-                    ),
-                  ),
+                  const Text("내가쓴 리뷰", style: TextStyle(
+                      fontSize: 24,
+                    fontWeight: FontWeight.w600
+                  )),
+                  const SizedBox(height: 16),
                   Expanded(
                     child: userController.myModel?.reviewList!.isEmpty??false
-                      ? Center(child: Text("작성한 리뷰 없음", style: TextStyle( fontWeight: fontStyleManager.weightSubTitle, fontSize: 22),))
+                      ? Center(child: Text("작성한 리뷰 없음", style: TextStyle( fontWeight: fontStyleManager.weightRegular, fontSize: 22),))
                       : ListView.builder(
                           itemCount: userController.myModel?.reviewList?.length,
                           padding: EdgeInsets.zero,

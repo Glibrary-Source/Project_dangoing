@@ -15,7 +15,7 @@ class StoreController extends GetxController {
   List<StoreVo> storeHomeRandomCafeList = [];
   List<StoreVo> categoryFilterList = [];
   String localName = prefs.getString("local") ?? "서울특별시";
-  StoreVo detailData = StoreVo();
+  StoreVo detailStoreData = StoreVo();
   bool storeLoadState = false;
 
   Future<void> getInitStoreList(String local) async {
@@ -35,9 +35,6 @@ class StoreController extends GetxController {
       storeHomeRandomList.clear();
       List<String> categoryList = ["미술관", "박물관", "문예회관", "펜션", "여행지"];
 
-      //추천할때 필요
-      // List<int> numList = [];
-
       List<StoreVo> tempList = [];
 
       for (StoreVo store in storeList) {
@@ -54,17 +51,6 @@ class StoreController extends GetxController {
         storeHomeRandomList.addAll(tempList);
       }
 
-      // 램덤 불안정함 리스트가 10개 이하면 무한루프에 빠짐
-      // while (storeHomeRandomList.length <= 9) {
-      //   var number = Random().nextInt(tempList.length);
-      //
-      //   if (!numList.contains(number)) {
-      //     storeHomeRandomList.add(tempList[number]);
-      //     numList.add(number);
-      //   }
-      // }
-      // numList.clear();
-
       update();
     } catch (error) {
       throw Exception(error);
@@ -75,7 +61,6 @@ class StoreController extends GetxController {
     try {
       storeHomeRandomCafeList.clear();
 
-      List<int> numList = [];
       List<StoreVo> tempCategoryList = [];
 
       for (StoreVo store in storeList) {
@@ -91,21 +76,6 @@ class StoreController extends GetxController {
       } else {
         storeHomeRandomCafeList.addAll(tempCategoryList);
       }
-
-      // 램덤 불안정함 리스트가 10개 이하면 무한루프에 빠짐
-      // int listLength = tempCategoryList.length;
-      //
-      // if(tempCategoryList.length <= 10) {
-      //   storeHomeRandomCafeList.addAll(tempCategoryList);
-      // } else {
-      //   while (storeHomeRandomCafeList.length <= listLength) {
-      //     var number = Random().nextInt(tempCategoryList.length);
-      //
-      //     if(!numList.contains(number)) {
-      //       storeHomeRandomCafeList.add(tempCategoryList[number]);
-      //     }
-      //   }
-      // }
 
       update();
     } catch (error) {
@@ -165,6 +135,15 @@ class StoreController extends GetxController {
       StoreVo storeDetail = await dangoFirebaseService.getStoreDetail(docId);
       return storeDetail;
     } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<void> setStoreDetailData(StoreVo data) async {
+    try {
+      detailStoreData = data;
+      update();
+    } catch(error) {
       throw Exception(error);
     }
   }
