@@ -37,7 +37,7 @@ class MapStatusManager {
     for (String category in categoryListData.categoryMap.keys) {
       List<NAddableOverlay> overlay = [];
 
-      var iconImage = MapCategoryCheckManager().getIconImage(category);
+      NOverlayImage? iconImage = MapCategoryCheckManager().getIconImage(category);
 
       for (StoreVo doc in storeController.storeList) {
         if (doc.CTGRY_THREE_NM == category) {
@@ -45,6 +45,7 @@ class MapStatusManager {
 
           final myLocationMarker = NMarker(
               id: "${doc.FCLTY_NM}", position: myLatLng, icon: iconImage);
+          myLocationMarker.setSize(const Size(42, 40));
 
           final infoWindow = NInfoWindow.onMarker(
               id: "${doc.FCLTY_NM}", text: "${doc.FCLTY_NM}");
