@@ -6,6 +6,7 @@ import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/data/category_list_data.dart';
 import 'package:project_dangoing/pages/store_detail_page.dart';
 
+import '../vo/store_vo.dart';
 import 'map_category_check_manager.dart';
 
 class MapStatusManager {
@@ -36,14 +37,15 @@ class MapStatusManager {
     for (String category in categoryListData.categoryMap.keys) {
       List<NAddableOverlay> overlay = [];
 
-      var iconImage = MapCategoryCheckManager().getIconImage(category);
+      NOverlayImage? iconImage = MapCategoryCheckManager().getIconImage(category);
 
-      for (var doc in storeController.storeList) {
+      for (StoreVo doc in storeController.storeList) {
         if (doc.CTGRY_THREE_NM == category) {
           final myLatLng = NLatLng(doc.LC_LA!, doc.LC_LO!);
 
           final myLocationMarker = NMarker(
               id: "${doc.FCLTY_NM}", position: myLatLng, icon: iconImage);
+          myLocationMarker.setSize(const Size(42, 40));
 
           final infoWindow = NInfoWindow.onMarker(
               id: "${doc.FCLTY_NM}", text: "${doc.FCLTY_NM}");
@@ -52,7 +54,8 @@ class MapStatusManager {
           myLocationMarker.setOnTapListener((nMarker) {
 
             infoWindow.setOnTapListener((overlay) {
-              Get.to(() => const StoreDetailPage(), arguments: doc.DOC_ID);
+              storeController.setStoreDetailData(doc);
+              Get.to(() => const StoreDetailPage());
             });
 
             naverMapController.clearOverlays(type: NOverlayType.infoWindow);

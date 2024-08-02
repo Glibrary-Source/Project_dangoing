@@ -35,7 +35,7 @@ class _MapCategoryWidgetState extends State<MapCategoryWidget> {
         children: [
           Checkbox(
             value: MapCategoryCheckManager().getCheckValue(widget.categoryName),
-            checkColor: dangoingMainColor,
+            checkColor: dangoingColorOrange500,
             splashRadius: 24,
             fillColor: const MaterialStatePropertyAll(CupertinoColors.systemGrey6),
             overlayColor: MaterialStatePropertyAll(Colors.green.withOpacity(0.2)),

@@ -95,7 +95,7 @@ class _MyPageState extends State<MyPage> {
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight:
-                                          fontStyleManager.weightSubTitle),
+                                          fontStyleManager.weightRegular),
                                 ),
                               ),
                             ],
@@ -110,7 +110,7 @@ class _MyPageState extends State<MyPage> {
                                     Get.to(() => const MyReviewPage());
                                   },
                                   splashRadius: 1,
-                                  highlightColor: dangoingMainColor,
+                                  highlightColor: dangoingColorOrange500,
                                   style: IconButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(0),
@@ -138,7 +138,7 @@ class _MyPageState extends State<MyPage> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           fontStyleManager
-                                                              .weightSubTitle,
+                                                              .weightRegular,
                                                       fontSize: 18,
                                                       height: 1),
                                                   textAlign: TextAlign.center,
@@ -175,7 +175,7 @@ class _MyPageState extends State<MyPage> {
                                                 style: TextStyle(
                                                     fontSize: 18,
                                                     fontWeight: fontStyleManager
-                                                        .weightSubTitle),
+                                                        .weightRegular),
                                               ),
                                               surfaceTintColor: Colors.white,
                                               backgroundColor: Colors.white,
@@ -230,9 +230,9 @@ class _MyPageState extends State<MyPage> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               fontStyleManager
-                                                                  .weightSubTitle,
+                                                                  .weightRegular,
                                                           color:
-                                                              dangoingMainColor),
+                                                              dangoingColorOrange500),
                                                     )),
                                                 Container(
                                                   child: TextButton(
@@ -245,9 +245,9 @@ class _MyPageState extends State<MyPage> {
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 fontStyleManager
-                                                                    .weightSubTitle,
+                                                                    .weightRegular,
                                                             color:
-                                                                dangoingMainColor),
+                                                                dangoingColorOrange500),
                                                       )),
                                                 ),
                                               ],
@@ -256,7 +256,7 @@ class _MyPageState extends State<MyPage> {
                                     }
                                   },
                                   splashRadius: 1,
-                                  highlightColor: dangoingMainColor,
+                                  highlightColor: dangoingColorOrange500,
                                   style: IconButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(0),
@@ -284,7 +284,7 @@ class _MyPageState extends State<MyPage> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           fontStyleManager
-                                                              .weightSubTitle,
+                                                              .weightRegular,
                                                       fontSize: 18,
                                                       height: 1),
                                                   textAlign: TextAlign.center,
@@ -303,7 +303,7 @@ class _MyPageState extends State<MyPage> {
                                     userController.googleLogout();
                                   },
                                   splashRadius: 1,
-                                  highlightColor: dangoingMainColor,
+                                  highlightColor: dangoingColorOrange500,
                                   style: IconButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(0),
@@ -331,7 +331,7 @@ class _MyPageState extends State<MyPage> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           fontStyleManager
-                                                              .weightSubTitle,
+                                                              .weightRegular,
                                                       fontSize: 18,
                                                       height: 1),
                                                   textAlign: TextAlign.center,
@@ -357,7 +357,7 @@ class _MyPageState extends State<MyPage> {
                                               style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: fontStyleManager
-                                                      .weightSubTitle),
+                                                      .weightRegular),
                                             ),
                                             surfaceTintColor: Colors.white,
                                             backgroundColor: Colors.white,
@@ -376,9 +376,9 @@ class _MyPageState extends State<MyPage> {
                                                     style: TextStyle(
                                                         fontWeight:
                                                         fontStyleManager
-                                                            .weightSubTitle,
+                                                            .weightRegular,
                                                         color:
-                                                        dangoingMainColor),
+                                                        dangoingColorOrange500),
                                                   )),
                                               Container(
                                                 child: TextButton(
@@ -391,9 +391,9 @@ class _MyPageState extends State<MyPage> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                           fontStyleManager
-                                                              .weightSubTitle,
+                                                              .weightRegular,
                                                           color:
-                                                          dangoingMainColor),
+                                                          dangoingColorOrange500),
                                                     )),
                                               ),
                                             ],
@@ -401,7 +401,7 @@ class _MyPageState extends State<MyPage> {
                                         }));
                                   },
                                   splashRadius: 1,
-                                  highlightColor: dangoingMainColor,
+                                  highlightColor: dangoingColorOrange500,
                                   style: IconButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(0),
@@ -429,7 +429,7 @@ class _MyPageState extends State<MyPage> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           fontStyleManager
-                                                              .weightSubTitle,
+                                                              .weightRegular,
                                                       fontSize: 18,
                                                       height: 1),
                                                   textAlign: TextAlign.center,
@@ -476,7 +476,7 @@ class _MyPageState extends State<MyPage> {
                                     await userController.googleLogin(context);
                                   },
                                   splashRadius: 1,
-                                  highlightColor: dangoingMainColor,
+                                  highlightColor: dangoingColorOrange500,
                                   style: IconButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                           borderRadius:

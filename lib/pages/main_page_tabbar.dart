@@ -21,9 +21,8 @@ class _MainPageTabbarState extends State<MainPageTabbar>
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(useMaterial3: true, fontFamily: 'Suit'),
-      home: DefaultTabController(
+    return Scaffold(
+      body: DefaultTabController(
           length: 3,
           animationDuration: Duration.zero,
           child: GetBuilder<UserController>(builder: (userController) {
@@ -52,8 +51,11 @@ class _MainPageTabbarState extends State<MainPageTabbar>
                   bottomNavigationBar: Stack(
                     children: [
                       Container(
-                        color: Colors.white,
                         height: MediaQuery.sizeOf(context).height * 0.08,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          border: Border(top: BorderSide(width: 2, color: dangoingColorGray100))
+                        ),
                         child: const TabBar(
                           //tab 하단 indicator size -> .label = label의 길이
                           //tab 하단 indicator size -> .tab = tab의 길이
@@ -63,7 +65,7 @@ class _MainPageTabbarState extends State<MainPageTabbar>
                           //tab 하단 indicator weight
                           indicatorWeight: 1,
                           //label color
-                          labelColor: dangoingMainColor,
+                          labelColor: dangoingColorOrange500,
                           //unselected label color
                           unselectedLabelColor: Colors.black,
                           labelStyle: TextStyle(
@@ -72,14 +74,17 @@ class _MainPageTabbarState extends State<MainPageTabbar>
                           tabs: [
                             Tab(
                               icon: Icon(Icons.home_outlined),
+                              iconMargin: EdgeInsets.all(4),
                               text: "홈",
                             ),
                             Tab(
                               icon: Icon(Icons.map_outlined),
+                              iconMargin: EdgeInsets.all(4),
                               text: '지도',
                             ),
                             Tab(
                               icon: Icon(Icons.person_outline),
+                              iconMargin: EdgeInsets.all(4),
                               text: '내정보',
                             ),
                           ],

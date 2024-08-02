@@ -62,16 +62,21 @@ class _StoreListPageState extends State<StoreListPage> {
                   ],
                 )
               : Container(
-                  padding: EdgeInsets.only(left: 16, right: 16, top: MediaQuery.sizeOf(context).height*0.05),
+                  padding: EdgeInsets.only(
+                      left: 16,
+                      right: 16,
+                      top: MediaQuery.sizeOf(context).height * 0.05),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          IconButton(onPressed: (){
-                            Navigator.pop(context);
-                          }, icon: const Icon(Icons.arrow_back)),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(Icons.arrow_back)),
                           IconButton(
                             onPressed: () {
                               showModalBottomSheet(
@@ -84,9 +89,9 @@ class _StoreListPageState extends State<StoreListPage> {
                                   builder: (context) {
                                     return SizedBox(
                                       width: double.infinity,
-                                      height: MediaQuery.sizeOf(context)
-                                              .height *
-                                          0.35,
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.35,
                                       child: Column(
                                         children: [
                                           const SizedBox(
@@ -105,7 +110,7 @@ class _StoreListPageState extends State<StoreListPage> {
                                             style: TextStyle(
                                                 fontSize: 24,
                                                 fontWeight: fontStyleManager
-                                                    .weightSubTitle),
+                                                    .weightRegular),
                                           ),
                                           const SizedBox(
                                             height: 40,
@@ -122,12 +127,10 @@ class _StoreListPageState extends State<StoreListPage> {
                                                     color: const Color(
                                                         0xffFFD2B0)),
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        8)),
-                                            width:
-                                                MediaQuery.sizeOf(context)
-                                                        .width *
-                                                    0.9,
+                                                    BorderRadius.circular(8)),
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.9,
                                             child: DropdownButton(
                                               underline:
                                                   const SizedBox.shrink(),
@@ -138,14 +141,12 @@ class _StoreListPageState extends State<StoreListPage> {
                                                 height: 44,
                                               ),
                                               isExpanded: true,
-                                              items: localListData
-                                                  .dropDownList
+                                              items: localListData.dropDownList
                                                   .map<
-                                                      DropdownMenuItem<
-                                                          String>>((String
-                                                      value) {
-                                                return DropdownMenuItem<
-                                                    String>(
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                return DropdownMenuItem<String>(
                                                   value: value,
                                                   child: Text(
                                                     value,
@@ -156,20 +157,17 @@ class _StoreListPageState extends State<StoreListPage> {
                                                 );
                                               }).toList(),
                                               onChanged: (String? value) {
-
                                                 local = value ?? "서울특별시";
                                                 prefs.setString(
                                                     "local", local!);
-                                                storeController.setLocationName(
-                                                  local!
-                                                );
+                                                storeController
+                                                    .setLocationName(local!);
 
                                                 storeController
-                                                    .setStoreLoadState(
-                                                    true);
+                                                    .setStoreLoadState(true);
                                                 storeController
                                                     .getCategoryFilterList(
-                                                    categoryName);
+                                                        categoryName);
 
                                                 Navigator.pop(context);
                                                 _fetchData();
@@ -187,33 +185,44 @@ class _StoreListPageState extends State<StoreListPage> {
                               width: 32,
                               height: 32,
                             ),
-                            highlightColor: dangoingMainColor,
+                            highlightColor: dangoingColorOrange500,
                           )
                         ],
                       ),
-                      const SizedBox(height: 40,),
+                      const SizedBox(
+                        height: 40,
+                      ),
                       Text.rich(TextSpan(children: [
                         TextSpan(
-                          text: "  내 주변 ",
-                          style: TextStyle(fontSize: 20, fontWeight: fontStyleManager.weightTitle)
-                        ),
+                            text: "  내 주변 ",
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: fontStyleManager.weightBold)),
                         TextSpan(
                             text: categoryName,
-                            style: TextStyle(fontSize: 20, color: dangoingMainColor, fontWeight: fontStyleManager.weightTitle)
-                        ),
+                            style: TextStyle(
+                                fontSize: 22,
+                                color: dangoingColorOrange500,
+                                fontWeight: fontStyleManager.weightBold)),
                         TextSpan(
                             text: " 찾기",
-                            style: TextStyle(fontSize: 20, fontWeight: fontStyleManager.weightTitle)
-                        ),
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: fontStyleManager.weightBold)),
                       ])),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Expanded(
                         child: ListView.builder(
-                            itemCount: storeController.categoryFilterList.length,
+                            itemCount:
+                                storeController.categoryFilterList.length,
                             padding: const EdgeInsets.only(top: 4),
                             itemBuilder: (context, index) {
                               return StoreListDetailWidget(
-                                  controller: storeController, index: index);
+                                  storeData:
+                                      storeController.categoryFilterList[index],
+                                  storeController: storeController);
                             }),
                       ),
                     ],

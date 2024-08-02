@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_dangoing/controller/store_controller.dart';
 import 'package:project_dangoing/pages/store_list_page.dart';
 import 'package:project_dangoing/theme/colors.dart';
 import 'package:project_dangoing/utils/fontstyle_manager.dart';
@@ -9,11 +10,15 @@ import '../pages/store_detail_page.dart';
 import '../vo/store_vo.dart';
 
 class RecommendStoreListWidget extends StatefulWidget {
-  List<StoreVo> StoreVoList;
-  final index;
+  final StoreController storeController;
+  final StoreVo storeData;
+  final int index;
 
-  RecommendStoreListWidget(
-      {super.key, required this.StoreVoList, required this.index});
+  const RecommendStoreListWidget(
+      {super.key,
+      required this.index,
+      required this.storeData,
+      required this.storeController});
 
   @override
   State<RecommendStoreListWidget> createState() =>
@@ -35,7 +40,7 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
             color: Colors.grey.withOpacity(0.3),
             blurRadius: 3.0,
             spreadRadius: 1.0,
-            offset: const Offset(0,2),
+            offset: const Offset(0, 2),
           )
         ],
         color: Colors.white,
@@ -44,45 +49,46 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding:
-                const EdgeInsets.only(left: 12, right: 12),
+            padding: const EdgeInsets.only(left: 12, right: 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.to(()=> const StoreListPage(), arguments: widget.StoreVoList[widget.index].CTGRY_THREE_NM);
+                    Get.to(() => const StoreListPage(),
+                        arguments: widget.storeData.CTGRY_THREE_NM);
                   },
                   child: Chip(
-                    backgroundColor: dangoingPrimaryColor,
-                    visualDensity: const VisualDensity(horizontal: 0.0, vertical: -4),
+                    backgroundColor: dangoingColorOrange50,
+                    visualDensity:
+                        const VisualDensity(horizontal: 0.0, vertical: -4),
                     label: Text(
-                      "#${widget.StoreVoList[widget.index].CTGRY_THREE_NM}",
+                      "#${widget.storeData.CTGRY_THREE_NM}",
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily: fontStyleManager.suit,
-                          fontWeight: fontStyleManager.weightHashTagChip,
-                          color: dangoingMainColor,
-                          height: 1.2
-                      ),
+                          fontWeight: fontStyleManager.weightBold,
+                          color: dangoingColorOrange500,
+                          height: 1.2),
                     ),
                     labelPadding: const EdgeInsets.all(0),
-                    padding: const EdgeInsets.only(top: 0, bottom: 0, left: 8, right: 8),
-                    side: const BorderSide(
-                      color: Colors.transparent
-                    ),
+                    padding: const EdgeInsets.only(
+                        top: 0, bottom: 0, left: 8, right: 8),
+                    side: const BorderSide(color: Colors.transparent),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)
-                    ),
+                        borderRadius: BorderRadius.circular(4)),
                   ),
                 ),
-                const SizedBox(height: 15,),
+                const SizedBox(
+                  height: 15,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: GestureDetector(
                     onTap: () {
-                      Get.to(() => const StoreDetailPage(),
-                          arguments: widget.StoreVoList[widget.index].DOC_ID);
+                      widget.storeController
+                          .setStoreDetailData(widget.storeData);
+                      Get.to(() => const StoreDetailPage());
                     },
                     child: Container(
                       color: Colors.transparent,
@@ -93,17 +99,16 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                             width: 250,
                             margin: const EdgeInsets.only(bottom: 4),
                             child: Text(
-                              textManager.checkAddress(widget
-                                  .StoreVoList[widget.index].FCLTY_NM ??
-                                  ""),
+                              textManager.checkAddress(
+                                  widget.storeData.FCLTY_NM ?? ""),
                               softWrap: false,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   height: 1.2,
-                                  fontSize: 22,
+                                  fontSize: 20,
                                   fontFamily: fontStyleManager.suit,
-                                  fontWeight: fontStyleManager.weightTitle
-                              ),
+                                  fontWeight: fontStyleManager.weightBold,
+                                  color: dangoingColorGray900),
                             ),
                           ),
                           const SizedBox(
@@ -113,14 +118,17 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                             width: 250,
                             margin: const EdgeInsets.only(bottom: 4),
                             child: Text(
-                              textManager.checkAddress(widget.StoreVoList[widget.index].RDNMADR_NM ?? ""),
+                              textManager.checkAddress(
+                                  widget.storeData.RDNMADR_NM ?? ""),
                               softWrap: false,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  fontFamily: fontStyleManager.suit,
-                                  fontWeight: fontStyleManager.weightSubTitle,
-                                  height: 1.2,
-                                  fontSize: 15),
+                                fontFamily: fontStyleManager.suit,
+                                fontWeight: fontStyleManager.weightRegular,
+                                height: 1.2,
+                                color: dangoingColorGray900,
+                                fontSize: 15,
+                              ),
                               textAlign: TextAlign.left,
                             ),
                           ),
@@ -128,92 +136,100 @@ class _RecommendStoreListWidgetState extends State<RecommendStoreListWidget> {
                             width: 250,
                             margin: const EdgeInsets.only(bottom: 4),
                             child: Text(
-                              textManager.checkOpenTime(widget.StoreVoList[widget.index].OPER_TIME ?? ""),
+                              textManager.checkOpenTime(
+                                  widget.storeData.OPER_TIME ?? ""),
                               softWrap: false,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontFamily: fontStyleManager.suit,
-                                  fontWeight: fontStyleManager.weightSubTitle,
+                                  fontWeight: fontStyleManager.weightRegular,
                                   height: 1.2,
+                                  color: dangoingColorGray900,
                                   fontSize: 15),
                               textAlign: TextAlign.left,
                             ),
                           ),
-                          const SizedBox(height: 25,),
+                          const SizedBox(
+                            height: 25,
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
                                   Chip(
-                                    backgroundColor: dangoingChipBackgroundColor,
-                                    visualDensity: const VisualDensity(horizontal: 0.0, vertical: -4),
+                                    backgroundColor: dangoingColorGray100,
+                                    visualDensity: const VisualDensity(
+                                        horizontal: 0.0, vertical: -4),
                                     label: Text(
-                                      textManager.checkParking(widget.StoreVoList[widget.index].PARKNG_POSBL_AT??"N"),
+                                      textManager.checkParking(
+                                          widget.storeData.PARKNG_POSBL_AT ??
+                                              "N"),
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontFamily: fontStyleManager.suit,
-                                          color: dangoingChipTextColor
-                                      ),
+                                          fontWeight: fontStyleManager.weightMedium,
+                                          color: dangoingColorGray400),
                                     ),
                                     labelPadding: const EdgeInsets.all(0),
-                                    padding: const EdgeInsets.only(right: 4, left: 4),
+                                    padding: const EdgeInsets.only(
+                                        right: 4, left: 4),
                                     side: const BorderSide(
-                                        color: Colors.transparent
-                                    ),
+                                        color: Colors.transparent),
                                     shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(4)
-                                    ),
+                                        borderRadius: BorderRadius.circular(4)),
                                   ),
-                                  const SizedBox(width: 8,),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
                                   Chip(
-                                    backgroundColor: dangoingChipBackgroundColor,
-                                    visualDensity: const VisualDensity(horizontal: 0.0, vertical: -4),
+                                    backgroundColor: dangoingColorGray100,
+                                    visualDensity: const VisualDensity(
+                                        horizontal: 0.0, vertical: -4),
                                     label: Text(
-                                      textManager.checkInPlace(widget.StoreVoList[widget.index].IN_PLACE_ACP_POSBL_AT??"N"),
+                                      textManager.checkInPlace(widget.storeData
+                                              .IN_PLACE_ACP_POSBL_AT ??
+                                          "N"),
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontFamily: fontStyleManager.suit,
-                                          color: dangoingChipTextColor
-                                      ),
+                                          fontWeight: fontStyleManager.weightMedium,
+                                          color: dangoingColorGray400),
                                     ),
                                     labelPadding: const EdgeInsets.all(0),
-                                    padding: const EdgeInsets.only(right: 4, left: 4),
+                                    padding: const EdgeInsets.only(
+                                        right: 4, left: 4),
                                     side: const BorderSide(
-                                        color: Colors.transparent
-                                    ),
+                                        color: Colors.transparent),
                                     shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(4)
-                                    ),
+                                        borderRadius: BorderRadius.circular(4)),
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 2,),
+                              const SizedBox(
+                                height: 2,
+                              ),
                               Row(
                                 children: [
                                   Chip(
-                                    backgroundColor: dangoingChipBackgroundColor,
-                                    visualDensity: const VisualDensity(horizontal: 0.0, vertical: -4),
+                                    backgroundColor: dangoingColorGray100,
+                                    visualDensity: const VisualDensity(
+                                        horizontal: 0.0, vertical: -4),
                                     label: Text(
-                                      "휴무: ${
-                                          textManager.checkRestDay(widget
-                                              .StoreVoList[widget.index]
-                                              .RSTDE_GUID_CN ?? "N")
-                                      }",
+                                      "휴무: ${textManager.checkRestDay(widget.storeData.RSTDE_GUID_CN ?? "N")}",
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontFamily: fontStyleManager.suit,
-                                          color: dangoingChipTextColor
-                                      ),
+                                          fontWeight: fontStyleManager.weightMedium,
+                                          color: dangoingColorGray400),
                                     ),
                                     labelPadding: const EdgeInsets.all(0),
-                                    padding: const EdgeInsets.only(right: 4, left: 4),
+                                    padding: const EdgeInsets.only(
+                                        right: 4, left: 4),
                                     side: const BorderSide(
-                                        color: Colors.transparent
-                                    ),
+                                        color: Colors.transparent),
                                     shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(4)
-                                    ),
+                                        borderRadius: BorderRadius.circular(4)),
                                   ),
                                 ],
                               ),
