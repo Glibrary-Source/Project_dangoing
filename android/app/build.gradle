@@ -12,14 +12,24 @@ if (localPropertiesFile.exists()) {
     }
 }
 
+def flutterCompileSdkVersion = localProperties.getProperty('flutter.flutterCompileSdkVersion')
+if (flutterCompileSdkVersion == null) {
+    flutterCompileSdkVersion = '34'
+}
+
+def flutterTargetSdkVersion = localProperties.getProperty('flutter.flutterTargetSdkVersion')
+if (flutterTargetSdkVersion == null) {
+    flutterTargetSdkVersion = '34'
+}
+
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '13'
+    flutterVersionCode = '14'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0.13'
+    flutterVersionName = '1.0.14'
 }
 
 def keystoreProperties = new Properties()
@@ -30,7 +40,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.twproject.project_dangoing"
-    compileSdkVersion 34//flutter.compileSdkVersion
+    compileSdkVersion flutterCompileSdkVersion.toInteger()//flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -49,7 +59,7 @@ android {
     defaultConfig {
         applicationId "com.twproject.project_dango"
         minSdkVersion localProperties.getProperty('flutter.minSdkVersion').toInteger()
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion flutterTargetSdkVersion.toInteger()
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
